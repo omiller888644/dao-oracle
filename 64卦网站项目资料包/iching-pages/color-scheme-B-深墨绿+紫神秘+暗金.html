@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>配色方案 B — 深墨绿 + 紫神秘 + 暗金</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { max-width:430px; margin:0 auto; font-family: 'Spectral', 'Georgia', serif; color:#e8e0d0; }
+:root {
+  --bg: #0a1010;
+  --bg-card: #111e1a;
+  --bg-elevated: #1a2e28;
+  --gold: #c9a84c;
+  --gold-light: #e8d48b;
+  --mystic-purple: #a855f7;
+  --purple-deep: #7c3aed;
+  --purple-glow: rgba(168, 85, 247, 0.35);
+  --text: #e8e0d0;
+  --text-muted: #6e7e78;
+  --border: #253530;
+  --emerald: #34d399;
+}
+
+.header { background: var(--bg); padding:24px 20px; text-align:center; border-bottom:1px solid var(--border); }
+.header h1 { font-size:14px; color:var(--mystic-purple); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.header h2 { font-size:22px; font-weight:700; }
+
+.color-row { display:flex; gap:12px; padding:16px 20px; flex-wrap:wrap; }
+.swatch { width:64px; height:64px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); }
+.swatch-label { font-size:10px; text-align:center; margin-top:6px; color:var(--text-muted); font-family:Inter,sans-serif; }
+.swatch-wrap { text-align:center; }
+
+.hero-area { text-align:center; padding:40px 20px; background: linear-gradient(180deg, var(--bg-card), var(--bg)); }
+.hero-area .symbol { font-size:72px; margin-bottom:16px; }
+.hero-area .symbol-main { color:var(--gold); text-shadow:0 0 30px rgba(201,168,76,0.3); }
+.hero-area .symbol-glow { color:var(--mystic-purple); text-shadow:0 0 40px var(--purple-glow); }
+.hero-area h1 { font-size:28px; margin-bottom:12px; }
+.hero-area p { color:var(--text-muted); font-size:14px; font-family:Inter,sans-serif; line-height:1.6; }
+
+.btn { display:block; width:100%; height:52px; border:none; border-radius:14px; font-size:17px; font-weight:600; font-family:'Spectral',serif; cursor:pointer; margin:20px auto; max-width:280px; }
+.btn-purple { background:linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; box-shadow:0 0 30px var(--purple-glow); }
+.btn-gold { background:linear-gradient(135deg,#c9a84c,#a8893a); color:#0a1010; }
+
+.card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:12px; }
+.card-purple { border-color:rgba(168,85,247,0.3); box-shadow:0 0 24px rgba(168,85,247,0.06); }
+.card-gold { border-color:rgba(201,168,76,0.25); }
+
+.hex-line { height:6px; border-radius:3px; margin:6px auto; width:80px; }
+.hex-line.yang { background:var(--gold); box-shadow:0 0 10px rgba(201,168,76,0.4); }
+.hex-line.changing { background:var(--mystic-purple) !important; box-shadow:0 0 12px var(--purple-glow) !important; }
+
+.tag { display:inline-block; padding:4px 12px; border-radius:99px; font-size:11px; font-family:Inter,sans-serif; margin:3px; }
+.tag-gold { background:rgba(201,168,76,0.12); color:var(--gold-light); border:1px solid rgba(201,168,76,0.2); }
+.tag-purple { background:rgba(168,85,247,0.12); color:#c084fc; border:1px solid rgba(168,85,247,0.2); }
+
+.note { padding:20px; margin:12px 20px; background:var(--bg-card); border-radius:12px; border:1px solid var(--border); }
+.note h3 { font-size:13px; color:var(--mystic-purple); margin-bottom:8px; font-family:Inter,sans-serif; }
+.note p { font-size:13px; color:var(--text-muted); line-height:1.6; font-family:Inter,sans-serif; }
+
+.section-label { padding:0 20px; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; font-family:Inter,sans-serif; margin-bottom:8px; }
+
+.glow-demo { text-align:center; padding:24px; }
+.glow-circle { width:80px; height:80px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:36px; }
+.glow-purple { background:rgba(168,85,247,0.15); box-shadow:0 0 40px rgba(168,85,247,0.3), 0 0 80px rgba(168,85,247,0.15); color:var(--mystic-purple); }
+.glow-gold { background:rgba(201,168,76,0.1); box-shadow:0 0 30px rgba(201,168,76,0.25), 0 0 60px rgba(201,168,76,0.1); color:var(--gold); margin-left:24px; }
+.glow-emerald { background:rgba(52,211,153,0.1); box-shadow:0 0 30px rgba(52,211,153,0.25); color:var(--emerald); margin-left:24px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>方案 B</h1>
+  <h2>深墨绿 + 紫神秘 + 暗金</h2>
+</div>
+
+<div class="section-label">配色板</div>
+<div class="color-row">
+  <div class="swatch-wrap"><div class="swatch" style="background:#0a1010"></div><div class="swatch-label">主背景<br>#0a1010</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#111e1a"></div><div class="swatch-label">卡片<br>#111e1a</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#1a2e28"></div><div class="swatch-label">悬浮层<br>#1a2e28</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#c9a84c"></div><div class="swatch-label">暗金<br>#c9a84c</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#a855f7"></div><div class="swatch-label">紫神秘<br>#a855f7</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#6e7e78"></div><div class="swatch-label">灰绿文字<br>#6e7e78</div></div>
+</div>
+
+<div class="section-label">光效对比</div>
+<div class="glow-demo">
+  <div class="glow-circle glow-purple">☯</div>
+  <div class="glow-circle glow-gold">☯</div>
+  <div class="glow-circle glow-emerald">☯</div>
+</div>
+
+<div class="section-label">页面预览</div>
+
+<div class="hero-area">
+  <div class="symbol symbol-glow">䷀</div>
+  <h1>Discover Your Hexagram</h1>
+  <p>Cast the ancient coins and reveal the wisdom within</p>
+  <button class="btn btn-purple">☯  CAST HEXAGRAM</button>
+</div>
+
+<div style="padding:16px 20px">
+  <div style="text-align:center; margin-bottom:16px">
+    <div class="hex-line yang"></div>
+    <div class="hex-line changing"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div style="font-size:11px;color:var(--mystic-purple);margin-top:8px;font-family:Inter,sans-serif">↑ 紫色 = 变爻（changing line）</div>
+  </div>
+
+  <div class="card card-purple">
+    <h3 style="font-size:14px;color:var(--mystic-purple);margin-bottom:8px;font-family:Inter,sans-serif">🔮 Your Message</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--text)">The Creative power is strong within you. The changing line suggests a shift is coming.</p>
+    <div style="margin-top:12px">
+      <span class="tag tag-gold">Strength</span>
+      <span class="tag tag-purple">Transformation</span>
+      <span class="tag tag-gold">Power</span>
+    </div>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="font-size:14px;color:var(--gold);margin-bottom:8px;font-family:Inter,sans-serif">💡 Key Guidance</h3>
+    <ul style="list-style:none;font-size:13px;color:var(--text-muted);line-height:1.8;font-family:Inter,sans-serif">
+      <li>◆ Take bold action now</li>
+      <li>◆ Expect transformation at line 2</li>
+      <li>◆ Lead with integrity</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center;margin-top:16px">
+    <button class="btn btn-purple">Unlock Detailed Report — $2.99</button>
+  </div>
+</div>
+
+<div class="section-label">设计说明</div>
+<div class="note">
+  <h3>🔮 方案 B · 深墨绿 + 紫神秘 + 暗金</h3>
+  <p>背景使用更深的墨绿黑（#0a1010），加入紫色作为神秘感的强调色。紫色在西方灵性文化中代表直觉、灵性、超自然，是最能营造"神秘感"的颜色。金色仍是主品牌色（卦象、按钮），紫色用于变爻、CTA按钮、灵性内容区块。三者搭配形成「东方古韵 + 西方神秘」的视觉语言。</p>
+</div>
+<div class="note">
+  <h3>✨ 神秘感来源</h3>
+  <p>1. 深墨绿底（接近黑的绿）—— 像深夜的森林<br>2. 紫色光晕（glow效果）—— 像灵气/能量场<br>3. 金色卦象 —— 古铜器质感<br>4. 双层颜色系统 —— 金色代表「已知」，紫色代表「变化/未知」</p>
+</div>
+
+<div style="height:60px"></div>
+</body>
+</html>

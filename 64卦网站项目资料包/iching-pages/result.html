@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Hexagram 1 — The Creative · I Ching</title>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2035;
+      --accent-gold: #c9a84c;
+      --accent-gold-light: #e8d48b;
+      --jade: #2ecc71;
+      --text-primary: #f0ece2;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border: #2a2d3a;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --purple: #9b59b6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .share-btn {
+      font-size: 18px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .nav-title {
+      font-family: 'Spectral', serif;
+      font-size: 14px;
+      color: var(--accent-gold);
+    }
+
+    /* Hexagram Display */
+    .hex-display {
+      text-align: center;
+      padding: 40px 24px 24px;
+    }
+
+    .hex-symbol-large {
+      font-size: 72px;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+      text-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
+    }
+
+    .hex-number {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hex-name {
+      font-family: 'Spectral', serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .hex-chinese {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .hex-pinyin {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .hex-trigrams {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .hex-trigrams span {
+      background: var(--bg-tertiary);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+    }
+
+    /* Your Message Card */
+    .message-card {
+      margin: 24px 20px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.05));
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+    }
+
+    .message-card::before {
+      content: '🔮';
+      font-size: 20px;
+      position: absolute;
+      top: -10px;
+      left: 20px;
+    }
+
+    .message-card h3 {
+      font-family: 'Spectral', serif;
+      font-size: 16px;
+      color: var(--accent-gold-light);
+      margin-bottom: 12px;
+    }
+
+    .message-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    /* Guidance */
+    .guidance-card {
+      margin: 0 20px 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .guidance-card h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guidance-list {
+      list-style: none;
+    }
+
+    .guidance-list li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .guidance-list li::before {
+      content: '◆';
+      color: var(--accent-gold);
+      font-size: 8px;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Keywords */
+    .keywords {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0 20px 24px;
+    }
+
+    .keyword {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Section divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 20px 24px;
+    }
+
+    /* Full Interpretation (expandable) */
+    .interpretation {
+      margin: 0 20px 24px;
+    }
+
+    .interp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .interp-header h3 {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+    }
+
+    .expand-btn {
+      color: var(--accent-gold);
+      font-size: 13px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .interp-content {
+      display: none;
+    }
+
+    .interp-content.expanded {
+      display: block;
+    }
+
+    .interp-block {
+      margin-bottom: 20px;
+    }
+
+    .interp-block h4 {
+      font-size: 14px;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .interp-block p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    /* Related */
+    .related {
+      margin: 0 20px 24px;
+    }
+
+    .related h3 {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .related-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .related-item .r-symbol {
+      font-size: 24px;
+      color: var(--accent-gold);
+    }
+
+    .related-item .r-info {
+      flex: 1;
+    }
+
+    .related-item .r-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .related-item .r-type {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .related-item .arrow {
+      color: var(--text-muted);
+    }
+
+    /* Premium upsell */
+    .premium-card {
+      margin: 0 20px 24px;
+      background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(201,168,76,0.1));
+      border: 1px solid rgba(155,89,182,0.3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .premium-card h3 {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .premium-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .premium-btn {
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(135deg, var(--purple), #8e44ad);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .premium-price {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* Bottom actions */
+    .bottom-actions {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 20px;
+      z-index: 50;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+    }
+
+    .action-btn:active {
+      background: var(--bg-tertiary);
+    }
+
+    .action-btn .icon {
+      font-size: 18px;
+    }
+
+    .spacer-bottom {
+      height: 80px;
+    }
+
+    /* Context tags */
+    .context-tags {
+      margin: 0 20px 24px;
+    }
+
+    .context-tag {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 8px;
+    }
+
+    .context-tag h4 {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .context-tag p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="cast.html" class="back-btn">←</a>
+    <div class="nav-title">Hexagram 1</div>
+    <button class="share-btn">↗</button>
+  </nav>
+
+  <!-- Hexagram Symbol -->
+  <div class="hex-display">
+    <div class="hex-symbol-large">
+      ═<br>═<br>═<br>═<br>═<br>═
+    </div>
+    <div class="hex-number">Hexagram 1</div>
+    <div class="hex-name">The Creative</div>
+    <div class="hex-chinese">乾为天</div>
+    <div class="hex-pinyin">Qián — Heaven over Heaven</div>
+    <div class="hex-trigrams">
+      <span>☰ Heaven</span>
+      <span>☰ Heaven</span>
+    </div>
+  </div>
+
+  <!-- Your Message -->
+  <div class="message-card">
+    <h3>Your Message</h3>
+    <p>The Creative power is strong within you. This is a time of great potential and initiative. Trust your inner strength and act with confidence. The universe supports your bold moves right now.</p>
+  </div>
+
+  <!-- Keywords -->
+  <div class="keywords">
+    <span class="keyword">Strength</span>
+    <span class="keyword">Initiative</span>
+    <span class="keyword">Power</span>
+    <span class="keyword">Persistence</span>
+    <span class="keyword">Leadership</span>
+  </div>
+
+  <!-- Key Guidance -->
+  <div class="guidance-card">
+    <h3>💡 Key Guidance</h3>
+    <ul class="guidance-list">
+      <li>Take bold action now — the energy supports new beginnings</li>
+      <li>Lead with integrity; your authenticity inspires others</li>
+      <li>Persistence brings success — don't give up at the first obstacle</li>
+      <li>Channel your creative energy into something meaningful</li>
+    </ul>
+  </div>
+
+  <!-- Context-specific -->
+  <div class="context-tags">
+    <div class="context-tag">
+      <h4>💕 Love & Relationships</h4>
+      <p>Take the initiative in matters of the heart. If you've been waiting to express your feelings, now is the time. Your confidence is attractive and magnetic.</p>
+    </div>
+    <div class="context-tag">
+      <h4>💼 Career & Finance</h4>
+      <p>A powerful time for career advancement. Step up for leadership roles, pitch new ideas, and trust your professional instincts.</p>
+    </div>
+    <div class="context-tag">
+      <h4>🌱 Personal Growth</h4>
+      <p>You are entering a period of tremendous creative power. Use this energy for self-improvement, starting new habits, or launching passion projects.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Full Interpretation -->
+  <div class="interpretation">
+    <div class="interp-header">
+      <h3>📖 Full Interpretation</h3>
+      <button class="expand-btn" onclick="toggleInterp()">Expand ▾</button>
+    </div>
+    <div class="interp-content" id="interpContent">
+      <div class="interp-block">
+        <h4>The Judgment</h4>
+        <p>The Creative works sublime success, furthering through perseverance. This hexagram represents pure creative energy — the primal power that brings all things into being.</p>
+      </div>
+      <div class="interp-block">
+        <h4>The Image</h4>
+        <p>The movement of heaven is full of power. Thus the superior person makes themselves strong and untiring. Like the constant movement of the heavens, maintain your momentum.</p>
+      </div>
+      <div class="interp-block">
+        <h4>Line by Line</h4>
+        <p><strong>Line 1:</strong> Hidden dragon. Do not act yet. — Your time is coming, but prepare in silence.<br><br>
+        <strong>Line 2:</strong> Dragon appearing in the field. — Your talents begin to show. Seek guidance from a mentor.<br><br>
+        <strong>Line 3:</strong> All day long the superior person is creatively active. — Hard work with vigilance brings no blame.<br><br>
+        <strong>Line 4:</strong> Wavering flight over the depths. — A moment of choice — advance or retreat.<br><br>
+        <strong>Line 5:</strong> Flying dragon in the heavens. — Peak influence. The time of greatest power.<br><br>
+        <strong>Line 6:</strong> Arrogant dragon will have cause to repent. — Know when to step back. Excess leads to decline.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Related -->
+  <div class="related">
+    <h3>Related Hexagrams</h3>
+    <div class="related-item">
+      <span class="r-symbol">䷁</span>
+      <div class="r-info">
+        <div class="r-name">The Receptive</div>
+        <div class="r-type">Opposite hexagram (错卦)</div>
+      </div>
+      <span class="arrow">→</span>
+    </div>
+    <div class="related-item">
+      <span class="r-symbol">䷁</span>
+      <div class="r-info">
+        <div class="r-name">The Receptive</div>
+        <div class="r-type">Reverse hexagram (综卦)</div>
+      </div>
+      <span class="arrow">→</span>
+    </div>
+  </div>
+
+  <!-- Premium -->
+  <div class="premium-card">
+    <h3>🔓 Unlock Detailed Report</h3>
+    <p>Get a personalized 10-page PDF report with in-depth analysis, timing guidance, and actionable steps for your specific situation.</p>
+    <button class="premium-btn">Unlock Now — $2.99</button>
+    <div class="premium-price">One-time purchase · Instant delivery</div>
+  </div>
+
+  <div class="spacer-bottom"></div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <button class="action-btn">
+      <span class="icon">💾</span>
+      Save
+    </button>
+    <button class="action-btn">
+      <span class="icon">↗</span>
+      Share
+    </button>
+    <button class="action-btn">
+      <span class="icon">🔄</span>
+      Cast Again
+    </button>
+  </div>
+
+  <script>
+    function toggleInterp() {
+      const el = document.getElementById('interpContent');
+      el.classList.toggle('expanded');
+    }
+  </script>
+</body>
+</html>

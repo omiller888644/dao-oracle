@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>All 64 Hexagrams — I Ching</title>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2035;
+      --accent-gold: #c9a84c;
+      --accent-gold-light: #e8d48b;
+      --text-primary: #f0ece2;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border: #2a2d3a;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .search-icon {
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .nav-title {
+      font-family: 'Spectral', serif;
+      font-size: 16px;
+      color: var(--accent-gold);
+    }
+
+    /* Page Header -->
+    .page-header {
+      padding: 24px 20px 0;
+    }
+
+    .page-header h1 {
+      font-family: 'Spectral', serif;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    /* Search -->
+    .search-box {
+      width: 100%;
+      height: 44px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0 16px 0 40px;
+      color: var(--text-primary);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .search-wrapper {
+      position: relative;
+    }
+
+    .search-wrapper::before {
+      content: '🔍';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+    }
+
+    /* Filters -->
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 16px;
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      border-color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* Hexagram Grid -->
+    .hex-grid {
+      padding: 0 20px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .hex-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hex-item:hover, .hex-item:active {
+      border-color: var(--accent-gold);
+      background: var(--bg-tertiary);
+    }
+
+    .hex-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .hex-item-symbol {
+      font-size: 32px;
+      color: var(--accent-gold);
+    }
+
+    .hex-item-number {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-tertiary);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .hex-item-name {
+      font-family: 'Spectral', serif;
+      font-size: 14px;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+
+    .hex-item-cn {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .hex-item-keywords {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .hex-item-keyword {
+      font-size: 10px;
+      color: var(--text-muted);
+      background: var(--bg-tertiary);
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Load more -->
+    .load-more {
+      text-align: center;
+      padding: 24px 20px 100px;
+    }
+
+    .load-more-btn {
+      width: 100%;
+      height: 44px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="nav-title">64 Hexagrams</div>
+    <button class="search-icon">🔍</button>
+  </nav>
+
+  <div class="page-header">
+    <h1>Browse All 64 Hexagrams</h1>
+    <div class="search-wrapper">
+      <input type="text" class="search-box" placeholder="Search hexagrams by name, number, or keyword...">
+    </div>
+    <div class="filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">☰ Heaven</button>
+      <button class="filter-btn">☷ Earth</button>
+      <button class="filter-btn">☳ Thunder</button>
+      <button class="filter-btn">☵ Water</button>
+      <button class="filter-btn">☶ Mountain</button>
+      <button class="filter-btn">☴ Wind</button>
+      <button class="filter-btn">☲ Fire</button>
+      <button class="filter-btn">☱ Lake</button>
+    </div>
+  </div>
+
+  <div class="hex-grid">
+    <a href="result.html" class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷀</span>
+        <span class="hex-item-number">#1</span>
+      </div>
+      <div class="hex-item-name">The Creative</div>
+      <div class="hex-item-cn">乾 · Qián</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Strength</span>
+        <span class="hex-item-keyword">Power</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷁</span>
+        <span class="hex-item-number">#2</span>
+      </div>
+      <div class="hex-item-name">The Receptive</div>
+      <div class="hex-item-cn">坤 · Kūn</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Devotion</span>
+        <span class="hex-item-keyword">Yielding</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷂</span>
+        <span class="hex-item-number">#3</span>
+      </div>
+      <div class="hex-item-name">Difficulty at the Beginning</div>
+      <div class="hex-item-cn">屯 · Zhūn</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Sprouting</span>
+        <span class="hex-item-keyword">Patience</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷃</span>
+        <span class="hex-item-number">#4</span>
+      </div>
+      <div class="hex-item-name">Youthful Folly</div>
+      <div class="hex-item-cn">蒙 · Méng</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Learning</span>
+        <span class="hex-item-keyword">Seeking</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷄</span>
+        <span class="hex-item-number">#5</span>
+      </div>
+      <div class="hex-item-name">Waiting</div>
+      <div class="hex-item-cn">需 · Xū</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Patience</span>
+        <span class="hex-item-keyword">Nourishment</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷅</span>
+        <span class="hex-item-number">#6</span>
+      </div>
+      <div class="hex-item-name">Conflict</div>
+      <div class="hex-item-cn">讼 · Sòng</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Dispute</span>
+        <span class="hex-item-keyword">Caution</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷆</span>
+        <span class="hex-item-number">#7</span>
+      </div>
+      <div class="hex-item-name">The Army</div>
+      <div class="hex-item-cn">师 · Shī</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Leadership</span>
+        <span class="hex-item-keyword">Discipline</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷇</span>
+        <span class="hex-item-number">#8</span>
+      </div>
+      <div class="hex-item-name">Union</div>
+      <div class="hex-item-cn">比 · Bǐ</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Alliance</span>
+        <span class="hex-item-keyword">Bonding</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷈</span>
+        <span class="hex-item-number">#9</span>
+      </div>
+      <div class="hex-item-name">Small Taming</div>
+      <div class="hex-item-cn">小畜 · Xiǎo Chù</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Gentle</span>
+        <span class="hex-item-keyword">Restraint</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷉</span>
+        <span class="hex-item-number">#10</span>
+      </div>
+      <div class="hex-item-name">Treading</div>
+      <div class="hex-item-cn">履 · Lǚ</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Conduct</span>
+        <span class="hex-item-keyword">Care</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷊</span>
+        <span class="hex-item-number">#11</span>
+      </div>
+      <div class="hex-item-name">Peace</div>
+      <div class="hex-item-cn">泰 · Tài</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Harmony</span>
+        <span class="hex-item-keyword">Prosperity</span>
+      </div>
+    </a>
+
+    <a class="hex-item">
+      <div class="hex-item-header">
+        <span class="hex-item-symbol">䷋</span>
+        <span class="hex-item-number">#12</span>
+      </div>
+      <div class="hex-item-name">Standstill</div>
+      <div class="hex-item-cn">否 · Pǐ</div>
+      <div class="hex-item-keywords">
+        <span class="hex-item-keyword">Stagnation</span>
+        <span class="hex-item-keyword">Withdraw</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="load-more">
+    <button class="load-more-btn">Load More Hexagrams (13–64)</button>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <a class="tab-item" href="index.html">
+      <span class="tab-icon">🏠</span>
+      Home
+    </a>
+    <a class="tab-item" href="cast.html">
+      <span class="tab-icon">☯</span>
+      Cast
+    </a>
+    <a class="tab-item" href="daily.html">
+      <span class="tab-icon">📅</span>
+      Daily
+    </a>
+    <a class="tab-item" href="profile.html">
+      <span class="tab-icon">👤</span>
+      Profile
+    </a>
+  </div>
+
+  <style>
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 12px;
+      z-index: 100;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .tab-item.active {
+      color: var(--accent-gold);
+    }
+
+    .tab-item .tab-icon {
+      font-size: 22px;
+    }
+  </style>
+
+</body>
+</html>

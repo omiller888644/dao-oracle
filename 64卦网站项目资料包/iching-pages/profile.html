@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Profile — I Ching</title>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2035;
+      --accent-gold: #c9a84c;
+      --accent-gold-light: #e8d48b;
+      --text-primary: #f0ece2;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border: #2a2d3a;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .settings-icon {
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .nav-title {
+      font-family: 'Spectral', serif;
+      font-size: 16px;
+      color: var(--accent-gold);
+    }
+
+    /* Profile Header -->
+    .profile-header {
+      text-align: center;
+      padding: 32px 24px 24px;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-gold), #b8942e);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .profile-name {
+      font-family: 'Spectral', serif;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .profile-stats {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .sign-in-btn {
+      height: 40px;
+      padding: 0 24px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--accent-gold);
+      background: transparent;
+      color: var(--accent-gold);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Quick Stats -->
+    .quick-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      padding: 0 20px 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Section -->
+    .section {
+      padding: 0 20px 24px;
+    }
+
+    .section-title {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Reading History -->
+    .reading-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .reading-symbol {
+      font-size: 24px;
+      color: var(--accent-gold);
+    }
+
+    .reading-info {
+      flex: 1;
+    }
+
+    .reading-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .reading-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .reading-arrow {
+      color: var(--text-muted);
+    }
+
+    /* Settings List -->
+    .settings-list {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .settings-item:last-child {
+      border-bottom: none;
+    }
+
+    .settings-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .settings-icon-item {
+      font-size: 18px;
+    }
+
+    .settings-label {
+      font-size: 14px;
+    }
+
+    .settings-value {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Toggle Switch -->
+    .toggle {
+      width: 44px;
+      height: 26px;
+      border-radius: 13px;
+      background: var(--border);
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle.on {
+      background: var(--accent-gold);
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s;
+    }
+
+    .toggle.on::after {
+      transform: translateX(18px);
+    }
+
+    /* Links section -->
+    .links-list {
+      padding: 0 20px 100px;
+    }
+
+    .link-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .link-item:last-child {
+      border-bottom: none;
+    }
+
+    .link-item .arrow {
+      color: var(--text-muted);
+    }
+
+    /* Tab Bar -->
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 12px;
+      z-index: 100;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .tab-item.active {
+      color: var(--accent-gold);
+    }
+
+    .tab-item .tab-icon {
+      font-size: 22px;
+    }
+
+    /* Version -->
+    .version {
+      text-align: center;
+      padding: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="nav-title">Profile</div>
+    <button class="settings-icon">⚙</button>
+  </nav>
+
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="avatar">🧘</div>
+    <div class="profile-name">Guest User</div>
+    <div class="profile-stats">12 readings this month · 3 favorites</div>
+    <button class="sign-in-btn">Sign In</button>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="quick-stats">
+    <div class="stat-card">
+      <div class="stat-number">47</div>
+      <div class="stat-label">Total Readings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">12</div>
+      <div class="stat-label">This Month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Favorites</div>
+    </div>
+  </div>
+
+  <!-- Reading History -->
+  <div class="section">
+    <div class="section-title">📜 My Readings</div>
+    <div class="reading-item">
+      <span class="reading-symbol">䷀</span>
+      <div class="reading-info">
+        <div class="reading-name">The Creative</div>
+        <div class="reading-meta">May 24 · Love & Relationships</div>
+      </div>
+      <span class="reading-arrow">→</span>
+    </div>
+    <div class="reading-item">
+      <span class="reading-symbol">䷂</span>
+      <div class="reading-info">
+        <div class="reading-name">Difficulty at the Beginning</div>
+        <div class="reading-meta">May 23 · Career & Finance</div>
+      </div>
+      <span class="reading-arrow">→</span>
+    </div>
+    <div class="reading-item">
+      <span class="reading-symbol">䷄</span>
+      <div class="reading-info">
+        <div class="reading-name">Waiting</div>
+        <div class="reading-meta">May 22 · General Guidance</div>
+      </div>
+      <span class="reading-arrow">→</span>
+    </div>
+    <div class="reading-item">
+      <span class="reading-symbol">䷊</span>
+      <div class="reading-info">
+        <div class="reading-name">Peace</div>
+        <div class="reading-meta">May 21 · Personal Growth</div>
+      </div>
+      <span class="reading-arrow">→</span>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="section">
+    <div class="section-title">⚙ Settings</div>
+    <div class="settings-list">
+      <div class="settings-item">
+        <div class="settings-left">
+          <span class="settings-icon-item">🌙</span>
+          <span class="settings-label">Dark Mode</span>
+        </div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="settings-item">
+        <div class="settings-left">
+          <span class="settings-icon-item">🔔</span>
+          <span class="settings-label">Daily Reminder</span>
+        </div>
+        <span class="settings-value">8:00 AM</span>
+      </div>
+      <div class="settings-item">
+        <div class="settings-left">
+          <span class="settings-icon-item">🔊</span>
+          <span class="settings-label">Sound Effects</span>
+        </div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="settings-item">
+        <div class="settings-left">
+          <span class="settings-icon-item">📱</span>
+          <span class="settings-label">Haptic Feedback</span>
+        </div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="settings-item">
+        <div class="settings-left">
+          <span class="settings-icon-item">🌐</span>
+          <span class="settings-label">Language</span>
+        </div>
+        <span class="settings-value">English</span>
+      </div>
+      <div class="settings-item">
+        <div class="settings-left">
+          <span class="settings-icon-item">💎</span>
+          <span class="settings-label">My Subscription</span>
+        </div>
+        <span class="settings-value">Free →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links -->
+  <div class="links-list">
+    <div class="section-title">📖 Resources</div>
+    <div class="link-item">
+      <span>About I Ching</span>
+      <span class="arrow">→</span>
+    </div>
+    <div class="link-item">
+      <span>Privacy Policy</span>
+      <span class="arrow">→</span>
+    </div>
+    <div class="link-item">
+      <span>Terms of Service</span>
+      <span class="arrow">→</span>
+    </div>
+    <div class="link-item">
+      <span>Contact Support</span>
+      <span class="arrow">→</span>
+    </div>
+    <div class="version">Version 1.0.0 (1)</div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <a class="tab-item" href="index.html">
+      <span class="tab-icon">🏠</span>
+      Home
+    </a>
+    <a class="tab-item" href="cast.html">
+      <span class="tab-icon">☯</span>
+      Cast
+    </a>
+    <a class="tab-item" href="daily.html">
+      <span class="tab-icon">📅</span>
+      Daily
+    </a>
+    <a class="tab-item active" href="profile.html">
+      <span class="tab-icon">👤</span>
+      Profile
+    </a>
+  </div>
+
+</body>
+</html>

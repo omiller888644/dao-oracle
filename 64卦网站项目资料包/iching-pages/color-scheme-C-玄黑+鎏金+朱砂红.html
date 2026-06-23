@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>配色方案 C — 玄黑 + 鎏金 + 朱砂红</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { max-width:430px; margin:0 auto; font-family: 'Spectral', 'Georgia', serif; color:#e8e0d0; }
+:root {
+  --bg: #08080a;
+  --bg-card: #12121a;
+  --bg-elevated: #1e1e2a;
+  --gold: #d4a843;
+  --gold-light: #f0d878;
+  --cinnabar: #c0392b;
+  --cinnabar-soft: #e74c3c;
+  --cinnabar-glow: rgba(231, 76, 60, 0.3);
+  --text: #e8e0d0;
+  --text-muted: #6a6a7a;
+  --border: #2a2a35;
+}
+
+.header { background: var(--bg); padding:24px 20px; text-align:center; border-bottom:1px solid var(--border); }
+.header h1 { font-size:14px; color:var(--cinnabar); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.header h2 { font-size:22px; font-weight:700; }
+
+.color-row { display:flex; gap:12px; padding:16px 20px; flex-wrap:wrap; }
+.swatch { width:64px; height:64px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); }
+.swatch-label { font-size:10px; text-align:center; margin-top:6px; color:var(--text-muted); font-family:Inter,sans-serif; }
+.swatch-wrap { text-align:center; }
+
+.hero-area { text-align:center; padding:40px 20px; background: linear-gradient(180deg, var(--bg-card), var(--bg)); }
+.hero-area .symbol { font-size:72px; color:var(--gold); margin-bottom:16px; text-shadow: 0 0 30px rgba(212,168,67,0.4), 0 2px 4px rgba(0,0,0,0.8); }
+.hero-area h1 { font-size:28px; margin-bottom:12px; }
+.hero-area p { color:var(--text-muted); font-size:14px; font-family:Inter,sans-serif; line-height:1.6; }
+
+.btn { display:block; width:100%; height:52px; border:none; border-radius:14px; font-size:17px; font-weight:600; font-family:'Spectral',serif; cursor:pointer; margin:20px auto; max-width:280px; }
+.btn-gold { background:linear-gradient(135deg,#d4a843,#b8922e); color:#08080a; box-shadow:0 0 24px rgba(212,168,67,0.3); }
+.btn-cinnabar { background:linear-gradient(135deg,#c0392b,#962d22); color:#fff; box-shadow:0 0 20px var(--cinnabar-glow); }
+
+.card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:12px; }
+.card-gold { border-color:rgba(212,168,67,0.3); box-shadow:0 0 20px rgba(212,168,67,0.06); }
+.card-cinnabar { border-color:rgba(192,57,43,0.3); box-shadow:0 0 20px rgba(192,57,43,0.06); }
+
+.hex-line { height:6px; border-radius:3px; margin:6px auto; width:80px; }
+.hex-line.yang { background:var(--gold); box-shadow:0 0 8px rgba(212,168,67,0.5); }
+.hex-line.yin { display:flex; gap:20px; }
+.hex-line.yin::before,.hex-line.yin::after { content:''; flex:1; height:6px; border-radius:3px; background:var(--gold); opacity:0.7; }
+
+.tag { display:inline-block; padding:4px 12px; border-radius:99px; font-size:11px; font-family:Inter,sans-serif; margin:3px; }
+.tag-gold { background:rgba(212,168,67,0.12); color:var(--gold-light); border:1px solid rgba(212,168,67,0.2); }
+.tag-red { background:rgba(192,57,43,0.12); color:var(--cinnabar-soft); border:1px solid rgba(192,57,43,0.2); }
+
+.note { padding:20px; margin:12px 20px; background:var(--bg-card); border-radius:12px; border:1px solid var(--border); }
+.note h3 { font-size:13px; color:var(--cinnabar); margin-bottom:8px; font-family:Inter,sans-serif; }
+.note p { font-size:13px; color:var(--text-muted); line-height:1.6; font-family:Inter,sans-serif; }
+
+.section-label { padding:0 20px; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; font-family:Inter,sans-serif; margin-bottom:8px; }
+
+.ornament { text-align:center; padding:12px; font-size:14px; color:var(--text-muted); letter-spacing:8px; opacity:0.4; }
+
+.divider-ornament { text-align:center; padding:8px 20px; color:var(--gold); opacity:0.3; font-size:12px; letter-spacing:6px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>方案 C</h1>
+  <h2>玄黑 + 鎏金 + 朱砂红</h2>
+</div>
+
+<div class="section-label">配色板</div>
+<div class="color-row">
+  <div class="swatch-wrap"><div class="swatch" style="background:#08080a"></div><div class="swatch-label">玄黑<br>#08080a</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#12121a"></div><div class="swatch-label">卡片<br>#12121a</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#d4a843"></div><div class="swatch-label">鎏金<br>#d4a843</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#c0392b"></div><div class="swatch-label">朱砂红<br>#c0392b</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#6a6a7a"></div><div class="swatch-label">灰文字<br>#6a6a7a</div></div>
+</div>
+
+<div class="ornament">◇ ◆ ◇ ◆ ◇</div>
+
+<div class="section-label">页面预览</div>
+
+<div class="hero-area">
+  <div class="symbol">䷀</div>
+  <h1>The I Ching Oracle</h1>
+  <p>Ancient wisdom for modern seekers</p>
+  <button class="btn btn-gold">☯  CAST HEXAGRAM</button>
+</div>
+
+<div style="padding:16px 20px">
+  <div class="divider-ornament">— ☯ —</div>
+
+  <div style="text-align:center; margin:16px 0">
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="font-size:14px;color:var(--gold);margin-bottom:8px;font-family:Inter,sans-serif">☯ Hexagram 1</h3>
+    <h3 style="font-size:20px;margin-bottom:4px">The Creative · 乾</h3>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;font-family:Inter,sans-serif">Qián — Heaven over Heaven</p>
+    <div class="tag tag-gold">Strength</div>
+    <div class="tag tag-gold">Initiative</div>
+    <div class="tag tag-gold">Power</div>
+    <div class="tag tag-red">Yang Energy</div>
+  </div>
+
+  <div class="card card-cinnabar">
+    <h3 style="font-size:14px;color:var(--cinnabar-soft);margin-bottom:8px;font-family:Inter,sans-serif">🔥 Warning</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--text)">Arrogant dragon will have cause to repent. Know when to step back.</p>
+  </div>
+
+  <div style="text-align:center;margin-top:16px">
+    <button class="btn btn-gold">Read Full Interpretation →</button>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:8px;font-family:Inter,sans-serif">Or unlock premium report for $2.99</div>
+    <button class="btn btn-cinnabar" style="margin-top:8px">🔓 Unlock Now</button>
+  </div>
+</div>
+
+<div class="section-label">设计说明</div>
+<div class="note">
+  <h3>🏮 方案 C · 玄黑 + 鎏金 + 朱砂红</h3>
+  <p>背景使用接近纯黑的深色调（#08080a），带极微弱的蓝灰倾向。主色为更亮的鎏金色（#d4a843），比之前更金黄。朱砂红作为第三色，用于警告、重要提示、付费按钮。这个方案最有「东方古器」的感觉——像博物馆里的青铜器和漆器。</p>
+</div>
+<div class="note">
+  <h3>⚠️ 注意</h3>
+  <p>朱砂红在西方文化中可能联想到"危险/错误"，所以红色使用要谨慎。建议红色只用于：警告提示、特别强调、付费CTA按钮。不适合用作日常内容色。</p>
+</div>
+
+<div style="height:60px"></div>
+</body>
+</html>

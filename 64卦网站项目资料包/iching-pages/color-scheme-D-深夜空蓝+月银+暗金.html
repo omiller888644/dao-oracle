@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>配色方案 D — 深夜空蓝 + 月银 + 暗金</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { max-width:430px; margin:0 auto; font-family: 'Spectral', 'Georgia', serif; color:#e8e0d0; }
+:root {
+  --bg: #080d1a;
+  --bg-card: #0f1628;
+  --bg-elevated: #162040;
+  --gold: #c9a84c;
+  --gold-light: #e8d48b;
+  --silver: #c0c8d8;
+  --silver-glow: rgba(192, 200, 216, 0.25);
+  --moon-blue: #60a5fa;
+  --blue-glow: rgba(96, 165, 250, 0.25);
+  --text: #e8e0d0;
+  --text-muted: #5a6a80;
+  --border: #1e2a45;
+}
+
+.header { background: var(--bg); padding:24px 20px; text-align:center; border-bottom:1px solid var(--border); }
+.header h1 { font-size:14px; color:var(--moon-blue); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.header h2 { font-size:22px; font-weight:700; }
+
+.color-row { display:flex; gap:12px; padding:16px 20px; flex-wrap:wrap; }
+.swatch { width:64px; height:64px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); }
+.swatch-label { font-size:10px; text-align:center; margin-top:6px; color:var(--text-muted); font-family:Inter,sans-serif; }
+.swatch-wrap { text-align:center; }
+
+.hero-area { text-align:center; padding:40px 20px; background: linear-gradient(180deg, var(--bg-card), var(--bg)); position:relative; overflow:hidden; }
+.hero-area .symbol { font-size:72px; color:var(--gold); margin-bottom:16px; text-shadow:0 0 30px rgba(201,168,76,0.3); }
+.hero-area h1 { font-size:28px; margin-bottom:12px; }
+.hero-area p { color:var(--text-muted); font-size:14px; font-family:Inter,sans-serif; line-height:1.6; }
+
+.btn { display:block; width:100%; height:52px; border:none; border-radius:14px; font-size:17px; font-weight:600; font-family:'Spectral',serif; cursor:pointer; margin:20px auto; max-width:280px; }
+.btn-gold { background:linear-gradient(135deg,#c9a84c,#a8893a); color:#080d1a; box-shadow:0 0 24px rgba(201,168,76,0.3); }
+.btn-silver { background:linear-gradient(135deg,#c0c8d8,#94a3b8); color:#080d1a; box-shadow:0 0 20px var(--silver-glow); }
+
+.card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:12px; }
+.card-gold { border-color:rgba(201,168,76,0.3); box-shadow:0 0 20px rgba(201,168,76,0.06); }
+.card-blue { border-color:rgba(96,165,250,0.2); box-shadow:0 0 20px rgba(96,165,250,0.05); }
+.card-silver { border-color:rgba(192,200,216,0.2); }
+
+.hex-line { height:6px; border-radius:3px; margin:6px auto; width:80px; }
+.hex-line.yang { background:var(--gold); box-shadow:0 0 8px rgba(201,168,76,0.4); }
+.hex-line.silver-line { background:var(--silver); box-shadow:0 0 8px var(--silver-glow); }
+.hex-line.yin { display:flex; gap:20px; }
+.hex-line.yin::before,.hex-line.yin::after { content:''; flex:1; height:6px; border-radius:3px; background:var(--silver); opacity:0.7; }
+
+.tag { display:inline-block; padding:4px 12px; border-radius:99px; font-size:11px; font-family:Inter,sans-serif; margin:3px; }
+.tag-gold { background:rgba(201,168,76,0.12); color:var(--gold-light); border:1px solid rgba(201,168,76,0.2); }
+.tag-silver { background:rgba(192,200,216,0.08); color:var(--silver); border:1px solid rgba(192,200,216,0.15); }
+.tag-blue { background:rgba(96,165,250,0.1); color:var(--moon-blue); border:1px solid rgba(96,165,250,0.15); }
+
+.note { padding:20px; margin:12px 20px; background:var(--bg-card); border-radius:12px; border:1px solid var(--border); }
+.note h3 { font-size:13px; color:var(--moon-blue); margin-bottom:8px; font-family:Inter,sans-serif; }
+.note p { font-size:13px; color:var(--text-muted); line-height:1.6; font-family:Inter,sans-serif; }
+
+.section-label { padding:0 20px; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; font-family:Inter,sans-serif; margin-bottom:8px; }
+
+.stars { position:absolute; top:0; left:0; right:0; bottom:0; overflow:hidden; pointer-events:none; }
+.star { position:absolute; width:2px; height:2px; background:#fff; border-radius:50%; opacity:0.3; animation:twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 0%,100%{opacity:0.2} 50%{opacity:0.6} }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>方案 D</h1>
+  <h2>深夜空蓝 + 月银 + 暗金</h2>
+</div>
+
+<div class="section-label">配色板</div>
+<div class="color-row">
+  <div class="swatch-wrap"><div class="swatch" style="background:#080d1a"></div><div class="swatch-label">夜空蓝<br>#080d1a</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#0f1628"></div><div class="swatch-label">深蓝卡片<br>#0f1628</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#162040"></div><div class="swatch-label">悬浮层<br>#162040</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#c9a84c"></div><div class="swatch-label">暗金<br>#c9a84c</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#c0c8d8"></div><div class="swatch-label">月银<br>#c0c8d8</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#60a5fa"></div><div class="swatch-label">月光蓝<br>#60a5fa</div></div>
+</div>
+
+<div class="section-label">页面预览</div>
+
+<div class="hero-area">
+  <div class="stars">
+    <div class="star" style="top:15%;left:10%;animation-delay:0s"></div>
+    <div class="star" style="top:25%;left:85%;animation-delay:1s"></div>
+    <div class="star" style="top:10%;left:50%;animation-delay:0.5s"></div>
+    <div class="star" style="top:40%;left:25%;animation-delay:2s"></div>
+    <div class="star" style="top:35%;left:75%;animation-delay:1.5s"></div>
+    <div class="star" style="top:20%;left:60%;animation-delay:0.8s"></div>
+    <div class="star" style="top:50%;left:40%;animation-delay:2.5s"></div>
+    <div class="star" style="top:12%;left:35%;animation-delay:1.2s"></div>
+  </div>
+  <div class="symbol">䷀</div>
+  <h1>Discover Your Hexagram</h1>
+  <p>Under the stars, ancient wisdom awaits</p>
+  <button class="btn btn-gold">☯  CAST HEXAGRAM</button>
+</div>
+
+<div style="padding:16px 20px">
+  <div style="text-align:center; margin:16px 0">
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line silver-line"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div style="font-size:11px;color:var(--silver);margin-top:8px;font-family:Inter,sans-serif">银色 = 变爻</div>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="font-size:14px;color:var(--gold);margin-bottom:8px;font-family:Inter,sans-serif">☯ Hexagram 1</h3>
+    <h3 style="font-size:20px;margin-bottom:4px">The Creative · 乾</h3>
+    <div class="tag tag-gold">Strength</div>
+    <div class="tag tag-gold">Initiative</div>
+    <div class="tag tag-silver">Changing Line</div>
+  </div>
+
+  <div class="card card-blue">
+    <h3 style="font-size:14px;color:var(--moon-blue);margin-bottom:8px;font-family:Inter,sans-serif">🌙 Cosmic Insight</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--text)">The fourth line wavers — a moment of choice between advancing and retreating. Trust your intuition tonight.</p>
+  </div>
+
+  <div style="text-align:center;margin-top:16px">
+    <button class="btn btn-silver">Read Full Interpretation →</button>
+  </div>
+</div>
+
+<div class="section-label">设计说明</div>
+<div class="note">
+  <h3>🌌 方案 D · 深夜空蓝 + 月银 + 暗金</h3>
+  <p>背景使用深蓝色（#080d1a），像深夜的天空。金色代表太阳/阳性能量（卦象主体），银色代表月亮/阴性能量（变爻、次要信息），月光蓝用于灵性/洞察类内容。加上星星闪烁的粒子效果，营造"仰望星空获得指引"的氛围。这个方案最"神秘"，像夜空占卜的感觉。</p>
+</div>
+<div class="note">
+  <h3>🌟 神秘感来源</h3>
+  <p>1. 深夜空蓝底 + 星星粒子 —— 夜空占卜感<br>2. 金银双色体系 —— 太阳(金)/月亮(银)的阴阳对应<br>3. 蓝色光晕 —— 月光感<br>4. 最接近"灵性 App"主流设计（Co-Star、Sanctuary 都用深蓝+金色）</p>
+</div>
+
+<div style="height:60px"></div>
+</body>
+</html>

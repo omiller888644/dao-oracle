@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>配色方案 A — 深墨绿 + 暗金</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { max-width:430px; margin:0 auto; font-family: 'Spectral', 'Georgia', serif; color:#e8e0d0; }
+:root {
+  --bg: #0d1a12;
+  --bg-card: #152518;
+  --bg-elevated: #1e3024;
+  --gold: #c9a84c;
+  --gold-light: #e8d48b;
+  --jade: #34d399;
+  --jade-glow: rgba(52, 211, 153, 0.3);
+  --text: #e8e0d0;
+  --text-muted: #7a8a7e;
+  --border: #2a3d30;
+}
+
+/* 方案A: 深墨绿 + 暗金 */
+.header { background: var(--bg); padding:24px 20px; text-align:center; border-bottom:1px solid var(--border); }
+.header h1 { font-size:14px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.header h2 { font-size:22px; font-weight:700; }
+
+.color-row { display:flex; gap:12px; padding:16px 20px; flex-wrap:wrap; }
+.swatch { width:64px; height:64px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); }
+.swatch-label { font-size:10px; text-align:center; margin-top:6px; color:var(--text-muted); font-family:Inter,sans-serif; }
+.swatch-wrap { text-align:center; }
+
+.preview { padding:20px; }
+.card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:12px; }
+.card-gold { border-color:rgba(201,168,76,0.3); box-shadow:0 0 20px rgba(201,168,76,0.08); }
+.card-glow { border-color:rgba(52,211,153,0.2); box-shadow:0 0 24px rgba(52,211,153,0.08); }
+
+.hero-area { text-align:center; padding:40px 20px; background: linear-gradient(180deg, var(--bg-card), var(--bg)); }
+.hero-area .symbol { font-size:72px; color:var(--gold); text-shadow:0 0 40px var(--gold-glow); margin-bottom:16px; }
+.hero-area h1 { font-size:28px; margin-bottom:12px; }
+.hero-area p { color:var(--text-muted); font-size:14px; font-family:Inter,sans-serif; line-height:1.6; }
+
+.btn { display:block; width:100%; height:52px; border:none; border-radius:14px; font-size:17px; font-weight:600; font-family:'Spectral',serif; cursor:pointer; margin:20px auto; max-width:280px; }
+.btn-gold { background:linear-gradient(135deg,#c9a84c,#a8893a); color:#0d1a12; box-shadow:0 0 24px rgba(201,168,76,0.3); }
+.btn-jade { background:linear-gradient(135deg,#34d399,#10b981); color:#0d1a12; box-shadow:0 0 24px rgba(52,211,153,0.3); }
+
+.hex-line { height:6px; border-radius:3px; margin:6px auto; width:80px; }
+.hex-line.yang { background:var(--gold); box-shadow:0 0 10px rgba(201,168,76,0.4); }
+.hex-line.yin { display:flex; gap:20px; }
+.hex-line.yin::before,.hex-line.yin::after { content:''; flex:1; height:6px; border-radius:3px; background:var(--gold); opacity:0.7; }
+
+.tag { display:inline-block; padding:4px 12px; border-radius:99px; font-size:11px; font-family:Inter,sans-serif; margin:3px; }
+.tag-gold { background:rgba(201,168,76,0.12); color:var(--gold-light); border:1px solid rgba(201,168,76,0.2); }
+.tag-jade { background:rgba(52,211,153,0.1); color:var(--jade); border:1px solid rgba(52,211,153,0.15); }
+
+.note { padding:20px; margin:12px 20px; background:var(--bg-card); border-radius:12px; border:1px solid var(--border); }
+.note h3 { font-size:13px; color:var(--gold); margin-bottom:8px; font-family:Inter,sans-serif; }
+.note p { font-size:13px; color:var(--text-muted); line-height:1.6; font-family:Inter,sans-serif; }
+
+.section-label { padding:0 20px; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; font-family:Inter,sans-serif; margin-bottom:8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>方案 A</h1>
+  <h2>深墨绿 + 暗金 + 翡翠光</h2>
+</div>
+
+<div class="section-label">配色板</div>
+<div class="color-row">
+  <div class="swatch-wrap"><div class="swatch" style="background:#0d1a12"></div><div class="swatch-label">主背景<br>#0d1a12</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#152518"></div><div class="swatch-label">卡片<br>#152518</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#1e3024"></div><div class="swatch-label">悬浮层<br>#1e3024</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#c9a84c"></div><div class="swatch-label">暗金<br>#c9a84c</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#34d399"></div><div class="swatch-label">翡翠绿<br>#34d399</div></div>
+  <div class="swatch-wrap"><div class="swatch" style="background:#7a8a7e"></div><div class="swatch-label">灰绿文字<br>#7a8a7e</div></div>
+</div>
+
+<div class="section-label">页面预览</div>
+
+<div class="hero-area">
+  <div class="symbol">䷀</div>
+  <h1>Discover Your Hexagram</h1>
+  <p>Cast the ancient coins and reveal the wisdom within</p>
+  <button class="btn btn-gold">☯  CAST HEXAGRAM</button>
+</div>
+
+<div style="padding:16px 20px">
+  <div style="text-align:center; margin-bottom:16px">
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+    <div class="hex-line yang"></div>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="font-size:14px;color:var(--gold);margin-bottom:8px;font-family:Inter,sans-serif">🔮 Your Message</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--text)">The Creative power is strong within you. This is a time of great potential.</p>
+    <div style="margin-top:12px">
+      <span class="tag tag-gold">Strength</span>
+      <span class="tag tag-gold">Power</span>
+      <span class="tag tag-jade">Growth</span>
+    </div>
+  </div>
+
+  <div class="card card-glow">
+    <h3 style="font-size:14px;color:var(--jade);margin-bottom:8px;font-family:Inter,sans-serif">💡 Key Guidance</h3>
+    <ul style="list-style:none;font-size:13px;color:var(--text-muted);line-height:1.8;font-family:Inter,sans-serif">
+      <li>◆ Take bold action now</li>
+      <li>◆ Lead with integrity</li>
+      <li>◆ Persistence brings success</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center;margin-top:16px">
+    <button class="btn btn-jade" style="background:linear-gradient(135deg,#34d399,#059669)">Read Full Interpretation →</button>
+  </div>
+</div>
+
+<div class="section-label">设计说明</div>
+<div class="note">
+  <h3>🌿 方案 A · 深墨绿 + 暗金</h3>
+  <p>主背景使用非常深的墨绿色（#0d1a12），比纯黑更有生命力。金色作为主要强调色，翡翠绿作为第二强调色。整体感觉像「深林中的古观」，有东方自然的神秘感。金色在墨绿背景上非常醒目，但不刺眼。</p>
+</div>
+<div class="note">
+  <h3>✨ 光效建议</h3>
+  <p>翡翠绿色光晕（glow）用于变爻和高亮区域，暗金色光用于卦象主体。双层光效营造「灵气流动」的感觉。</p>
+</div>
+
+<div style="height:60px"></div>
+</body>
+</html>

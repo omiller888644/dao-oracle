@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Hexagram of the Day — I Ching</title>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2035;
+      --accent-gold: #c9a84c;
+      --accent-gold-light: #e8d48b;
+      --jade: #2ecc71;
+      --text-primary: #f0ece2;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border: #2a2d3a;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .calendar-btn {
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .nav-title {
+      font-family: 'Spectral', serif;
+      font-size: 16px;
+      color: var(--accent-gold);
+    }
+
+    /* Daily Header */
+    .daily-header {
+      text-align: center;
+      padding: 32px 24px 24px;
+    }
+
+    .daily-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .daily-date {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .daily-title {
+      font-family: 'Spectral', serif;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    /* Daily Card */
+    .daily-main-card {
+      margin: 0 20px 24px;
+      background: linear-gradient(180deg, var(--bg-tertiary), var(--bg-secondary));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .daily-symbol {
+      font-size: 80px;
+      color: var(--accent-gold);
+      text-shadow: 0 0 40px rgba(201,168,76,0.3);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .daily-hex-num {
+      font-size: 14px;
+      color: var(--accent-gold-light);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .daily-hex-name {
+      font-family: 'Spectral', serif;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .daily-hex-cn {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .daily-hex-pinyin {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .daily-quote {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .daily-traits {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .daily-trait {
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--accent-gold-light);
+    }
+
+    /* Guidance Section */
+    .guidance-section {
+      margin: 0 20px 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .guidance-section h3 {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guidance-section p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .lucky-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .lucky-item {
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .lucky-item .icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .lucky-item .label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .lucky-item .value {
+      font-size: 14px;
+      color: var(--accent-gold-light);
+      font-weight: 500;
+    }
+
+    /* Share */
+    .share-section {
+      margin: 0 20px 24px;
+    }
+
+    .share-section h3 {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .share-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .share-btn {
+      flex: 1;
+      height: 44px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .share-btn:active {
+      background: var(--bg-tertiary);
+    }
+
+    /* History */
+    .history-section {
+      padding: 0 20px 100px;
+    }
+
+    .history-section h3 {
+      font-family: 'Spectral', serif;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .history-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 0 16px;
+      scrollbar-width: none;
+    }
+
+    .history-scroll::-webkit-scrollbar { display: none; }
+
+    .history-card {
+      flex: 0 0 60px;
+      text-align: center;
+    }
+
+    .history-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .history-symbol {
+      font-size: 28px;
+      color: var(--accent-gold);
+      opacity: 0.6;
+    }
+
+    .history-card.today .history-symbol {
+      opacity: 1;
+    }
+
+    .history-card.today .history-date {
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* Tab Bar -->
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 12px;
+      z-index: 100;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .tab-item.active {
+      color: var(--accent-gold);
+    }
+
+    .tab-item .tab-icon {
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="nav-title">Daily Hexagram</div>
+    <button class="calendar-btn">📅</button>
+  </nav>
+
+  <div class="daily-header">
+    <div class="daily-icon">☯</div>
+    <div class="daily-date">Saturday, May 24, 2026</div>
+    <div class="daily-title">Hexagram of the Day</div>
+  </div>
+
+  <!-- Main Card -->
+  <div class="daily-main-card">
+    <div class="daily-symbol">䷄</div>
+    <div class="daily-hex-num">Hexagram 5</div>
+    <div class="daily-hex-name">Waiting</div>
+    <div class="daily-hex-cn">需 · 等待</div>
+    <div class="daily-hex-pinyin">Xū — Water over Heaven</div>
+
+    <div class="daily-quote">
+      "Nourishment comes to those who wait with confidence"
+    </div>
+
+    <div class="daily-traits">
+      <span class="daily-trait">Patience</span>
+      <span class="daily-trait">Nourishment</span>
+      <span class="daily-trait">Timing</span>
+      <span class="daily-trait">Trust</span>
+    </div>
+  </div>
+
+  <!-- Guidance -->
+  <div class="guidance-section">
+    <h3>🌟 Today's Guidance</h3>
+    <p>Patience is your greatest ally today. The situation requires you to gather your resources and wait for the right moment. Like clouds gathering before rain, the conditions are building — trust the process.</p>
+    <p>Eat well, rest well, and maintain your strength. The action will come when the time is right.</p>
+
+    <div class="lucky-items">
+      <div class="lucky-item">
+        <div class="icon">🧭</div>
+        <div class="label">Direction</div>
+        <div class="value">North</div>
+      </div>
+      <div class="lucky-item">
+        <div class="icon">🎨</div>
+        <div class="label">Color</div>
+        <div class="value">Blue</div>
+      </div>
+      <div class="lucky-item">
+        <div class="icon">🔢</div>
+        <div class="label">Number</div>
+        <div class="value">5</div>
+      </div>
+      <div class="lucky-item">
+        <div class="icon">⏰</div>
+        <div class="label">Hour</div>
+        <div class="value">3-5 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share -->
+  <div class="share-section">
+    <h3>Share Today's Hexagram</h3>
+    <div class="share-buttons">
+      <button class="share-btn">🔗 Copy Link</button>
+      <button class="share-btn">💬 WhatsApp</button>
+      <button class="share-btn">𝕏 Twitter</button>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="history-section">
+    <h3>Previous Days</h3>
+    <div class="history-scroll">
+      <div class="history-card">
+        <div class="history-date">23</div>
+        <div class="history-symbol">䷃</div>
+      </div>
+      <div class="history-card">
+        <div class="history-date">22</div>
+        <div class="history-symbol">䷕</div>
+      </div>
+      <div class="history-card">
+        <div class="history-date">21</div>
+        <div class="history-symbol">䷑</div>
+      </div>
+      <div class="history-card">
+        <div class="history-date">20</div>
+        <div class="history-symbol">䷓</div>
+      </div>
+      <div class="history-card">
+        <div class="history-date">19</div>
+        <div class="history-symbol">䷒</div>
+      </div>
+      <div class="history-card">
+        <div class="history-date">18</div>
+        <div class="history-symbol">䷐</div>
+      </div>
+      <div class="history-card today">
+        <div class="history-date">24</div>
+        <div class="history-symbol">䷄</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <a class="tab-item" href="index.html">
+      <span class="tab-icon">🏠</span>
+      Home
+    </a>
+    <a class="tab-item" href="cast.html">
+      <span class="tab-icon">☯</span>
+      Cast
+    </a>
+    <a class="tab-item active" href="daily.html">
+      <span class="tab-icon">📅</span>
+      Daily
+    </a>
+    <a class="tab-item" href="profile.html">
+      <span class="tab-icon">👤</span>
+      Profile
+    </a>
+  </div>
+
+</body>
+</html>
