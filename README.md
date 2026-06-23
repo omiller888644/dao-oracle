@@ -2,6 +2,8 @@
 
 Mobile-first MVP prototype for Dao Oracle, an I Ching-inspired reading experience for Western users.
 
+这是一个针对欧美市场的东方神秘能量启示网站。
+
 ## Current Prototype
 
 Open this file in a browser:
