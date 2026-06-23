@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dao Oracle - MVP Ritual Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #03050d;
+      --deep: #07101f;
+      --night: #0c1728;
+      --panel: rgba(9, 18, 32, 0.72);
+      --panel-strong: rgba(12, 23, 40, 0.9);
+      --gold: #d9b45f;
+      --gold-bright: #f0d996;
+      --jade: #69c6a3;
+      --mist: #d8e0eb;
+      --soft: #9ba9bb;
+      --muted: #69788e;
+      --line: rgba(217, 180, 95, 0.22);
+      --danger: #e6a66d;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius: 18px;
+      --max: 430px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--void);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--mist);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(72, 112, 185, 0.32), transparent 34rem),
+        radial-gradient(circle at 76% 12%, rgba(105, 198, 163, 0.14), transparent 30rem),
+        radial-gradient(circle at 50% 82%, rgba(217, 180, 95, 0.14), transparent 34rem),
+        linear-gradient(145deg, #02040a 0%, #081321 48%, #02040a 100%);
+      overflow-x: hidden;
+    }
+
+    button,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cosmic-vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(3, 5, 13, 0.88), transparent 28%, transparent 70%, rgba(3, 5, 13, 0.9)),
+        radial-gradient(circle at center, transparent 0 40%, rgba(3, 5, 13, 0.62) 76%, rgba(3, 5, 13, 0.94) 100%);
+    }
+
+    .app {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .phone-shell {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      background:
+        linear-gradient(180deg, rgba(3, 5, 13, 0.28), rgba(3, 5, 13, 0.82)),
+        radial-gradient(circle at 50% 8%, rgba(105, 198, 163, 0.08), transparent 18rem);
+      box-shadow: 0 0 90px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      right: auto;
+      width: min(100%, var(--max));
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      pointer-events: none;
+    }
+
+    .topbar-inner {
+      width: calc(100% - 24px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      background: rgba(3, 7, 15, 0.58);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.24);
+      pointer-events: auto;
+    }
+
+    .progress-rail {
+      width: calc(100% - 34px);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+      pointer-events: none;
+    }
+
+    .progress-step {
+      min-width: 0;
+      padding: 7px 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      color: rgba(216, 224, 235, 0.58);
+      background: rgba(3, 7, 15, 0.36);
+      backdrop-filter: blur(14px);
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+    }
+
+    .progress-step.active {
+      color: #fff8e8;
+      border-color: rgba(217, 180, 95, 0.5);
+      background: rgba(217, 180, 95, 0.12);
+      box-shadow: 0 0 28px rgba(217, 180, 95, 0.12);
+    }
+
+    .progress-step.done {
+      color: rgba(223, 247, 236, 0.76);
+      border-color: rgba(105, 198, 163, 0.32);
+      background: rgba(105, 198, 163, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: var(--gold-bright);
+      border: 1px solid rgba(217, 180, 95, 0.45);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 180, 95, 0.16), rgba(105, 198, 163, 0.04));
+      font-family: "Cormorant Garamond", serif;
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: #fff8e8;
+      white-space: nowrap;
+    }
+
+    .privacy-note {
+      color: var(--soft);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .nav-reset {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--mist);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 132px 16px 34px;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .shell {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 24px;
+      min-height: calc(100vh - 126px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold-bright);
+      margin-bottom: 22px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Cormorant Garamond", serif;
+      margin: 0;
+      color: #fff8e8;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(48px, 15vw, 66px);
+      line-height: 0.92;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(34px, 10vw, 46px);
+      line-height: 0.96;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 26px;
+      line-height: 1.05;
+    }
+
+    .lead {
+      max-width: 640px;
+      margin: 26px 0 0;
+      color: #cbd6e4;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .story {
+      margin-top: 30px;
+      max-width: 680px;
+      padding-left: 20px;
+      border-left: 1px solid rgba(217, 180, 95, 0.42);
+      color: var(--soft);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .primary,
+    .secondary,
+    .ghost {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 700;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .primary {
+      color: #11100a;
+      background: linear-gradient(135deg, #f4d98d, #c99a39 48%, #f0d996);
+      box-shadow: 0 18px 50px rgba(217, 180, 95, 0.26);
+    }
+
+    .secondary {
+      color: var(--mist);
+      border-color: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .ghost {
+      color: var(--gold-bright);
+      border-color: rgba(217, 180, 95, 0.28);
+      background: rgba(217, 180, 95, 0.06);
+    }
+
+    .primary:hover,
+    .secondary:hover,
+    .ghost:hover {
+      transform: translateY(-2px);
+    }
+
+    .oracle-stage {
+      position: relative;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbit {
+      position: absolute;
+      width: min(88vw, 360px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(217, 180, 95, 0.16);
+      border-radius: 50%;
+      animation: rotate 28s linear infinite;
+    }
+
+    .orbit:nth-child(2) {
+      width: min(70vw, 285px);
+      transform: rotate(24deg);
+      border-color: rgba(105, 198, 163, 0.13);
+      animation-duration: 22s;
+      animation-direction: reverse;
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 24px rgba(240, 217, 150, 0.9);
+    }
+
+    .orbit::before {
+      top: 9%;
+      left: 21%;
+    }
+
+    .orbit::after {
+      right: 13%;
+      bottom: 18%;
+      background: var(--jade);
+      box-shadow: 0 0 24px rgba(105, 198, 163, 0.86);
+    }
+
+    .turtle-wrap {
+      position: relative;
+      width: min(74vw, 300px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      filter: drop-shadow(0 32px 70px rgba(0, 0, 0, 0.55));
+    }
+
+    .oracle-gate {
+      position: absolute;
+      width: 78%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(240, 217, 150, 0.34), transparent 6%),
+        radial-gradient(circle at 50% 50%, rgba(105, 198, 163, 0.12), transparent 28%),
+        conic-gradient(from 14deg, rgba(217, 180, 95, 0.04), rgba(217, 180, 95, 0.34), rgba(105, 198, 163, 0.14), rgba(217, 180, 95, 0.04)),
+        radial-gradient(circle at 50% 50%, rgba(5, 14, 28, 0.04), rgba(5, 14, 28, 0.92) 72%);
+      border: 1px solid rgba(240, 217, 150, 0.38);
+      box-shadow:
+        inset 0 0 40px rgba(217, 180, 95, 0.1),
+        inset 0 0 95px rgba(0, 0, 0, 0.7),
+        0 0 80px rgba(217, 180, 95, 0.22),
+        0 0 110px rgba(105, 198, 163, 0.12);
+    }
+
+    .oracle-gate::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      border: 1px solid rgba(240, 217, 150, 0.22);
+      box-shadow:
+        0 0 0 18px rgba(217, 180, 95, 0.035),
+        inset 0 0 32px rgba(105, 198, 163, 0.08);
+      z-index: 2;
+    }
+
+    .oracle-gate::after {
+      content: "";
+      position: absolute;
+      inset: 29%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 247, 217, 0.8), rgba(217, 180, 95, 0.28) 24%, transparent 58%);
+      filter: blur(1px);
+      z-index: 3;
+    }
+
+    .gate-stars {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 28% 34%, rgba(255, 247, 217, 0.9) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 28%, rgba(105, 198, 163, 0.82) 0 1px, transparent 2px),
+        radial-gradient(circle at 62% 72%, rgba(255, 247, 217, 0.72) 0 1px, transparent 2px),
+        radial-gradient(circle at 36% 70%, rgba(217, 180, 95, 0.72) 0 1px, transparent 2px);
+      opacity: 0.95;
+      z-index: 4;
+      animation: gateDrift 8s ease-in-out infinite;
+    }
+
+    .bagua-ring {
+      position: absolute;
+      inset: 7%;
+      z-index: 5;
+      border-radius: 50%;
+      animation: gateRotate 42s linear infinite;
+    }
+
+    .bagua-mark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: rgba(255, 240, 188, 0.74);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 20px;
+      line-height: 1;
+      transform:
+        rotate(calc(var(--i) * 45deg))
+        translateY(-112px)
+        rotate(calc(var(--i) * -45deg));
+      transform-origin: center;
+      text-shadow: 0 0 16px rgba(217, 180, 95, 0.6);
+    }
+
+    .gate-lines {
+      position: absolute;
+      inset: 34%;
+      z-index: 6;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 6px;
+      justify-content: center;
+      opacity: 0.58;
+    }
+
+    .gate-lines .line-shape {
+      opacity: 0;
+      transform: translateY(58px) scaleX(0.02);
+      transform-origin: 50% 50%;
+      animation: lineBurst 1120ms cubic-bezier(0.13, 0.92, 0.18, 1) forwards;
+      filter: blur(9px) drop-shadow(0 0 38px rgba(240, 217, 150, 1));
+    }
+
+    .sigil {
+      position: absolute;
+      inset: 16%;
+      border: 1px solid rgba(217, 180, 95, 0.22);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: rgba(240, 217, 150, 0.5);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 120px;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .quote-band {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-top: 20px;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .quote-band strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold-bright);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .focus-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+      padding-top: 8px;
+    }
+
+    .panel {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .copy-panel {
+      padding: 28px;
+    }
+
+    .copy-panel p {
+      margin: 18px 0 0;
+      color: var(--soft);
+      line-height: 1.68;
+    }
+
+    .form-panel {
+      padding: 28px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 12px;
+      color: #f3ead1;
+      font-weight: 700;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 164px;
+      resize: vertical;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      color: var(--mist);
+      background: rgba(0, 0, 0, 0.22);
+      padding: 18px;
+      outline: none;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      border-color: rgba(217, 180, 95, 0.7);
+      box-shadow: 0 0 0 4px rgba(217, 180, 95, 0.1);
+    }
+
+    .intent-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 24px;
+    }
+
+    .intent {
+      min-height: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      color: var(--mist);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 14px;
+    }
+
+    .intent.selected {
+      border-color: rgba(105, 198, 163, 0.72);
+      color: #dff7ec;
+      background: rgba(105, 198, 163, 0.16);
+    }
+
+    .ritual-screen {
+      min-height: 100vh;
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+
+    .ritual-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+      align-items: start;
+      min-height: calc(100vh - 118px);
+    }
+
+    .ritual-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .ritual-copy p {
+      max-width: 520px;
+      color: var(--soft);
+      line-height: 1.7;
+      margin: 14px 0 0;
+    }
+
+    .line-shape {
+      height: 12px;
+      position: relative;
+      opacity: 0.28;
+      transition: opacity 240ms ease, filter 240ms ease, transform 240ms ease;
+    }
+
+    .yang,
+    .yin {
+      display: grid;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .yang::before,
+    .yin::before,
+    .yin::after {
+      content: "";
+      display: block;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(217, 180, 95, 0.7), #f4d98d, rgba(105, 198, 163, 0.56));
+    }
+
+    .yin {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ritual-orbit {
+      min-height: 390px;
+      margin-top: -18px;
+    }
+
+    .ritual-orbit .orbit {
+      opacity: 0.48;
+    }
+
+    .ritual-orbit.gatePulse .oracle-gate,
+    .ritual-orbit.gatePulse .sigil {
+      animation: gatePulse 940ms ease-in-out;
+    }
+
+    .ritual-orbit.gatePulse .bagua-ring,
+    .ritual-orbit.gatePulse .gate-stars {
+      animation: gateRecede 940ms ease-in-out;
+    }
+
+    .ritual-orbit.revealing .oracle-gate,
+    .ritual-orbit.revealing .sigil {
+      animation: vanishGate 1300ms ease forwards;
+    }
+
+    .cosmic-pulse {
+      position: absolute;
+      inset: 0;
+      z-index: 9;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+
+    .pulse-event {
+      position: absolute;
+      width: min(68vw, 280px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      animation: pulseEvent 1580ms ease forwards;
+    }
+
+    .pulse-core {
+      width: 18px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 248, 221, 0.88) 0 16%, rgba(240, 217, 150, 0.68) 17% 42%, rgba(105, 198, 163, 0.18) 72%, transparent 73%);
+      box-shadow:
+        0 0 14px rgba(240, 217, 150, 0.52),
+        0 0 34px rgba(105, 198, 163, 0.22);
+      animation: pulseCore 1580ms cubic-bezier(0.28, 0.74, 0.22, 1) forwards;
+    }
+
+    .pulse-wave {
+      position: absolute;
+      width: 30px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(240, 217, 150, 0.26);
+      border-radius: 50%;
+      box-shadow:
+        0 0 12px rgba(240, 217, 150, 0.16),
+        inset 0 0 14px rgba(105, 198, 163, 0.08);
+      animation: pulseWave 1580ms cubic-bezier(0.26, 0.68, 0.28, 1) forwards;
+    }
+
+    .pulse-wave:nth-child(2) {
+      border-color: rgba(105, 198, 163, 0.22);
+      animation-delay: 160ms;
+    }
+
+    .hex-reveal .line-shape {
+      opacity: 0;
+      transform: translateY(12px) scaleX(0.76);
+      filter: blur(8px) drop-shadow(0 0 26px rgba(240, 217, 150, 0.9));
+    }
+
+    .hex-reveal.visible .line-shape {
+      animation: constellationLine 920ms cubic-bezier(0.16, 0.84, 0.2, 1) forwards;
+      animation-delay: calc(var(--line-index, 0) * 110ms + 180ms);
+    }
+
+    .hex-reveal {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: translateY(18px) scale(0.68);
+      pointer-events: none;
+    }
+
+    .hex-reveal.visible {
+      animation: revealHex 1650ms cubic-bezier(0.16, 0.9, 0.22, 1) forwards;
+    }
+
+    .hexagram-stack {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 12px;
+      width: min(56vw, 230px);
+    }
+
+    .hexagram-stack .line-shape {
+      height: 16px;
+      opacity: 1;
+    }
+
+    .result-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding-top: 8px;
+    }
+
+    .result-symbol {
+      padding: 20px;
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: static;
+    }
+
+    .big-hex {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle, rgba(217, 180, 95, 0.2), transparent 62%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+      border: 1px solid rgba(217, 180, 95, 0.18);
+    }
+
+    .big-hex .hexagram-stack {
+      width: min(220px, 70%);
+      gap: 10px;
+    }
+
+    .result-title {
+      margin-top: 26px;
+    }
+
+    .result-title .number {
+      color: var(--gold-bright);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .result-title h2 {
+      margin-top: 10px;
+      font-size: clamp(40px, 5vw, 58px);
+    }
+
+    .result-title p {
+      margin: 12px 0 0;
+      color: var(--soft);
+    }
+
+    .reading {
+      display: grid;
+      gap: 16px;
+    }
+
+    .reading-card {
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: var(--radius);
+      background: rgba(7, 14, 25, 0.66);
+      backdrop-filter: blur(14px);
+    }
+
+    .reading-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .reading-card p {
+      color: #c5d1df;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .layer-label {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: var(--gold-bright);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .layer-card {
+      border-color: rgba(105, 198, 163, 0.13);
+    }
+
+    .oracle-text {
+      color: var(--gold-bright);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .paywall {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(217, 180, 95, 0.28);
+      background:
+        linear-gradient(135deg, rgba(217, 180, 95, 0.16), rgba(105, 198, 163, 0.08)),
+        rgba(7, 14, 25, 0.72);
+    }
+
+    .locked-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .locked-list span {
+      color: #dce7f1;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(0, 0, 0, 0.16);
+      font-size: 13px;
+    }
+
+    .price {
+      color: var(--gold-bright);
+      font-weight: 800;
+    }
+
+    .full-reading {
+      display: none;
+      border-color: rgba(105, 198, 163, 0.32);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(105, 198, 163, 0.13), transparent 20rem),
+        rgba(7, 14, 25, 0.72);
+    }
+
+    .full-reading.visible {
+      display: block;
+    }
+
+    .full-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .full-item {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .full-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #fff3d4;
+      font-size: 13px;
+    }
+
+    .unlock-note {
+      display: none;
+      margin-top: 14px;
+      color: #dff7ec;
+      font-size: 13px;
+    }
+
+    .unlock-note.visible {
+      display: block;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      place-items: center;
+      padding: 22px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal-backdrop.active {
+      display: grid;
+    }
+
+    .modal {
+      width: min(520px, 100%);
+      padding: 28px;
+      border: 1px solid rgba(217, 180, 95, 0.24);
+      border-radius: 22px;
+      background: var(--panel-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .modal p {
+      color: var(--soft);
+      line-height: 1.7;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .toast {
+      min-height: 22px;
+      margin-top: 12px;
+      color: var(--danger);
+      font-size: 13px;
+    }
+
+    .cosmic-tunnel {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      display: none;
+      place-items: center;
+      background:
+        radial-gradient(circle, rgba(217, 180, 95, 0.2), transparent 22%),
+        radial-gradient(circle, rgba(18, 34, 60, 0.82), rgba(3, 5, 13, 0.96) 68%);
+      pointer-events: none;
+    }
+
+    .cosmic-tunnel.active {
+      display: grid;
+      animation: tunnelFade 1700ms ease forwards;
+    }
+
+    .tunnel-text {
+      max-width: 680px;
+      padding: 0 24px;
+      text-align: center;
+      color: #fff5dd;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1.08;
+      animation: tunnelText 1500ms ease forwards;
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes gateRotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes gateDrift {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.86; }
+      50% { transform: translateY(-5px) scale(1.04); opacity: 1; }
+    }
+
+    @keyframes gatePulse {
+      0%, 100% { transform: scale(1); opacity: 1; filter: brightness(1); }
+      20% { transform: scale(0.9); opacity: 0.58; filter: blur(1px) brightness(0.84); }
+      46% { transform: scale(1.065); opacity: 0.72; filter: brightness(1.32); }
+      72% { transform: scale(0.97); opacity: 0.5; filter: blur(1.5px) brightness(0.88); }
+    }
+
+    @keyframes gateRecede {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      24%, 76% { opacity: 0.28; transform: scale(0.86); }
+    }
+
+    @keyframes lineBurst {
+      0% {
+        opacity: 0;
+        transform: translateY(70px) scaleX(0.02);
+        filter: blur(12px) drop-shadow(0 0 44px rgba(240, 217, 150, 1));
+      }
+      28% {
+        opacity: 1;
+        transform: translateY(-18px) scaleX(1.42);
+        filter: blur(0) drop-shadow(0 0 44px rgba(240, 217, 150, 1));
+      }
+      62% {
+        opacity: 1;
+        transform: translateY(2px) scaleX(0.92);
+        filter: blur(0) drop-shadow(0 0 24px rgba(105, 198, 163, 0.72));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scaleX(1);
+        filter: blur(0) drop-shadow(0 0 18px rgba(217, 180, 95, 0.82));
+      }
+    }
+
+    @keyframes pulseEvent {
+      0% { opacity: 0; transform: scale(0.96); }
+      14%, 76% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1); }
+    }
+
+    @keyframes pulseCore {
+      0% {
+        opacity: 0;
+        transform: scale(0.72);
+        filter: blur(6px) brightness(0.94);
+      }
+      28% {
+        opacity: 0.48;
+        transform: scale(0.9);
+        filter: blur(2px) brightness(1.04);
+      }
+      46% {
+        opacity: 0.72;
+        transform: scale(1.12);
+        filter: blur(0) brightness(1.28);
+      }
+      58% {
+        opacity: 0.64;
+        transform: scale(1.04);
+        filter: blur(0) brightness(1.14);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.82);
+        filter: blur(7px) brightness(0.96);
+      }
+    }
+
+    @keyframes pulseWave {
+      0%, 22% {
+        opacity: 0;
+        transform: scale(0.34);
+      }
+      46% {
+        opacity: 0.34;
+      }
+      68% {
+        opacity: 0.18;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(4.35);
+      }
+    }
+
+    @keyframes constellationLine {
+      0% {
+        opacity: 0;
+        transform: translateY(14px) scaleX(0.72);
+        filter: blur(10px) brightness(1.7) drop-shadow(0 0 30px rgba(240, 217, 150, 1));
+      }
+      42% {
+        opacity: 1;
+        transform: translateY(-2px) scaleX(1.08);
+        filter: blur(0) brightness(1.28) drop-shadow(0 0 24px rgba(105, 198, 163, 0.72));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scaleX(1);
+        filter: blur(0) brightness(1) drop-shadow(0 0 18px rgba(217, 180, 95, 0.82));
+      }
+    }
+
+    @keyframes vanishGate {
+      to {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.72);
+        filter: blur(10px);
+      }
+    }
+
+    @keyframes revealHex {
+      0% { opacity: 0; transform: translateY(28px) scale(0.68); filter: blur(12px) brightness(1.5); }
+      44% { opacity: 1; transform: translateY(-7px) scale(1.08); filter: blur(0) brightness(1.24); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0) brightness(1); }
+    }
+
+    @keyframes tunnelFade {
+      0% { opacity: 0; transform: scale(1.08); }
+      18% { opacity: 1; transform: scale(1); }
+      74% { opacity: 1; }
+      100% { opacity: 0; transform: scale(0.94); }
+    }
+
+    @keyframes tunnelText {
+      0% { opacity: 0; transform: translateY(14px) scale(0.98); }
+      30%, 72% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-12px) scale(1.02); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .topbar-inner {
+        width: calc(100vw - 18px);
+      }
+
+      .privacy-note {
+        display: none;
+      }
+
+      .screen {
+        padding: 88px 14px 30px;
+      }
+
+      .oracle-stage,
+      .ritual-orbit {
+        min-height: 300px;
+      }
+
+      .nav-reset {
+        padding-inline: 10px;
+      }
+
+      h1 {
+        font-size: 56px;
+      }
+
+      .lead {
+        font-size: 17px;
+      }
+
+      .copy-panel,
+      .form-panel,
+      .reading-card,
+      .result-symbol {
+        padding: 20px;
+      }
+
+      .actions,
+      .modal-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .primary,
+      .secondary,
+      .ghost {
+        width: 100%;
+      }
+
+      .intent-grid,
+      .locked-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="cosmic-vignette" aria-hidden="true"></div>
+  <div class="cosmic-tunnel" id="cosmicTunnel" aria-hidden="true">
+    <div class="tunnel-text">The universe grows quiet enough to answer.</div>
+  </div>
+
+  <main class="app phone-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand" aria-label="Dao Oracle">
+          <div class="brand-mark">D</div>
+          <div class="brand-name">Dao Oracle</div>
+        </div>
+        <div class="privacy-note">No login. No saved readings.</div>
+        <button class="nav-reset" type="button" data-reset>Restart</button>
+      </div>
+      <div class="progress-rail" aria-label="Reading progress">
+        <div class="progress-step active" data-step="home">Intro</div>
+        <div class="progress-step" data-step="question">Question</div>
+        <div class="progress-step" data-step="ritual">Ritual</div>
+        <div class="progress-step" data-step="result">Result</div>
+      </div>
+    </header>
+
+    <section class="screen active" data-screen="home">
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow">Ancient Eastern wisdom</div>
+          <h1>Open a quiet channel to the universe.</h1>
+          <p class="lead">Dao Oracle turns the ancient 64 hexagrams into clear guidance for modern life decisions.</p>
+          <div class="story">
+            For over 3,000 years, people in the ancient East turned to the wisdom of the universe before making life's most important decisions. Through symbols, stillness, and the patterns of nature, they listened for guidance beyond the noise of the moment.
+          </div>
+          <div class="actions">
+            <button class="primary" type="button" data-next="question">Begin Your Reading</button>
+            <button class="secondary" type="button" data-next="question">Enter the Oracle</button>
+            <button class="ghost" type="button" data-demo-ritual>Watch ritual animation</button>
+          </div>
+          <div class="quote-band" aria-label="Product principles">
+            <p><strong>Clear first</strong> Practical insight before mystery. Your reading names the situation and the next useful action.</p>
+            <p><strong>Mystery held lightly</strong> The ritual creates space for reflection without fear, pressure, or prediction claims.</p>
+          </div>
+        </div>
+        <div class="oracle-stage" aria-hidden="true">
+          <div class="orbit"></div>
+          <div class="orbit"></div>
+          <div class="turtle-wrap" aria-label="Cosmic oracle gate">
+            <div class="oracle-gate">
+              <div class="gate-stars"></div>
+              <div class="bagua-ring" aria-hidden="true">
+                <span class="bagua-mark" style="--i:0">☰</span>
+                <span class="bagua-mark" style="--i:1">☱</span>
+                <span class="bagua-mark" style="--i:2">☲</span>
+                <span class="bagua-mark" style="--i:3">☳</span>
+                <span class="bagua-mark" style="--i:4">☴</span>
+                <span class="bagua-mark" style="--i:5">☵</span>
+                <span class="bagua-mark" style="--i:6">☶</span>
+                <span class="bagua-mark" style="--i:7">☷</span>
+              </div>
+              <div class="gate-lines">
+                <div class="line-shape yang"></div>
+                <div class="line-shape yin"></div>
+                <div class="line-shape yang"></div>
+              </div>
+            </div>
+            <div class="sigil">䷁</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="question">
+      <div class="shell focus-layout">
+        <div class="copy-panel panel">
+          <div class="eyebrow">Your present question</div>
+          <h2>What question are you carrying?</h2>
+          <p>Write the decision, tension, or feeling you want to understand. The answer will stay in this browser session only for this prototype.</p>
+          <p>Choose the life area closest to your question so the reading can speak in a more useful direction.</p>
+        </div>
+
+        <form class="form-panel panel" id="questionForm">
+          <label class="field-label" for="questionInput">Current question</label>
+          <textarea id="questionInput" placeholder="Example: I feel torn between staying where I am and choosing a new path. What should I understand before deciding?"></textarea>
+
+          <label class="field-label" for="intentButtons">Direction</label>
+          <div class="intent-grid" id="intentButtons">
+            <button class="intent selected" type="button" data-intent="Love">Love</button>
+            <button class="intent" type="button" data-intent="Career">Career</button>
+            <button class="intent" type="button" data-intent="Money">Money</button>
+            <button class="intent" type="button" data-intent="Wellbeing">Wellbeing</button>
+            <button class="intent" type="button" data-intent="Life Path">Life Path</button>
+            <button class="intent" type="button" data-intent="Inner Clarity">Inner Clarity</button>
+          </div>
+
+          <button class="primary" type="submit">Open the Oracle</button>
+          <div class="toast" id="formToast" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="screen ritual-screen" data-screen="ritual">
+      <div class="shell ritual-layout">
+        <div class="ritual-copy">
+          <div class="eyebrow">The six breaths are forming</div>
+          <h2>Let the oracle breathe with the question.</h2>
+          <p id="ritualStatus">The question has entered the ritual. Six quiet pulses will invite the hexagram to surface.</p>
+        </div>
+
+        <div class="oracle-stage ritual-orbit" id="ritualOrbit" aria-label="Animated ritual">
+          <div class="orbit"></div>
+          <div class="orbit"></div>
+          <div class="turtle-wrap" aria-label="Cosmic oracle gate ritual animation">
+            <div class="oracle-gate">
+              <div class="gate-stars"></div>
+              <div class="bagua-ring" aria-hidden="true">
+                <span class="bagua-mark" style="--i:0">☰</span>
+                <span class="bagua-mark" style="--i:1">☱</span>
+                <span class="bagua-mark" style="--i:2">☲</span>
+                <span class="bagua-mark" style="--i:3">☳</span>
+                <span class="bagua-mark" style="--i:4">☴</span>
+                <span class="bagua-mark" style="--i:5">☵</span>
+                <span class="bagua-mark" style="--i:6">☶</span>
+                <span class="bagua-mark" style="--i:7">☷</span>
+              </div>
+            </div>
+            <div class="sigil">䷾</div>
+            <div class="cosmic-pulse" id="cosmicPulse"></div>
+            <div class="hex-reveal" id="hexReveal">
+              <div class="hexagram-stack" id="ritualHexagram"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="result">
+      <div class="shell result-layout">
+        <aside class="result-symbol panel">
+          <div>
+            <div class="big-hex">
+              <div class="hexagram-stack" id="resultHexagram"></div>
+            </div>
+            <div class="result-title">
+              <div class="number" id="hexNumber">Hexagram 2</div>
+              <h2 id="hexName">The Receptive</h2>
+              <p id="hexChinese">Kun / Earth over Earth</p>
+            </div>
+          </div>
+          <button class="secondary" type="button" data-next="question">Ask another question</button>
+        </aside>
+
+        <div class="reading">
+          <article class="reading-card">
+            <h3>Your question</h3>
+            <p id="questionSummary">Your question will appear here.</p>
+          </article>
+
+          <article class="reading-card">
+            <h3>Oracle text</h3>
+            <p class="oracle-text" id="oracleText">Receiving opens the path. Do not force the door; prepare the ground.</p>
+          </article>
+
+          <article class="reading-card">
+            <h3>Simple explanation</h3>
+            <p id="simpleReading">This moment asks for patience, attention, and grounded movement. The useful next step is not to push harder, but to notice what is already forming around you.</p>
+          </article>
+
+          <article class="reading-card layer-card">
+            <div class="layer-label">Cosmic Timing</div>
+            <h3>Why this moment is here</h3>
+            <p id="cosmicReading">This reading points to the timing around your question: what is opening, what is slowing down, and where force would create noise.</p>
+          </article>
+
+          <article class="reading-card layer-card">
+            <div class="layer-label">Human Field</div>
+            <h3>Who is shaping the field</h3>
+            <p id="humanReading">Notice the people and expectations around this question. The useful relationship is the one that makes the situation clearer, not louder.</p>
+          </article>
+
+          <article class="reading-card layer-card">
+            <div class="layer-label">Earthly Leverage</div>
+            <h3>What to do next</h3>
+            <p id="earthReading">Choose one concrete action that restores steadiness today. The oracle is most useful when it becomes a small movement in real life.</p>
+          </article>
+
+          <article class="reading-card">
+            <h3>Guidance for this direction</h3>
+            <p id="directionReading">In this area, the answer is not a dramatic sign. It is a pattern: slow down, gather facts, and choose the step that creates more steadiness.</p>
+          </article>
+
+          <article class="reading-card full-reading" id="fullReading">
+            <h3>Full reading unlocked</h3>
+            <p>The deeper reading expands the symbol into a practical map for the question you brought.</p>
+            <div class="full-grid">
+              <div class="full-item">
+                <strong>Ancient Root</strong>
+                <p id="ancientReading">The old text points to timing, restraint, and the person or action that helps the pattern become clear.</p>
+              </div>
+              <div class="full-item">
+                <strong>Small ritual for today</strong>
+                <p id="ritualReading">Write the question once by hand, breathe with the answer, then take one grounded action before asking again.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="reading-card paywall" id="paywallCard">
+            <h3>Unlock the full reading</h3>
+            <p>The full reading turns the symbol into a practical map for your question.</p>
+            <div class="locked-list">
+              <span>Your current energy</span>
+              <span>The hidden pattern</span>
+              <span>What to do next</span>
+              <span>A small ritual for today</span>
+            </div>
+            <button class="primary" type="button" data-open-payment>Unlock full reading <span class="price">$4.99</span></button>
+            <div class="unlock-note" id="unlockNote">Full reading unlocked in this prototype.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+    <div class="modal">
+      <h3 id="paymentTitle">Payment unlock placeholder</h3>
+      <p>This prototype does not connect Stripe or save user data. In the real MVP, this button will create a one-time checkout and return the user to the unlocked reading.</p>
+      <div class="modal-actions">
+        <button class="primary" type="button" data-complete-payment>Continue prototype</button>
+        <button class="secondary" type="button" data-close-payment>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const screens = [...document.querySelectorAll("[data-screen]")];
+    const progressSteps = [...document.querySelectorAll(".progress-step")];
+    const tunnel = document.getElementById("cosmicTunnel");
+    const form = document.getElementById("questionForm");
+    const questionInput = document.getElementById("questionInput");
+    const formToast = document.getElementById("formToast");
+    const ritualOrbit = document.getElementById("ritualOrbit");
+    const hexReveal = document.getElementById("hexReveal");
+    const ritualHexagram = document.getElementById("ritualHexagram");
+    const resultHexagram = document.getElementById("resultHexagram");
+    const cosmicPulse = document.getElementById("cosmicPulse");
+    const questionSummary = document.getElementById("questionSummary");
+    const directionReading = document.getElementById("directionReading");
+    const cosmicReading = document.getElementById("cosmicReading");
+    const humanReading = document.getElementById("humanReading");
+    const earthReading = document.getElementById("earthReading");
+    const ancientReading = document.getElementById("ancientReading");
+    const ritualReading = document.getElementById("ritualReading");
+    const fullReading = document.getElementById("fullReading");
+    const paywallCard = document.getElementById("paywallCard");
+    const unlockNote = document.getElementById("unlockNote");
+    const paymentModal = document.getElementById("paymentModal");
+
+    const readingState = {
+      question: "",
+      intent: "Love",
+      lines: [],
+      hex: null,
+      unlocked: false
+    };
+
+    const hexagrams = [
+      {
+        number: 1,
+        name: "The Creative",
+        chinese: "Qian / Heaven over Heaven",
+        lines: ["yang", "yang", "yang", "yang", "yang", "yang"],
+        oracle: "Creative force is present. Lead, but do not mistake urgency for clarity.",
+        simple: "This is a moment of initiative. The useful path is direct, but it asks for discipline. Begin with the action that only you can take."
+      },
+      {
+        number: 2,
+        name: "The Receptive",
+        chinese: "Kun / Earth over Earth",
+        lines: ["yin", "yin", "yin", "yin", "yin", "yin"],
+        oracle: "Receiving opens the path. Do not force the door; prepare the ground.",
+        simple: "This moment asks for patience, attention, and grounded movement. The useful next step is not to push harder, but to notice what is already forming around you."
+      },
+      {
+        number: 11,
+        name: "Peace",
+        chinese: "Tai / Earth over Heaven",
+        lines: ["yang", "yang", "yang", "yin", "yin", "yin"],
+        oracle: "The high and low are speaking. Let exchange become movement.",
+        simple: "There is more support than you may be noticing. Use this opening to make a clear, modest move while conditions are cooperative."
+      },
+      {
+        number: 24,
+        name: "Return",
+        chinese: "Fu / Earth over Thunder",
+        lines: ["yang", "yin", "yin", "yin", "yin", "yin"],
+        oracle: "The first light returns beneath the earth. Begin again without drama.",
+        simple: "Something important is restarting. Do not demand a complete answer today. Protect the small signal and let it grow."
+      },
+      {
+        number: 29,
+        name: "The Abyss",
+        chinese: "Kan / Water over Water",
+        lines: ["yin", "yang", "yin", "yin", "yang", "yin"],
+        oracle: "Water repeats its lesson until fear becomes skill.",
+        simple: "You may be in a repeating challenge. The answer is not panic, but method: name the risk, reduce it, and keep moving carefully."
+      },
+      {
+        number: 37,
+        name: "The Family",
+        chinese: "Jia Ren / Wind over Fire",
+        lines: ["yang", "yin", "yang", "yin", "yang", "yang"],
+        oracle: "Order begins close to the heart. Repair the room before walking the road.",
+        simple: "The pattern points to relationships, roles, and boundaries. Clarify what belongs to you, then speak with steadiness."
+      },
+      {
+        number: 46,
+        name: "Pushing Upward",
+        chinese: "Sheng / Earth over Wind",
+        lines: ["yin", "yang", "yang", "yin", "yin", "yin"],
+        oracle: "Growth rises quietly through the unseen roots.",
+        simple: "This is not a leap; it is an ascent. Choose the next practical step and repeat it until the direction becomes undeniable."
+      },
+      {
+        number: 61,
+        name: "Inner Truth",
+        chinese: "Zhong Fu / Wind over Lake",
+        lines: ["yang", "yang", "yin", "yin", "yang", "yang"],
+        oracle: "When the center is sincere, the outer world softens.",
+        simple: "The answer depends on honesty. Before choosing, separate what you truly know from what you are performing for others."
+      }
+    ];
+
+    const directionCopy = {
+      Love: "In love, this reading asks you to look for the pattern beneath the feeling. Move toward honesty, not intensity.",
+      Career: "In career, the useful step is concrete: reduce uncertainty, choose the next visible action, and let momentum build.",
+      Money: "With money, this reading points to timing and restraint. Protect stability before chasing expansion.",
+      Wellbeing: "For wellbeing, this is not a diagnosis. It is an invitation to reduce noise, protect rest, and listen to what your body has been repeating.",
+      "Life Path": "For life direction, the answer is not a final map. It is a next threshold. Walk toward what creates more truth and steadiness.",
+      "Inner Clarity": "For inner clarity, the signal is already present. Lower the noise, name the fear, and listen for the quieter answer."
+    };
+
+    const layerCopy = {
+      1: {
+        cosmic: "Creative force is available, but it needs direction. This is a window for initiation, not scattered urgency.",
+        human: "Others may look to you for a signal. Choose collaborators who can question you without dimming the vision.",
+        earth: "Give the first clear hour of your day to one project. Protect the beginning before explaining it to everyone.",
+        ancient: "Qian is pure Heaven over Heaven: aligned action, persistence, and the discipline to create without forcing.",
+        ritual: "Light one small lamp or candle before beginning the next task. Let it mark a clean start."
+      },
+      2: {
+        cosmic: "The field is receptive. Something is forming quietly, and force would disturb the soil before the seed is ready.",
+        human: "Support may arrive through quiet presence rather than advice. Notice who helps you feel grounded.",
+        earth: "Prepare the container: clear the space, rest the body, and receive what is already approaching.",
+        ancient: "Kun is Earth over Earth: the wisdom of holding, receiving, and giving form to what wants to arrive.",
+        ritual: "Place both feet on the floor, breathe slowly six times, then write down what is asking to be received."
+      },
+      11: {
+        cosmic: "The channels are open. What is above and below can speak to each other if you do not over-control the exchange.",
+        human: "This is a favorable moment for reconnection. Send an opening, not a demand.",
+        earth: "Share one useful thing: credit, information, a sincere message, or practical help.",
+        ancient: "Tai is Earth over Heaven: the small recedes, the great approaches, and flow becomes possible.",
+        ritual: "Offer a simple gesture of goodwill to one person without asking for anything back."
+      },
+      24: {
+        cosmic: "A small return is beginning. Do not demand full certainty from the first light.",
+        human: "Someone or something familiar may re-enter the field. Meet it with clarity, not old reflex.",
+        earth: "Restart one habit at its smallest possible scale. Make the return easy enough to repeat.",
+        ancient: "Fu is Return: the first yang line comes back beneath the earth, signaling renewal after stillness.",
+        ritual: "Write one sentence: I return to _____. Then take one action that proves it quietly."
+      },
+      29: {
+        cosmic: "You may be inside a repeating difficulty. The lesson is not panic; it is learning how to move through depth.",
+        human: "Seek the person who stays calm in uncertain water. Avoid anyone who turns danger into drama.",
+        earth: "Name the risk, reduce one part of it, and keep moving carefully rather than freezing.",
+        ancient: "Kan is Water over Water: repeated depth, danger, and the skill that comes from honest practice.",
+        ritual: "Drink a glass of water slowly, then write the one risk you can reduce today."
+      },
+      37: {
+        cosmic: "Order begins close to the center. Before the outer path clears, the inner room asks for repair.",
+        human: "Roles and expectations matter here. Clarify what belongs to you and what does not.",
+        earth: "Have one direct conversation or repair one small domestic disorder. The pattern starts nearby.",
+        ancient: "Jia Ren is Wind over Fire: the hearth, the household, and the discipline of care.",
+        ritual: "Clear one visible surface at home, then send one honest message to someone in your close circle."
+      },
+      46: {
+        cosmic: "Growth is rising through hidden roots. This is ascent by steady repetition, not a leap.",
+        human: "Look for mentors and environments that make gradual progress easier. Avoid those who demand instant proof.",
+        earth: "Choose one upward action and repeat it daily: one page, one outreach, one practice session.",
+        ancient: "Sheng is Earth over Wind: growth pushing upward through patient, almost invisible movement.",
+        ritual: "Put one small marker where you work. Each day, move it slightly upward after completing the practice."
+      },
+      61: {
+        cosmic: "The center is asking for sincerity. The useful answer comes when performance drops and truth can resonate.",
+        human: "Those aligned with you will feel the truth without pressure. Those not aligned may resist more evidence.",
+        earth: "Say one true thing simply. Reduce performance, increase clarity.",
+        ancient: "Zhong Fu is Wind over Lake: inner truth moving across still water, creating ripples without force.",
+        ritual: "Place a hand over the heart, breathe once, and say the sentence you have been avoiding."
+      }
+    };
+
+    function updateProgress(name) {
+      const order = ["home", "question", "ritual", "result"];
+      const activeIndex = order.indexOf(name);
+      progressSteps.forEach((step) => {
+        const stepIndex = order.indexOf(step.dataset.step);
+        step.classList.toggle("active", step.dataset.step === name);
+        step.classList.toggle("done", stepIndex > -1 && stepIndex < activeIndex);
+      });
+    }
+
+    function resetUnlockState() {
+      readingState.unlocked = false;
+      fullReading.classList.remove("visible");
+      paywallCard.style.display = "";
+      unlockNote.classList.remove("visible");
+    }
+
+    function showScreen(name, withTunnel = false) {
+      const reveal = () => {
+        screens.forEach((screen) => screen.classList.toggle("active", screen.dataset.screen === name));
+        updateProgress(name);
+        window.scrollTo({ top: 0, behavior: "instant" });
+      };
+
+      if (!withTunnel) {
+        reveal();
+        return;
+      }
+
+      tunnel.classList.remove("active");
+      void tunnel.offsetWidth;
+      tunnel.classList.add("active");
+      window.setTimeout(reveal, 980);
+      window.setTimeout(() => tunnel.classList.remove("active"), 1750);
+    }
+
+    function lineEl(type, index = 0) {
+      const el = document.createElement("div");
+      el.className = `line-shape ${type}`;
+      el.style.setProperty("--line-index", index);
+      return el;
+    }
+
+    function renderLines(container, lines) {
+      container.innerHTML = "";
+      lines.forEach((type, index) => container.appendChild(lineEl(type, index)));
+    }
+
+    function pulseEl(index) {
+      const pulse = document.createElement("div");
+      pulse.className = "pulse-event";
+      pulse.style.setProperty("--pulse-index", index);
+      pulse.innerHTML = '<span class="pulse-wave"></span><span class="pulse-wave"></span><span class="pulse-core"></span>';
+      return pulse;
+    }
+
+    function selectHexagram() {
+      const seed = `${readingState.question}|${readingState.intent}`.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const hex = hexagrams[seed % hexagrams.length];
+      readingState.hex = hex;
+      readingState.lines = hex.lines;
+      renderLines(ritualHexagram, hex.lines);
+      renderLines(resultHexagram, hex.lines);
+      cosmicPulse.innerHTML = "";
+    }
+
+    function runRitual() {
+      ritualOrbit.classList.remove("revealing");
+      ritualOrbit.classList.remove("gatePulse");
+      hexReveal.classList.remove("visible");
+      cosmicPulse.innerHTML = "";
+
+      const pulseInterval = 1580;
+
+      readingState.lines.forEach((_line, index) => {
+        window.setTimeout(() => {
+          ritualOrbit.classList.remove("gatePulse");
+          void ritualOrbit.offsetWidth;
+          ritualOrbit.classList.add("gatePulse");
+          cosmicPulse.innerHTML = "";
+          cosmicPulse.appendChild(pulseEl(index));
+          document.getElementById("ritualStatus").textContent = `Pulse ${index + 1} resonates through the oracle.`;
+        }, index * pulseInterval);
+      });
+
+      window.setTimeout(() => {
+        ritualOrbit.classList.remove("gatePulse");
+        ritualOrbit.classList.add("revealing");
+        document.getElementById("ritualStatus").textContent = "The hexagram has surfaced.";
+      }, pulseInterval * 6 + 620);
+
+      window.setTimeout(() => {
+        cosmicPulse.innerHTML = "";
+        hexReveal.classList.add("visible");
+      }, pulseInterval * 6 + 1550);
+
+      window.setTimeout(showResult, pulseInterval * 6 + 3550);
+    }
+
+    function showResult() {
+      const hex = readingState.hex;
+      const layers = layerCopy[hex.number];
+      document.getElementById("hexNumber").textContent = `Hexagram ${hex.number}`;
+      document.getElementById("hexName").textContent = hex.name;
+      document.getElementById("hexChinese").textContent = hex.chinese;
+      document.getElementById("oracleText").textContent = hex.oracle;
+      document.getElementById("simpleReading").textContent = hex.simple;
+      questionSummary.textContent = readingState.question || "A quiet question about what should come next.";
+      directionReading.textContent = directionCopy[readingState.intent];
+      cosmicReading.textContent = layers.cosmic;
+      humanReading.textContent = layers.human;
+      earthReading.textContent = layers.earth;
+      ancientReading.textContent = layers.ancient;
+      ritualReading.textContent = layers.ritual;
+      if (!readingState.unlocked) {
+        resetUnlockState();
+      }
+      showScreen("result");
+    }
+
+    document.querySelectorAll("[data-next]").forEach((button) => {
+      button.addEventListener("click", () => showScreen(button.dataset.next, button.dataset.next === "question"));
+    });
+
+    document.querySelectorAll("[data-reset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        questionInput.value = "";
+        readingState.question = "";
+        readingState.intent = "Love";
+        resetUnlockState();
+        document.querySelectorAll(".intent").forEach((intent) => intent.classList.toggle("selected", intent.dataset.intent === "Love"));
+        showScreen("home");
+      });
+    });
+
+    document.querySelectorAll(".intent").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".intent").forEach((intent) => intent.classList.remove("selected"));
+        button.classList.add("selected");
+        readingState.intent = button.dataset.intent;
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const question = questionInput.value.trim();
+
+      if (question.length < 8) {
+        formToast.textContent = "Write one clear question before opening the oracle.";
+        return;
+      }
+
+      formToast.textContent = "";
+      readingState.question = question;
+      resetUnlockState();
+      selectHexagram();
+      showScreen("ritual", true);
+      window.setTimeout(runRitual, 1200);
+    });
+
+    document.querySelector("[data-demo-ritual]").addEventListener("click", () => {
+      readingState.question = "Show me the ritual path before the answer appears.";
+      readingState.intent = "Life Path";
+      resetUnlockState();
+      selectHexagram();
+      showScreen("ritual", true);
+      window.setTimeout(runRitual, 1200);
+    });
+
+    document.querySelector("[data-open-payment]").addEventListener("click", () => {
+      paymentModal.classList.add("active");
+    });
+
+    document.querySelectorAll("[data-close-payment]").forEach((button) => {
+      button.addEventListener("click", () => paymentModal.classList.remove("active"));
+    });
+
+    document.querySelector("[data-complete-payment]").addEventListener("click", () => {
+      readingState.unlocked = true;
+      paymentModal.classList.remove("active");
+      fullReading.classList.add("visible");
+      paywallCard.style.display = "none";
+      unlockNote.classList.add("visible");
+    });
+
+    paymentModal.addEventListener("click", (event) => {
+      if (event.target === paymentModal) {
+        paymentModal.classList.remove("active");
+      }
+    });
+
+    function startStars() {
+      const canvas = document.querySelector(".stars");
+      const ctx = canvas.getContext("2d");
+      const stars = [];
+      const density = window.matchMedia("(max-width: 700px)").matches ? 92 : 170;
+      let width = 0;
+      let height = 0;
+      let raf = null;
+
+      function resize() {
+        width = canvas.width = Math.floor(window.innerWidth * window.devicePixelRatio);
+        height = canvas.height = Math.floor(window.innerHeight * window.devicePixelRatio);
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+        stars.length = 0;
+        for (let i = 0; i < density; i += 1) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 1.45 + 0.28,
+            v: Math.random() * 0.18 + 0.04,
+            glow: Math.random() * 0.7 + 0.28
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        const cx = width * 0.5;
+        const cy = height * 0.48;
+
+        stars.forEach((star) => {
+          star.y += star.v * window.devicePixelRatio;
+          star.x += Math.sin((star.y + star.r) * 0.004) * 0.08;
+          if (star.y > height + 10) {
+            star.y = -10;
+            star.x = Math.random() * width;
+          }
+
+          const dist = Math.hypot(star.x - cx, star.y - cy);
+          const alpha = Math.max(0.18, 1 - dist / Math.max(width, height)) * star.glow;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r * window.devicePixelRatio, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(232, 236, 255, ${alpha})`;
+          ctx.fill();
+        });
+
+        raf = requestAnimationFrame(draw);
+      }
+
+      resize();
+      draw();
+      window.addEventListener("resize", () => {
+        cancelAnimationFrame(raf);
+        resize();
+        draw();
+      });
+    }
+
+    startStars();
+  </script>
+</body>
+</html>
