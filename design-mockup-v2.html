@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dao Oracle — Design Mockup v2 (Scheme D)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DAO ORACLE — DESIGN MOCKUP v2
+   Scheme D: 深夜空蓝 + 月银 + 暗金
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* Backgrounds (3-layer depth) */
+  --bg-deep:    #080d1a;
+  --bg-mid:     #0f1628;
+  --bg-surface: #162040;
+  --bg-elevated:#1e2a45;
+  
+  /* Gold (3-tier) */
+  --gold-bright: #e8d48b;
+  --gold:        #c9a84c;
+  --gold-dark:   #a8893a;
+  
+  /* Moon Silver */
+  --silver:      #c0c8d8;
+  --silver-dim:  #5a6a80;
+  
+  /* Text */
+  --text:        #e8e0d0;
+  --text-secondary: #94a3b8;
+  --text-muted:  #5a6a80;
+  
+  /* Spacing (8px base) */
+  --s-4:  4px;
+  --s-8:  8px;
+  --s-16: 16px;
+  --s-24: 24px;
+  --s-32: 32px;
+  --s-48: 48px;
+  
+  /* Radii */
+  --r-sm:   8px;
+  --r-md:  12px;
+  --r-lg:  20px;
+  --r-pill: 9999px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  }
+
+/* ═══════════════════════════════════════════════
+   LAYOUT: 6 screens side-by-side on wide canvas
+   ═══════════════════════════════════════════════ */
+.mockup-strip {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  display: flex;
+  gap: 32px;
+  padding: 24px;
+  min-width: max-content;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+.screen {
+  width: 390px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--bg-mid);
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+
+.screen-inner {
+  padding: 0;
+  min-height: 780px;
+}
+
+/* Screen labels */
+.screen-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 16px 20px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   ANNOTATION SYSTEM
+   ═══════════════════════════════════════════════ */
+.annotation {
+  position: absolute;
+  left: -180px;
+  width: 160px;
+  font-size: 10px;
+  color: var(--silver-dim);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  text-align: right;
+  padding: 6px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.annotation strong {
+  color: var(--gold);
+  display: block;
+  font-weight: 500;
+  font-size: 11px;
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 1: HOME
+   ═══════════════════════════════════════════════ */
+.home-hero {
+  text-align: center;
+  padding: 48px 24px 32px;
+}
+
+.hex-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto 24px;
+}
+
+.hex-logo .yang-line {
+  width: 64px;
+  height: 4px;
+  background: var(--gold-bright);
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(232,212,139,0.4);
+}
+
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 6px;
+  margin-bottom: 4px;
+}
+
+.tagline {
+  font-size: 13px;
+  color: var(--silver);
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.hero-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 24px 0 32px;
+  font-style: italic;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  height: 52px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  border-radius: var(--r-lg);
+  font-size: 17px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(201,168,76,0.2);
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 40px rgba(201,168,76,0.4);
+  transform: translateY(-1px);
+}
+
+.home-features {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 40px;
+  padding: 0 20px;
+}
+
+.home-feat {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.home-feat .feat-icon {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 6px;
+  color: var(--silver);
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 2: QUESTION
+   ═══════════════════════════════════════════════ */
+.question-area {
+  padding: 24px 20px;
+}
+
+.question-prompt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--silver);
+  text-align: center;
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+
+.intent-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.intent-btn {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-md);
+  padding: 16px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+}
+
+.intent-btn:hover, .intent-btn.active {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+  color: var(--gold-bright);
+}
+
+.intent-btn .intent-emoji {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.intent-btn.active {
+  box-shadow: 0 0 16px rgba(201,168,76,0.1);
+}
+
+.text-input-area {
+  margin-top: 20px;
+}
+
+.text-input-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.text-input {
+  width: 100%;
+  height: 80px;
+  background: var(--bg-deep);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-md);
+  color: var(--text);
+  padding: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  resize: none;
+  line-height: 1.5;
+}
+
+.text-input::placeholder {
+  color: var(--silver-dim);
+}
+
+.continue-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  border-radius: var(--r-lg);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 3: RITUAL (摇卦)
+   ═══════════════════════════════════════════════ */
+.ritual-stage {
+  text-align: center;
+  padding: 48px 24px;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-gate {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.3);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: gateDrift 8s ease-in-out infinite;
+}
+
+.cosmic-gate::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.15);
+  animation: gateRotate 42s linear infinite;
+}
+
+.cosmic-gate::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.06);
+}
+
+.gate-core {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-bright), transparent 70%);
+  box-shadow: 0 0 30px rgba(232,212,139,0.5);
+  animation: gatePulse 2.8s ease-in-out infinite;
+}
+
+.gate-ring {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(201,168,76,0.2);
+  animation: gateRotate 28s linear infinite reverse;
+}
+
+.ritual-status {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--silver);
+  margin-bottom: 8px;
+  min-height: 24px;
+}
+
+.ritual-substatus {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+/* Hexagram build area */
+.hex-build {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  min-height: 160px;
+}
+
+.hex-line {
+  width: 100px;
+  height: 4px;
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.16, 0.9, 0.22, 1);
+}
+
+.hex-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hex-line.yang {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(201,168,76,0.5);
+}
+
+.hex-line.yin {
+  display: flex;
+  gap: 20px;
+}
+
+.hex-line.yin::before,
+.hex-line.yin::after {
+  content: '';
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--gold);
+  opacity: 0.6;
+  box-shadow: 0 0 6px rgba(201,168,76,0.3);
+}
+
+.hex-line.changing.yang {
+  background: #60a5fa;
+  box-shadow: 0 0 10px rgba(96,165,250,0.5);
+}
+
+.hex-line.changing.yin::before,
+.hex-line.changing.yin::after {
+  background: #60a5fa;
+  box-shadow: 0 0 8px rgba(96,165,250,0.4);
+}
+
+/* Progress dots */
+.ritual-progress {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: all 0.4s;
+}
+
+.progress-dot.done {
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(201,168,76,0.4);
+}
+
+.progress-dot.current {
+  background: var(--gold-bright);
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(232,212,139,0.5);
+}
+
+.cast-btn {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  height: 48px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  border-radius: var(--r-pill);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 4: READING (解卦结果)
+   ═══════════════════════════════════════════════ */
+.reading-display {
+  text-align: center;
+  padding: 32px 24px 24px;
+}
+
+.hex-symbol {
+  font-size: 56px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  text-shadow: 0 0 30px rgba(201,168,76,0.3);
+}
+
+.hex-number-small {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.hex-name-large {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.hex-chinese {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.message-card {
+  margin: 20px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  text-align: left;
+}
+
+.message-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: var(--gold-bright);
+  margin-bottom: 10px;
+}
+
+.message-card p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Tabs */
+.reading-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 20px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reading-tab {
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.reading-tab.active {
+  background: rgba(201,168,76,0.12);
+  color: var(--gold-bright);
+  border-color: rgba(201,168,76,0.3);
+}
+
+.reading-content {
+  margin: 0 20px 20px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.keywords {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 20px 16px;
+}
+
+.keyword-tag {
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  background: var(--bg-elevated);
+  color: var(--silver);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 5: UNLOCK (Premium)
+   ═══════════════════════════════════════════════ */
+.unlock-area {
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.unlock-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+}
+
+.unlock-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.unlock-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.feature-list {
+  text-align: left;
+  margin-bottom: 28px;
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 16px 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.feature-item:last-child { border-bottom: none; }
+
+.feature-check {
+  color: var(--gold);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.premium-btn {
+  display: block;
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  border-radius: var(--r-lg);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.price-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 6: SHARE
+   ═══════════════════════════════════════════════ */
+.share-area {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.blessing-card {
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: var(--r-lg);
+  padding: 24px 20px;
+  margin-bottom: 24px;
+}
+
+.blessing-card .hex-small {
+  font-size: 36px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.blessing-card .blessing-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--gold-bright);
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.blessing-card .blessing-from {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.share-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.share-btn {
+  height: 48px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS (from MVP)
+   ═══════════════════════════════════════════════ */
+@keyframes gateDrift {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.86; }
+  50% { transform: translateY(-6px) scale(1.02); opacity: 1; }
+}
+
+@keyframes gateRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gatePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION BAR (bottom)
+   ═══════════════════════════════════════════════ */
+.tab-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(15,22,40,0.95);
+  backdrop-filter: blur(12px);
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tab-item.active {
+  color: var(--gold);
+}
+
+.tab-icon { font-size: 20px; }
+
+/* ═══════════════════════════════════════════════
+   DESIGN SPECS PANEL
+   ═══════════════════════════════════════════════ */
+.specs-panel {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 280px;
+  background: rgba(15,22,40,0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  font-size: 11px;
+  line-height: 1.6;
+  z-index: 100;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.specs-panel h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.spec-section {
+  margin-bottom: 16px;
+}
+
+.spec-section h4 {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.swatch-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.swatch-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.spec-table {
+  width: 100%;
+  font-size: 10px;
+  border-collapse: collapse;
+}
+
+.spec-table td {
+  padding: 3px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.spec-table td:first-child {
+  color: var(--text-muted);
+  width: 50%;
+  font-weight: 500;
+}
+
+.spec-table td:last-child {
+  color: var(--silver);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ DESIGN SPECS PANEL ══════════ -->
+<div class="specs-panel" id="specsPanel">
+  <button onclick="document.getElementById('specsPanel').style.display='none'" style="position:absolute;top:8px;right:12px;background:none;border:none;color:#5a6a80;font-size:16px;cursor:pointer;">✕</button>
+  <h3>Design Specs</h3>
+
+  <div class="spec-section">
+    <h4>Typography</h4>
+    <table class="spec-table">
+      <tr><td>Heading XL</td><td>Cormorant 36px/700</td></tr>
+      <tr><td>Heading L</td><td>Cormorant 28px/700</td></tr>
+      <tr><td>Heading M</td><td>Cormorant 20-22px/600</td></tr>
+      <tr><td>Heading S</td><td>Cormorant 15-18px/500</td></tr>
+      <tr><td>Body</td><td>Inter 13-14px/400</td></tr>
+      <tr><td>Caption</td><td>Inter 10-12px/400</td></tr>
+    </table>
+  </div>
+
+  <div class="spec-section">
+    <h4>Color — Scheme D</h4>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#080d1a" title="#080d1a bg-deep"></div>
+      <div class="swatch" style="background:#0f1628" title="#0f1628 bg-mid"></div>
+      <div class="swatch" style="background:#162040" title="#162040 bg-surface"></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#e8d48b" title="#e8d48b gold-bright"></div>
+      <div class="swatch" style="background:#c9a84c" title="#c9a84c gold"></div>
+      <div class="swatch" style="background:#a8893a" title="#a8893a gold-dark"></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#c0c8d8" title="#c0c8d8 silver"></div>
+      <div class="swatch" style="background:#e8e0d0" title="#e8e0d0 text"></div>
+      <div class="swatch" style="background:#5a6a80" title="#5a6a80 muted"></div>
+    </div>
+  </div>
+
+  <div class="spec-section">
+    <h4>Spacing (8px base)</h4>
+    <table class="spec-table">
+      <tr><td>xs</td><td>4px</td></tr>
+      <tr><td>sm</td><td>8px</td></tr>
+      <tr><td>md</td><td>16px</td></tr>
+      <tr><td>lg</td><td>24px</td></tr>
+      <tr><td>xl</td><td>32px</td></tr>
+      <tr><td>2xl</td><td>48px</td></tr>
+    </table>
+  </div>
+
+  <div class="spec-section">
+    <h4>Radii</h4>
+    <table class="spec-table">
+      <tr><td>sm</td><td>8px</td></tr>
+      <tr><td>md</td><td>12px</td></tr>
+      <tr><td>lg</td><td>20px</td></tr>
+      <tr><td>pill</td><td>9999px</td></tr>
+    </table>
+  </div>
+
+  <div class="spec-section">
+    <h4>Motion (from MVP)</h4>
+    <table class="spec-table">
+      <tr><td>gateDrift</td><td>8s ease-in-out ∞</td></tr>
+      <tr><td>gatePulse</td><td>940ms ease-in-out</td></tr>
+      <tr><td>lineBurst</td><td>1120ms cubic-bezier</td></tr>
+      <tr><td>revealHex</td><td>1650ms cubic-bezier</td></tr>
+      <tr><td>pulseInterval</td><td>1580ms</td></tr>
+    </table>
+  </div>
+
+  <div class="spec-section">
+    <h4>Pages (6 Screens)</h4>
+    <table class="spec-table">
+      <tr><td>1</td><td>Home · 首页</td></tr>
+      <tr><td>2</td><td>Question · 意图</td></tr>
+      <tr><td>3</td><td>Ritual · 摇卦仪式</td></tr>
+      <tr><td>4</td><td>Reading · 解卦</td></tr>
+      <tr><td>5</td><td>Unlock · 付费</td></tr>
+      <tr><td>6</td><td>Share · 分享</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ 6 SCREENS ══════════ -->
+<div style="position:fixed;top:8px;left:24px;z-index:200;font-size:11px;color:#5a6a80;font-family:Inter,sans-serif;letter-spacing:1px;">
+  ← scroll horizontally →  (6 screens)
+</div>
+<div class="mockup-strip">
+
+  <!-- SCREEN 1: HOME -->
+  <div class="screen">
+    <div class="screen-label">Screen 1 · Home</div>
+    <div class="screen-inner">
+      <div class="home-hero">
+        <div class="hex-logo">
+          <div class="yang-line"></div>
+          <div class="yang-line"></div>
+          <div class="yang-line"></div>
+          <div class="yang-line"></div>
+          <div class="yang-line"></div>
+          <div class="yang-line"></div>
+        </div>
+        <div class="brand-name">DAO ORACLE</div>
+        <div class="tagline">Ancient wisdom for modern souls</div>
+        <p class="hero-desc">"The I Ching speaks in symbols. Your soul already knows the answer."</p>
+        <button class="btn-primary">✦  CAST HEXAGRAM</button>
+        <div class="home-features">
+          <div class="home-feat">
+            <span class="feat-icon">☯</span> 64 Gates
+          </div>
+          <div class="home-feat">
+            <span class="feat-icon">🔮</span> Daily Guide
+          </div>
+          <div class="home-feat">
+            <span class="feat-icon">💫</span> Personal Path
+          </div>
+        </div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item active"><span class="tab-icon">🏠</span>Home</div>
+        <div class="tab-item"><span class="tab-icon">☯</span>Cast</div>
+        <div class="tab-item"><span class="tab-icon">📅</span>Daily</div>
+        <div class="tab-item"><span class="tab-icon">👤</span>Profile</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: QUESTION -->
+  <div class="screen">
+    <div class="screen-label">Screen 2 · Question</div>
+    <div class="screen-inner">
+      <div class="question-area">
+        <div class="question-prompt">What guidance do you seek today?</div>
+        <div class="intent-options">
+          <div class="intent-btn active">
+            <span class="intent-emoji">💕</span>Love
+          </div>
+          <div class="intent-btn">
+            <span class="intent-emoji">💼</span>Career
+          </div>
+          <div class="intent-btn">
+            <span class="intent-emoji">💰</span>Money
+          </div>
+          <div class="intent-btn">
+            <span class="intent-emoji">🧘</span>Wellbeing
+          </div>
+          <div class="intent-btn">
+            <span class="intent-emoji">🧭</span>Life Path
+          </div>
+          <div class="intent-btn">
+            <span class="intent-emoji">✨</span>Inner Clarity
+          </div>
+        </div>
+        <div class="text-input-area">
+          <div class="text-input-label">Your Question (optional)</div>
+          <textarea class="text-input" placeholder="e.g. Should I take the new job offer?"></textarea>
+        </div>
+        <button class="continue-btn">CONTINUE TO RITUAL</button>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item"><span class="tab-icon">🏠</span>Home</div>
+        <div class="tab-item active"><span class="tab-icon">☯</span>Cast</div>
+        <div class="tab-item"><span class="tab-icon">📅</span>Daily</div>
+        <div class="tab-item"><span class="tab-icon">👤</span>Profile</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: RITUAL -->
+  <div class="screen">
+    <div class="screen-label">Screen 3 · Ritual (6x breaths)</div>
+    <div class="screen-inner">
+      <div class="ritual-stage">
+        <div class="cosmic-gate">
+          <div class="gate-ring"></div>
+          <div class="gate-core"></div>
+        </div>
+        <div class="ritual-status">Breathe with the universe...</div>
+        <div class="ritual-substatus">3 of 6 breaths complete</div>
+        <div class="hex-build">
+          <div class="hex-line yang visible" style="transition-delay:0.8s"></div>
+          <div class="hex-line yin visible" style="transition-delay:0.64s"><div style="display:none"></div></div>
+          <div class="hex-line yang visible" style="transition-delay:0.48s"></div>
+          <div class="hex-line yin visible changing" style="transition-delay:0.32s"><div style="display:none"></div></div>
+          <div class="hex-line yang visible" style="transition-delay:0.16s"></div>
+          <div class="hex-line yang visible changing"></div>
+        </div>
+        <div class="ritual-progress">
+          <div class="progress-dot done"></div>
+          <div class="progress-dot done"></div>
+          <div class="progress-dot done"></div>
+          <div class="progress-dot current"></div>
+          <div class="progress-dot"></div>
+          <div class="progress-dot"></div>
+        </div>
+        <button class="cast-btn">✦  TAP TO CAST</button>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item"><span class="tab-icon">🏠</span>Home</div>
+        <div class="tab-item active"><span class="tab-icon">☯</span>Cast</div>
+        <div class="tab-item"><span class="tab-icon">📅</span>Daily</div>
+        <div class="tab-item"><span class="tab-icon">👤</span>Profile</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: READING -->
+  <div class="screen">
+    <div class="screen-label">Screen 4 · Reading</div>
+    <div class="screen-inner">
+      <div class="reading-display">
+        <div class="hex-number-small">Hexagram 11</div>
+        <div class="hex-symbol">䷊</div>
+        <div class="hex-name-large">Peace</div>
+        <div class="hex-chinese">泰 · Tài</div>
+      </div>
+      <div class="message-card">
+        <h3>🔮 Your Message</h3>
+        <p>Heaven and Earth are in harmony. A time of flourishing — small things grow great. What was blocked now flows freely. Trust this alignment.</p>
+      </div>
+      <div class="keywords">
+        <span class="keyword-tag">Harmony</span>
+        <span class="keyword-tag">Flow</span>
+        <span class="keyword-tag">Prosperity</span>
+        <span class="keyword-tag">Connection</span>
+        <span class="keyword-tag">Growth</span>
+      </div>
+      <div class="reading-tabs">
+        <div class="reading-tab active">Overview</div>
+        <div class="reading-tab">Love</div>
+        <div class="reading-tab">Career</div>
+        <div class="reading-tab">Growth</div>
+        <div class="reading-tab">Timing</div>
+      </div>
+      <div class="reading-content">
+        The union of Heaven below and Earth above signals a period where opposing forces find equilibrium. Communications open, relationships deepen, and projects gain momentum naturally.
+      </div>
+      <button class="btn-primary" style="margin-top:8px">✦  VIEW FULL REPORT</button>
+      <div class="tab-bar" style="margin-top:16px">
+        <div class="tab-item"><span class="tab-icon">🏠</span>Home</div>
+        <div class="tab-item"><span class="tab-icon">☯</span>Cast</div>
+        <div class="tab-item active"><span class="tab-icon">📅</span>Daily</div>
+        <div class="tab-item"><span class="tab-icon">👤</span>Profile</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: UNLOCK -->
+  <div class="screen">
+    <div class="screen-label">Screen 5 · Unlock Premium</div>
+    <div class="screen-inner">
+      <div class="unlock-area">
+        <div class="unlock-icon">🔓</div>
+        <div class="unlock-title">Unlock Full Reading</div>
+        <div class="unlock-desc">Go deeper with your personal 12-page interpretation, including timing advice and action steps for your specific situation.</div>
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-check">✦</span>12-page personalized PDF report</div>
+          <div class="feature-item"><span class="feature-check">✦</span>Line-by-line deep analysis</div>
+          <div class="feature-item"><span class="feature-check">✦</span>Timing & seasonal guidance</div>
+          <div class="feature-item"><span class="feature-check">✦</span>Actionable daily practices</div>
+          <div class="feature-item"><span class="feature-check">✦</span>Save to your journal forever</div>
+        </div>
+        <button class="premium-btn">UNLOCK — $2.99</button>
+        <div class="price-tag">One-time · Instant delivery · No subscription</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: SHARE -->
+  <div class="screen">
+    <div class="screen-label">Screen 6 · Share</div>
+    <div class="screen-inner">
+      <div class="share-area">
+        <div class="blessing-card">
+          <div class="hex-small">䷊</div>
+          <div class="blessing-text">"Peace flows where Heaven meets Earth. May your path be aligned."</div>
+          <div class="blessing-from">— Your Dao Oracle Reading</div>
+        </div>
+        <div class="share-actions">
+          <button class="share-btn">📱 Instagram Story</button>
+          <button class="share-btn">💬 WhatsApp</button>
+          <button class="share-btn">📋 Copy Blessing</button>
+          <button class="share-btn">💾 Save to Journal</button>
+        </div>
+        <div style="margin-top:24px">
+          <button class="btn-primary">✦  CAST AGAIN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end mockup-strip -->
+
+<button onclick="document.getElementById('specsPanel').style.display='block'" 
+  style="position:fixed;bottom:24px;right:24px;z-index:200;width:40px;height:40px;border-radius:50%;background:rgba(15,22,40,0.95);border:1px solid rgba(255,255,255,0.1);color:#c9a84c;font-size:16px;cursor:pointer;display:none;" 
+  id="showSpecsBtn">📋</button>
+
+<script>
+// Show specs toggle when panel is hidden
+const panel = document.getElementById('specsPanel');
+const btn = document.getElementById('showSpecsBtn');
+new MutationObserver(() => {
+  btn.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}).observe(panel, {attributes: true, attributeFilter: ['style']});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const strip = document.querySelector('.mockup-strip');
+  if (e.key === 'ArrowRight') strip.scrollBy({left: 420, behavior: 'smooth'});
+  if (e.key === 'ArrowLeft') strip.scrollBy({left: -420, behavior: 'smooth'});
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dao Oracle · 设计效果图</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080d1a;--bgc:#0f1628;--bgi:#0b1120;
+  --gold:#c9a84c;--gl:#e8d48b;--gd:#a8893a;
+  --silver:#c0c8d8;--dim:#5a6a80;--moon:#60a5fa;
+  --text:#e8e0d0;--t2:#94a3b8;
+  --fh:'Cormorant Garamond','Noto Serif SC',serif;
+  --fb:'Inter','Noto Sans SC',sans-serif;
+  --fc:'Noto Serif SC','Cormorant Garamond',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#050810;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;font-family:var(--fb);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Phone frame */
+.phone{
+  width:390px;height:844px;
+  background:linear-gradient(175deg,#0d1528 0%,var(--bgc) 40%,var(--bg) 100%);
+  border-radius:36px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 0 0 2px #1a1a2e,0 0 0 6px #0a0a14,0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* Each screen is a full-page slide */
+.screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s ease;
+}
+.screen.active{opacity:1;pointer-events:auto}
+
+/* Status bar */
+.status-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px 8px;font-size:11px;color:var(--dim);
+  font-weight:500;
+}
+.status-bar .time{letter-spacing:0.5px}
+.status-bar .icons{display:flex;gap:6px;font-size:12px}
+
+/* Page indicator at top */
+.page-ind{
+  display:flex;justify-content:center;gap:6px;padding:0 0 10px;
+}
+.page-ind span{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.1)}
+.page-ind span.on{background:var(--gold);box-shadow:0 0 4px rgba(201,168,76,0.3);width:16px;border-radius:2px}
+
+/* Nav bar */
+.nav{
+  display:flex;justify-content:space-around;padding:10px 0 12px;
+  border-top:1px solid rgba(255,255,255,0.03);
+  background:rgba(15,22,40,0.5);backdrop-filter:blur(16px);
+  margin-top:auto;
+}
+.nav a{font-size:10px;color:var(--dim);text-decoration:none}
+.nav a.on{color:var(--gold)}
+
+/* Shared */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:48px;padding:0 32px;
+  background:linear-gradient(135deg,var(--gold),var(--gd));
+  color:var(--bg);border:none;border-radius:14px;
+  font-size:15px;font-weight:600;font-family:var(--fh);letter-spacing:1.5px;
+  cursor:pointer;box-shadow:0 0 24px rgba(201,168,76,0.08);
+}
+.btn.w{width:100%}
+.btn:hover{box-shadow:0 0 32px rgba(201,168,76,0.14)}
+
+/* ══ 1. HOME ══ */
+.home{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:0 36px;
+}
+.hex-logo{display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:44px}
+.hex-logo span{width:56px;height:3px;background:var(--gl);border-radius:2px;box-shadow:0 0 12px rgba(232,212,139,0.18)}
+.hex-logo span:nth-child(odd){animation:fl 5s ease-in-out infinite}
+.hex-logo span:nth-child(1){animation-delay:0s}
+.hex-logo span:nth-child(3){animation-delay:0.4s}
+.hex-logo span:nth-child(5){animation-delay:0.8s}
+@keyframes fl{0%,100%{opacity:1}93%{opacity:1}95%{opacity:0.45}97%{opacity:1}}
+
+.home h1{font-family:var(--fh);font-size:40px;font-weight:600;color:var(--gl);letter-spacing:6px;margin-bottom:18px}
+.home .intro{font-family:var(--fc);font-size:15px;font-weight:300;color:var(--dim);line-height:2.2;text-align:center;margin-bottom:44px}
+.home .btn{margin-bottom:16px}
+.home .hint{font-size:12px;color:var(--dim);font-style:italic;margin-bottom:72px;font-weight:300}
+.home .fn{font-size:10px;color:var(--dim);padding-top:16px;border-top:1px solid rgba(255,255,255,0.03);width:100%;text-align:center;line-height:1.8}
+
+/* ══ 2. QUESTION ══ */
+.q{flex:1;display:flex;flex-direction:column;padding:36px 28px 0}
+.q .title{font-family:var(--fc);font-size:21px;font-weight:600;color:var(--text);text-align:center;margin-bottom:16px;letter-spacing:1.5px}
+.q .calm{font-family:var(--fc);font-size:14px;font-weight:300;color:var(--silver);text-align:center;line-height:2.6;margin-bottom:36px}
+.q .input{width:100%;min-height:76px;padding:16px;background:var(--bgi);border:1px solid rgba(255,255,255,0.05);border-radius:12px;color:var(--text);font-size:14px;line-height:1.8;font-family:var(--fb);resize:none;margin-bottom:24px}
+.q .input::placeholder{color:var(--dim)}
+.q .input:focus{outline:none;border-color:rgba(201,168,76,0.2)}
+.q .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+.q .opt{padding:16px;text-align:center;border-radius:12px;background:rgba(11,17,32,0.5);border:1px solid rgba(255,255,255,0.04);color:var(--t2);font-size:14px;font-family:var(--fc);cursor:pointer;transition:all 0.2s}
+.q .opt:hover{border-color:rgba(201,168,76,0.12)}
+.q .opt.sel{border-color:rgba(201,168,76,0.25);background:rgba(201,168,76,0.05);color:var(--gl)}
+.q .opt .em{font-size:18px;display:block;margin-bottom:4px}
+.q .qbtn{padding-bottom:20px}
+
+/* ══ 3. TRANSITION ══ */
+.tr{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 40px;position:relative;overflow:hidden}
+.tr .glow{position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(96,165,250,0.04),rgba(201,168,76,0.02),transparent 60%);border-radius:50%;animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.cos{width:130px;height:130px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:40px}
+.cos .r{position:absolute;border-radius:50%;border:1px solid}
+.cos .r1{inset:0;border-color:rgba(201,168,76,0.04);animation:spin 28s linear infinite}
+.cos .r2{inset:14px;border-color:rgba(201,168,76,0.06);border-style:dashed;animation:spin 20s linear infinite reverse}
+.cos .r3{inset:28px;border-color:rgba(201,168,76,0.08);animation:spin 14s linear infinite}
+.cos .core{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,var(--gl),rgba(201,168,76,0.4) 50%,transparent 80%);box-shadow:0 0 40px rgba(232,212,139,0.18);animation:breathe 3s ease-in-out infinite;z-index:2}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:0.65}50%{transform:scale(1.2);opacity:1}}
+.tr .txt{font-family:var(--fc);font-size:15px;font-weight:300;color:var(--silver);line-height:2.5;text-align:center;z-index:1}
+.tr .txt em{font-style:normal;font-size:21px;font-weight:500;color:var(--gl);display:block;margin:2px 0}
+.tr .fade{font-size:11px;color:var(--dim);margin-top:44px;animation:fp 3s ease-in-out infinite}
+@keyframes fp{0%,100%{opacity:0.25}50%{opacity:0.65}}
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;width:1px;height:1px;background:var(--silver);border-radius:50%;animation:tw 5s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:0.08}50%{opacity:0.45}}
+
+/* ══ 4. RITUAL ══ */
+.rit{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 32px}
+.rit .cue{font-family:var(--fc);font-size:14px;font-weight:300;color:var(--silver);letter-spacing:1.5px;margin-bottom:36px}
+.cb{width:160px;height:160px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:32px}
+.cb .r{position:absolute;border-radius:50%;border:1px solid}
+.cb .r1{inset:0;border-color:rgba(201,168,76,0.04);animation:spin 30s linear infinite}
+.cb .r2{inset:16px;border-color:rgba(201,168,76,0.06);border-style:dashed;animation:spin 20s linear infinite reverse}
+.cb .r3{inset:32px;border-color:rgba(201,168,76,0.08);animation:spin 15s linear infinite}
+.cb .moon{position:absolute;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,0.1),transparent 60%);animation:breathe 1.58s ease-in-out infinite}
+.cb .core{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle,var(--gl),rgba(201,168,76,0.5) 40%,transparent 70%);box-shadow:0 0 50px rgba(232,212,139,0.2);animation:cb 1.58s ease-in-out infinite;z-index:2}
+@keyframes cb{0%,100%{transform:scale(1);opacity:0.8}50%{transform:scale(1.3);opacity:1}}
+.rit .status{font-family:var(--fc);font-size:14px;font-weight:300;color:var(--silver);margin-bottom:24px}
+.hs{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:24px}
+.hs .l{width:86px;height:3px;border-radius:2px;opacity:0.06;background:var(--gold);transition:all 0.8s cubic-bezier(0.16,0.9,0.22,1)}
+.hs .l.v{opacity:1;box-shadow:0 0 8px rgba(201,168,76,0.3)}
+.hs .l.s{width:32px}
+.hs .l.c{background:var(--moon);box-shadow:0 0 10px rgba(96,165,250,0.3)}
+.ds{display:flex;justify-content:center;gap:12px;margin-bottom:28px}
+.ds .d{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.04);transition:all 0.3s}
+.ds .d.f{background:var(--gold);box-shadow:0 0 5px rgba(201,168,76,0.25)}
+.ds .d.n{background:var(--gl);transform:scale(1.5);box-shadow:0 0 8px rgba(232,212,139,0.35)}
+.bp{height:46px;padding:0 32px;border-radius:99px;background:linear-gradient(135deg,var(--gold),var(--gd));color:var(--bg);border:none;font-size:14px;font-weight:600;font-family:var(--fh);letter-spacing:1px;cursor:pointer}
+
+/* ══ 5. RESULT ══ */
+.res{flex:1;overflow-y:auto;padding:20px 24px 0}
+.rhdr{text-align:center;padding:8px 0 16px}
+.rhdr .num{font-size:10px;color:var(--dim);letter-spacing:3px}
+.rhdr .sym{font-size:48px;color:var(--gold);text-shadow:0 0 24px rgba(201,168,76,0.12);margin:2px 0}
+.rhdr .name{font-family:var(--fh);font-size:24px;font-weight:700;color:var(--text)}
+.rhdr .cn{font-size:13px;color:var(--t2);font-family:var(--fc);margin-top:1px}
+.sec{margin-bottom:14px}
+.sec .lbl{font-size:9px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.card{padding:14px;border-radius:12px;background:rgba(11,17,32,0.4);border:1px solid rgba(255,255,255,0.03);font-size:13px;line-height:1.9;color:var(--t2);font-family:var(--fc)}
+.card.g{border-color:rgba(201,168,76,0.08);background:linear-gradient(135deg,rgba(201,168,76,0.04),rgba(201,168,76,0.01))}
+.tabs{display:flex;gap:5px;margin-bottom:12px}
+.tab{padding:6px 12px;border-radius:99px;font-size:11px;color:var(--dim);border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-family:var(--fc);white-space:nowrap}
+.tab.on{background:rgba(201,168,76,0.06);color:var(--gl);border-color:rgba(201,168,76,0.15)}
+.tb{padding:14px;border-radius:12px;background:rgba(11,17,32,0.4);border:1px solid rgba(255,255,255,0.03);margin-bottom:12px}
+.tb h4{font-family:var(--fc);font-size:14px;color:var(--gold);margin-bottom:2px;font-weight:600}
+.tb .sub{font-size:10px;color:var(--dim);margin-bottom:7px}
+.tb p{font-size:13px;line-height:1.9;color:var(--t2);font-family:var(--fc)}
+.root h4{font-family:var(--fc);font-size:15px;color:var(--gold);font-weight:600;margin-bottom:3px}
+.root p{font-size:13px;line-height:1.9;color:var(--t2);font-family:var(--fc);margin-bottom:12px}
+
+/* ══ 6. UNLOCK ══ */
+.ul{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px}
+.ul .ico{font-size:40px;color:var(--gold);margin-bottom:28px;opacity:0.6}
+.ulc{width:100%;padding:28px 24px;text-align:center;background:linear-gradient(160deg,rgba(201,168,76,0.06),rgba(201,168,76,0.01),rgba(96,165,250,0.01));border:1px solid rgba(201,168,76,0.08);border-radius:18px;position:relative;overflow:hidden}
+.ulc::before{content:'';position:absolute;top:0;left:25%;right:25%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent)}
+.ulc .tag{font-size:9px;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+.ulc h3{font-family:var(--fh);font-size:22px;font-weight:600;color:var(--gl);margin-bottom:8px}
+.ulc p{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:18px;font-family:var(--fc)}
+.ulc .pb{display:block;width:100%;height:48px;background:linear-gradient(135deg,var(--gold),var(--gd));color:var(--bg);border:none;border-radius:12px;font-size:14px;font-weight:600;font-family:var(--fh);letter-spacing:1px;cursor:pointer}
+.ul .skip{font-size:11px;color:var(--dim);margin-top:20px;cursor:pointer;font-family:var(--fc)}
+
+/* ══ 7. SHARE ══ */
+.shr{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px}
+.shr .sym{font-size:44px;color:var(--gold);margin-bottom:24px;text-shadow:0 0 24px rgba(201,168,76,0.1)}
+.shr .msg{font-family:var(--fc);font-size:15px;font-weight:300;color:var(--gl);line-height:2.1;text-align:center;max-width:260px;margin-bottom:28px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-bottom:24px}
+.sb{padding:13px;text-align:center;border-radius:12px;background:rgba(11,17,32,0.4);border:1px solid rgba(255,255,255,0.04);color:var(--t2);font-size:12px;cursor:pointer;font-family:var(--fc)}
+
+/* Arrows */
+.arrows{position:absolute;bottom:20px;left:0;right:0;display:flex;justify-content:center;gap:40px;z-index:10}
+.arrows button{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--dim);width:36px;height:36px;border-radius:50%;font-size:14px;cursor:pointer;transition:all 0.2s}
+.arrows button:hover{background:rgba(255,255,255,0.08);color:var(--silver)}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+  <!-- ══ 1. HOME ══ -->
+  <div class="screen active" data-n="0">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span class="on"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="home">
+      <div class="hex-logo"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <h1>Dao Oracle</h1>
+      <p class="intro">东方古老智慧<br>融入现代生活的每一个抉择<br>让宇宙为你指引方向</p>
+      <button class="btn" onclick="go(1)">进入问题页</button>
+      <p class="hint">开启你的神秘之旅</p>
+      <p class="fn">进入到 DAO Oracle 的介绍页面</p>
+    </div>
+  </div>
+
+  <!-- ══ 2. QUESTION ══ -->
+  <div class="screen" data-n="1">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span></span><span class="on"></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="q">
+      <h2 class="title">你为什么来到这里</h2>
+      <p class="calm">凝神静气，屏住呼吸<br>将思绪沉入内心深处<br>宇宙正在倾听</p>
+      <textarea class="input" placeholder="在此写下你想问的问题，或默念于心…" rows="2"></textarea>
+      <div class="grid">
+        <div class="opt sel"><span class="em">💕</span>感情</div>
+        <div class="opt"><span class="em">💼</span>事业</div>
+        <div class="opt"><span class="em">💰</span>财运</div>
+        <div class="opt"><span class="em">🧘</span>健康</div>
+      </div>
+      <div class="qbtn"><button class="btn w" onclick="go(2)">进入宇宙中心</button></div>
+    </div>
+    <div class="nav"><a href="#">首页</a><a href="#" class="on">问题页</a><a href="#">摇卦</a><a href="#">解卦</a></div>
+  </div>
+
+  <!-- ══ 3. TRANSITION ══ -->
+  <div class="screen" data-n="2">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span></span><span></span><span class="on"></span><span></span><span></span><span></span><span></span></div>
+    <div class="tr">
+      <div class="glow"></div>
+      <div class="stars"><i style="top:14%;left:24%"></i><i style="top:30%;right:22%"></i><i style="top:54%;left:16%"></i><i style="bottom:28%;right:26%"></i><i style="bottom:16%;left:28%"></i></div>
+      <div class="cos"><div class="r r1"></div><div class="r r2"></div><div class="r r3"></div><div class="core"></div></div>
+      <div class="txt"><p>带着你的问题</p><em>进入宇宙中心</em><p>聆听宇宙的声音</p></div>
+      <p class="fade">慢慢消失在宇宙深处…</p>
+    </div>
+  </div>
+
+  <!-- ══ 4. RITUAL ══ -->
+  <div class="screen" data-n="3">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span></span><span></span><span></span><span class="on"></span><span></span><span></span><span></span></div>
+    <div class="rit">
+      <p class="cue">宇宙的能量正在给你启示</p>
+      <div class="cb"><div class="r r1"></div><div class="r r2"></div><div class="r r3"></div><div class="moon"></div><div class="core"></div></div>
+      <p class="status">宇宙呼吸中…</p>
+      <div class="hs"><div class="l v"></div><div class="l s v"></div><div class="l v"></div><div class="l s v c"></div><div class="l v"></div><div class="l v c"></div></div>
+      <div class="ds"><div class="d f"></div><div class="d f"></div><div class="d f"></div><div class="d n"></div><div class="d"></div><div class="d"></div></div>
+      <button class="bp">✦ 感应宇宙</button>
+    </div>
+    <div class="nav"><a href="#">首页</a><a href="#">问题页</a><a href="#" class="on">摇卦</a><a href="#">解卦</a></div>
+  </div>
+
+  <!-- ══ 5. RESULT ══ -->
+  <div class="screen" data-n="4">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span></span><span></span><span></span><span></span><span class="on"></span><span></span><span></span></div>
+    <div class="res">
+      <div class="rhdr"><div class="num">Hexagram 2</div><div class="sym">䷁</div><div class="name">The Receptive</div><div class="cn">坤 · Kūn — Earth over Earth</div></div>
+      <div class="sec"><div class="lbl">你的问题</div><div class="card"><p style="font-style:italic">我该离开现在的工作吗？</p></div></div>
+      <div class="sec"><div class="lbl">简单解读</div><div class="card g">此刻需要耐心与沉稳。有用的下一步不是用力推动，而是去留意身边正在形成的东西。大地承载万物——此刻你也被承载着。</div></div>
+      <div class="tabs"><span class="tab on">宇宙时机</span><span class="tab">人际场域</span><span class="tab">当下行动</span></div>
+      <div class="tb"><h4>宇宙时机</h4><div class="sub">为什么这一刻降临</div><p>能量场正处于接收状态。某些事正在悄然成形——用力会扰乱种子尚未准备好的土壤。等待不是被动，是给宇宙空间去安排。</p></div>
+      <div class="root"><h4>古老根源</h4><p>坤为地，地承载万物。这是容纳、接收、让即将到来之物获得形态的智慧。大地从不催促种子——它只是提供土壤，然后等待。</p></div>
+      <div class="root"><h4>今日小仪式</h4><p>双脚平放地面，缓慢呼吸六次，然后写下此刻正在请求被接收的东西。让大地承接你的心意。</p></div>
+    </div>
+    <div class="nav"><a href="#">首页</a><a href="#">问题页</a><a href="#">摇卦</a><a href="#" class="on">解卦</a></div>
+  </div>
+
+  <!-- ══ 6. UNLOCK ══ -->
+  <div class="screen" data-n="5">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span></span><span></span><span></span><span></span><span></span><span class="on"></span><span></span></div>
+    <div class="ul">
+      <div class="ico">䷁</div>
+      <div class="ulc"><div class="tag">解锁完整解读</div><h3>深度卦象报告</h3><p>将卦象展开为一幅实用的地图，全面解读你的问题。包含逐爻分析、时机指引和具体行动建议。</p><button class="pb">解锁完整报告 — $2.99</button><p style="font-size:9px;color:var(--dim);margin-top:10px;margin-bottom:0">一次性购买 · 即时送达</p></div>
+      <p class="skip">暂不解锁，继续查看 →</p>
+    </div>
+  </div>
+
+  <!-- ══ 7. SHARE ══ -->
+  <div class="screen" data-n="6">
+    <div class="status-bar"><span class="time">9:41</span><span class="icons">●●●● ▮▮</span></div>
+    <div class="page-ind"><span></span><span></span><span></span><span></span><span></span><span></span><span class="on"></span></div>
+    <div class="shr">
+      <div class="sym">䷁</div>
+      <p class="msg">从今日起，无尽的宇宙和自然能量将涌向你。你的运势将持续，你的境遇将转向更好的方向。</p>
+      <div class="sg"><button class="sb">💬 WhatsApp</button><button class="sb">📋 复制祝福</button><button class="sb">💾 保存记录</button><button class="sb">↗ 分享好友</button></div>
+      <button class="btn">再次摇卦</button>
+    </div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <div class="arrows">
+    <button onclick="prev()">◂</button>
+    <button onclick="next()">▸</button>
+  </div>
+</div>
+
+<script>
+let cur=0,total=7;
+function show(n){
+  document.querySelectorAll('.screen').forEach((s,i)=>{
+    s.classList.toggle('active',i===n);
+  });
+  cur=n;
+}
+function next(){show((cur+1)%total)}
+function prev(){show((cur-1+total)%total)}
+function go(n){show(n)}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')next();
+  if(e.key==='ArrowLeft')prev();
+});
+
+// Click on screen to advance (but not on interactive elements)
+document.getElementById('phone').addEventListener('click',e=>{
+  if(e.target.closest('button')||e.target.closest('textarea')||e.target.closest('a')||e.target.closest('.tab, .opt'))return;
+  // Only on screens 2,3,4,5,6 (after home)
+  if(cur>=1)next();
+});
+</script>
+</body>
+</html>

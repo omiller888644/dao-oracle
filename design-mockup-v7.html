@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dao Oracle · 设计效果图</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════ ROOT TOKENS ═══════════════ */
+:root{
+  --bg:       #080d1a;
+  --bg-card:  #0f1628;
+  --bg-input: #0b1120;
+  --gold:     #c9a84c;
+  --gold-l:   #e8d48b;
+  --gold-d:   #a8893a;
+  --silver:   #c0c8d8;
+  --dim:      #5a6a80;
+  --moon:     #60a5fa;
+  --text:     #e8e0d0;
+  --text2:    #94a3b8;
+  --ff-head:  'Cormorant Garamond','Noto Serif SC',serif;
+  --ff-body:  'Inter','Noto Sans SC',sans-serif;
+  --ff-cn:    'Noto Serif SC','Cormorant Garamond',serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.04);border-radius:2px}
+
+body{
+  font-family:var(--ff-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+.strip{
+  display:flex;
+  gap:36px;
+  padding:28px 36px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  min-height:100vh;
+  align-items:flex-start;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(96,165,250,0.025) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 75% 60%, rgba(201,168,76,0.02) 0%, transparent 50%),
+    var(--bg);
+}
+
+.screen{
+  width:390px; flex-shrink:0;
+  border-radius:24px;
+  overflow:hidden;
+  background:linear-gradient(175deg, #0d1528 0%, var(--bg-card) 40%, var(--bg) 100%);
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow:0 4px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  position:relative;
+}
+
+.s-inner{min-height:840px;display:flex;flex-direction:column}
+
+/* ═══════════════ SCREEN HEADER ═══════════════ */
+.s-head{
+  padding:18px 24px 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+
+.s-head .name{
+  font-family:var(--ff-head);
+  font-size:11px;
+  color:var(--gold);
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.s-head .page-dots{display:flex;gap:5px}
+.s-head .page-dots span{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.s-head .page-dots span.on{background:var(--gold);box-shadow:0 0 4px rgba(201,168,76,0.3)}
+
+/* ═══════════════ NAV BAR ═══════════════ */
+.nav{
+  display:flex;justify-content:space-around;
+  padding:12px 0 10px;
+  border-top:1px solid rgba(255,255,255,0.03);
+  background:rgba(15,22,40,0.7);
+  backdrop-filter:blur(12px);
+  margin-top:auto;
+}
+.nav a{font-size:10px;color:var(--dim);text-decoration:none;letter-spacing:0.5px}
+.nav a.on{color:var(--gold)}
+
+/* ═══════════════ SHARED ELEMENTS ═══════════════ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:50px;padding:0 28px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-d));
+  color:var(--bg);border:none;border-radius:16px;
+  font-size:16px;font-weight:600;
+  font-family:var(--ff-head);letter-spacing:1.5px;
+  cursor:pointer;box-shadow:0 0 28px rgba(201,168,76,0.1);
+  transition:all 0.3s ease;
+}
+.btn:hover{box-shadow:0 0 40px rgba(201,168,76,0.18);transform:translateY(-1px)}
+.btn.wide{width:100%}
+
+/* ═══════════ 1. HOME ═══════════ */
+.home{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:0 32px;
+  position:relative;
+}
+.home::before{
+  content:'';position:absolute;top:15%;left:50%;transform:translate(-50%,-50%);
+  width:240px;height:240px;
+  background:radial-gradient(circle,rgba(201,168,76,0.04) 0%,transparent 65%);
+  border-radius:50%;
+}
+.hex-mark{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  margin-bottom:48px;
+}
+.hex-mark span{
+  display:block;width:60px;height:4px;
+  background:var(--gold-l);border-radius:2px;
+  box-shadow:0 0 14px rgba(232,212,139,0.2);
+  transition:opacity 4s ease;
+}
+.hex-mark span:nth-child(odd){animation:flicker 5s ease-in-out infinite}
+.hex-mark span:nth-child(1){animation-delay:0s}
+.hex-mark span:nth-child(3){animation-delay:0.4s}
+.hex-mark span:nth-child(5){animation-delay:0.8s}
+@keyframes flicker{0%,100%{opacity:1}93%{opacity:1}95%{opacity:0.5}97%{opacity:1}}
+
+.home h1{
+  font-family:var(--ff-head);font-size:42px;font-weight:600;
+  color:var(--gold-l);letter-spacing:6px;
+  margin-bottom:20px;line-height:1;
+}
+.home .intro{
+  font-family:var(--ff-cn);font-size:15px;font-weight:300;
+  color:var(--dim);line-height:2.2;text-align:center;
+  margin-bottom:48px;max-width:260px;
+}
+.home .cta{margin-bottom:18px}
+.home .hint{font-size:13px;color:var(--dim);font-style:italic;margin-bottom:80px;font-weight:300}
+.home .footnote{font-size:11px;color:var(--dim);padding-top:18px;border-top:1px solid rgba(255,255,255,0.03);width:100%;text-align:center;letter-spacing:0.5px;line-height:1.8}
+
+/* ═══════════ 2. QUESTION ═══════════ */
+.q{
+  flex:1;padding:28px 28px 0;
+  display:flex;flex-direction:column;
+}
+.q-title{
+  font-family:var(--ff-cn);font-size:22px;font-weight:600;
+  color:var(--text);text-align:center;margin-bottom:18px;letter-spacing:2px;
+}
+.q-calm{
+  font-family:var(--ff-cn);font-size:14px;font-weight:300;
+  color:var(--silver);text-align:center;line-height:2.2;margin-bottom:32px;
+}
+.q-input{
+  width:100%;min-height:72px;padding:16px;
+  background:var(--bg-input);border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;color:var(--text);font-size:14px;line-height:1.8;
+  font-family:var(--ff-body);resize:vertical;margin-bottom:20px;
+  transition:border-color 0.3s;
+}
+.q-input:focus{outline:none;border-color:rgba(201,168,76,0.25);box-shadow:0 0 0 3px rgba(201,168,76,0.03)}
+.q-input::placeholder{color:var(--dim);font-style:italic}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.q-opt{
+  padding:16px 12px;text-align:center;border-radius:14px;
+  background:rgba(11,17,32,0.6);border:1px solid rgba(255,255,255,0.05);
+  color:var(--text2);font-size:14px;font-family:var(--ff-cn);font-weight:400;
+  cursor:pointer;transition:all 0.25s;
+}
+.q-opt:hover{border-color:rgba(201,168,76,0.15)}
+.q-opt.sel{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);color:var(--gold-l)}
+.q-opt .ico{font-size:18px;display:block;margin-bottom:4px}
+.q-btn{margin-top:auto;padding-bottom:16px}
+
+/* ═══════════ 3. TRANSITION ═══════════ */
+.tr{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:0 40px;position:relative;overflow:hidden;
+}
+.tr .glow{
+  position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);
+  width:320px;height:320px;
+  background:radial-gradient(circle,rgba(96,165,250,0.04) 0%,rgba(201,168,76,0.03) 30%,transparent 65%);
+  border-radius:50%;animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}
+
+.cosmos{
+  width:140px;height:140px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:44px;
+}
+.cosmos .r{
+  position:absolute;border-radius:50%;border:1px solid;
+}
+.cosmos .r1{inset:0;border-color:rgba(201,168,76,0.05);animation:spin 28s linear infinite}
+.cosmos .r2{inset:14px;border-color:rgba(201,168,76,0.07);border-style:dashed;animation:spin 20s linear infinite reverse}
+.cosmos .r3{inset:30px;border-color:rgba(201,168,76,0.09);animation:spin 16s linear infinite}
+.cosmos .core{
+  width:20px;height:20px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold-l) 0%,rgba(201,168,76,0.5) 50%,transparent 80%);
+  box-shadow:0 0 44px rgba(232,212,139,0.2);animation:breathe 3s ease-in-out infinite;z-index:2;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:0.7}50%{transform:scale(1.2);opacity:1}}
+
+.tr .text{
+  font-family:var(--ff-cn);font-size:16px;font-weight:300;
+  color:var(--silver);line-height:2.4;text-align:center;z-index:1;
+}
+.tr .text em{
+  font-style:normal;font-size:22px;font-weight:500;color:var(--gold-l);display:block;margin:4px 0;
+}
+.tr .fade{font-size:12px;color:var(--dim);margin-top:48px;animation:fadePulse 3s ease-in-out infinite}
+@keyframes fadePulse{0%,100%{opacity:0.3}50%{opacity:0.7}}
+
+.stars{position:absolute;inset:0;pointer-events:none}
+.stars i{position:absolute;width:1px;height:1px;background:var(--silver);border-radius:50%;animation:twinkle 5s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:0.1}50%{opacity:0.5}}
+
+/* ═══════════ 4. RITUAL ═══════════ */
+.rit{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:0 32px;position:relative;
+}
+.rit .cue{
+  font-family:var(--ff-cn);font-size:14px;font-weight:300;
+  color:var(--silver);letter-spacing:2px;margin-bottom:40px;
+}
+.cosmos-big{
+  width:170px;height:170px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:36px;
+}
+.cosmos-big .r{position:absolute;border-radius:50%;border:1px solid}
+.cosmos-big .r1{inset:0;border-color:rgba(201,168,76,0.04);animation:spin 32s linear infinite}
+.cosmos-big .r2{inset:16px;border-color:rgba(201,168,76,0.06);border-style:dashed;animation:spin 22s linear infinite reverse}
+.cosmos-big .r3{inset:34px;border-color:rgba(201,168,76,0.08);animation:spin 16s linear infinite}
+.cosmos-big .moon{position:absolute;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,0.1) 0%,transparent 60%);animation:breathe 1.58s ease-in-out infinite}
+.cosmos-big .core{
+  width:36px;height:36px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold-l) 0%,rgba(201,168,76,0.5) 40%,transparent 70%);
+  box-shadow:0 0 56px rgba(232,212,139,0.25);animation:coreBeat 1.58s ease-in-out infinite;z-index:2;
+}
+@keyframes coreBeat{0%,100%{transform:scale(1);opacity:0.85}50%{transform:scale(1.3);opacity:1}}
+
+.rit .status{
+  font-family:var(--ff-cn);font-size:15px;font-weight:300;
+  color:var(--silver);margin-bottom:28px;letter-spacing:1px;
+}
+.hex-stack{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:28px}
+.hl{width:90px;height:3px;border-radius:2px;opacity:0.08;background:var(--gold);transition:all 0.8s cubic-bezier(0.16,0.9,0.22,1)}
+.hl.v{opacity:1;box-shadow:0 0 10px rgba(201,168,76,0.35)}
+.hl.s{width:34px}
+.hl.c{background:var(--moon);box-shadow:0 0 12px rgba(96,165,250,0.35)}
+.dot-row{display:flex;justify-content:center;gap:12px;margin-bottom:32px}
+.dt{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.05);transition:all 0.3s}
+.dt.f{background:var(--gold);box-shadow:0 0 6px rgba(201,168,76,0.3)}
+.dt.n{background:var(--gold-l);transform:scale(1.5);box-shadow:0 0 10px rgba(232,212,139,0.4)}
+.btn-pill{height:48px;border-radius:99px;padding:0 32px;font-family:var(--ff-head);background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--bg);border:none;font-size:15px;font-weight:600;letter-spacing:1px;cursor:pointer;box-shadow:0 0 20px rgba(201,168,76,0.08)}
+
+/* ═══════════ 5. RESULT ═══════════ */
+.res{flex:1;padding:24px 24px 0;overflow-y:auto}
+.rh{text-align:center;padding:16px 0 20px}
+.rh .num{font-size:10px;color:var(--dim);letter-spacing:3px;text-transform:uppercase}
+.rh .sym{font-size:56px;color:var(--gold);text-shadow:0 0 32px rgba(201,168,76,0.15);margin:2px 0}
+.rh .name{font-family:var(--ff-head);font-size:26px;font-weight:700;color:var(--text)}
+.rh .cn{font-size:14px;color:var(--text2);font-family:var(--ff-cn);margin-top:2px}
+
+.sec{margin-bottom:16px}
+.sec .lbl{font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+.card{padding:16px;border-radius:14px;background:rgba(11,17,32,0.5);border:1px solid rgba(255,255,255,0.04);font-size:14px;line-height:1.9;color:var(--text2);font-family:var(--ff-cn)}
+.card.g{border-color:rgba(201,168,76,0.1);background:linear-gradient(135deg,rgba(201,168,76,0.05),rgba(201,168,76,0.01))}
+
+.tabs{display:flex;gap:6px;margin-bottom:18px}
+.tab{padding:7px 14px;border-radius:99px;font-size:11px;color:var(--dim);border:1px solid rgba(255,255,255,0.05);cursor:pointer;font-family:var(--ff-cn);white-space:nowrap}
+.tab.on{background:rgba(201,168,76,0.08);color:var(--gold-l);border-color:rgba(201,168,76,0.18)}
+
+.tab-body{padding:16px;border-radius:14px;background:rgba(11,17,32,0.5);border:1px solid rgba(255,255,255,0.04);margin-bottom:18px}
+.tab-body h4{font-family:var(--ff-cn);font-size:15px;color:var(--gold);margin-bottom:2px;font-weight:600}
+.tab-body .sub{font-size:11px;color:var(--dim);margin-bottom:8px}
+.tab-body p{font-size:13px;line-height:1.9;color:var(--text2);font-family:var(--ff-cn)}
+
+.root h4{font-family:var(--ff-cn);font-size:16px;color:var(--gold);font-weight:600;margin-bottom:4px}
+.root p{font-size:13px;line-height:1.9;color:var(--text2);font-family:var(--ff-cn)}
+
+/* ═══════════ 6. UNLOCK ═══════════ */
+.ul{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px}
+.ul .ico{font-size:44px;color:var(--gold);margin-bottom:24px;opacity:0.7}
+.ul-card{
+  width:100%;padding:32px 28px;text-align:center;
+  background:linear-gradient(165deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02),rgba(96,165,250,0.02));
+  border:1px solid rgba(201,168,76,0.1);border-radius:20px;
+  position:relative;overflow:hidden;
+}
+.ul-card::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.3),transparent)}
+.ul-card .tag{font-size:10px;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+.ul-card h3{font-family:var(--ff-head);font-size:24px;font-weight:600;color:var(--gold-l);margin-bottom:10px}
+.ul-card p{font-size:13px;color:var(--text2);line-height:1.9;margin-bottom:20px;font-family:var(--ff-cn)}
+.ul-card .price-btn{display:block;width:100%;height:50px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--bg);border:none;border-radius:14px;font-size:15px;font-weight:600;font-family:var(--ff-head);letter-spacing:1px;cursor:pointer}
+.ul .skip{font-size:12px;color:var(--dim);margin-top:20px;cursor:pointer;font-family:var(--ff-cn)}
+
+/* ═══════════ 7. SHARE ═══════════ */
+.shr{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px}
+.shr .sym{font-size:48px;color:var(--gold);margin-bottom:24px;text-shadow:0 0 30px rgba(201,168,76,0.12)}
+.shr .msg{font-family:var(--ff-cn);font-size:16px;font-weight:300;color:var(--gold-l);line-height:2;text-align:center;max-width:260px;margin-bottom:32px}
+.shr-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-bottom:28px}
+.shr-btn{padding:14px;text-align:center;border-radius:14px;background:rgba(11,17,32,0.5);border:1px solid rgba(255,255,255,0.05);color:var(--text2);font-size:13px;cursor:pointer;font-family:var(--ff-cn);transition:all 0.2s}
+.shr-btn:hover{border-color:rgba(255,255,255,0.1);background:rgba(11,17,32,0.8)}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+
+<div style="position:fixed;top:14px;left:36px;z-index:200;font-size:10px;color:var(--dim);letter-spacing:1px;pointer-events:none;">← → 切换页面</div>
+
+<div class="strip" id="strip">
+
+<!-- ══ 1. HOME ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">首页</span>
+    <div class="page-dots"><span class="on"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="home">
+      <div class="hex-mark">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <h1>Dao Oracle</h1>
+      <p class="intro">东方古老智慧<br>融入现代生活的每一个抉择<br>让宇宙为你指引方向</p>
+      <div class="cta"><button class="btn">进入问题页</button></div>
+      <p class="hint">开启你的神秘之旅</p>
+      <p class="footnote">进入到 DAO Oracle 的介绍页面</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2. QUESTION ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">问题页</span>
+    <div class="page-dots"><span></span><span class="on"></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="q">
+      <h2 class="q-title">你为什么来到这里</h2>
+      <p class="q-calm">凝神静气，屏住呼吸<br>将思绪沉入内心深处<br>宇宙正在倾听</p>
+      <textarea class="q-input" placeholder="在此写下你想问的问题，或默念于心…"></textarea>
+      <div class="q-grid">
+        <div class="q-opt sel"><span class="ico">💕</span>感情</div>
+        <div class="q-opt"><span class="ico">💼</span>事业</div>
+        <div class="q-opt"><span class="ico">💰</span>财运</div>
+        <div class="q-opt"><span class="ico">🧘</span>健康</div>
+      </div>
+      <div class="q-btn"><button class="btn wide">进入宇宙中心</button></div>
+    </div>
+    <div class="nav"><a href="#">首页</a><a href="#" class="on">问题页</a><a href="#">摇卦</a><a href="#">解卦</a></div>
+  </div>
+</div>
+
+<!-- ══ 3. TRANSITION ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">引导页</span>
+    <div class="page-dots"><span></span><span></span><span class="on"></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="tr">
+      <div class="glow"></div>
+      <div class="stars">
+        <i style="top:12%;left:22%;animation-delay:0s"></i>
+        <i style="top:28%;right:20%;animation-delay:1s"></i>
+        <i style="top:52%;left:14%;animation-delay:2s"></i>
+        <i style="bottom:26%;right:24%;animation-delay:3s"></i>
+        <i style="bottom:14%;left:26%;animation-delay:1.5s"></i>
+      </div>
+      <div class="cosmos">
+        <div class="r r1"></div><div class="r r2"></div><div class="r r3"></div>
+        <div class="core"></div>
+      </div>
+      <div class="text">
+        <p>带着你的问题</p>
+        <em>进入宇宙中心</em>
+        <p>聆听宇宙的声音</p>
+      </div>
+      <p class="fade">慢慢消失在宇宙深处…</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 4. RITUAL ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">摇卦</span>
+    <div class="page-dots"><span></span><span></span><span></span><span class="on"></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="rit">
+      <p class="cue">宇宙的能量正在给你启示</p>
+      <div class="cosmos-big">
+        <div class="r r1"></div><div class="r r2"></div><div class="r r3"></div>
+        <div class="moon"></div>
+        <div class="core"></div>
+      </div>
+      <p class="status">宇宙呼吸中…</p>
+      <div class="hex-stack">
+        <div class="hl v"></div>
+        <div class="hl v s"></div>
+        <div class="hl v"></div>
+        <div class="hl v s c"></div>
+        <div class="hl v"></div>
+        <div class="hl v c"></div>
+      </div>
+      <div class="dot-row">
+        <div class="dt f"></div><div class="dt f"></div><div class="dt f"></div>
+        <div class="dt n"></div><div class="dt"></div><div class="dt"></div>
+      </div>
+      <button class="btn-pill">✦ 感应宇宙</button>
+    </div>
+    <div class="nav"><a href="#">首页</a><a href="#">问题页</a><a href="#" class="on">摇卦</a><a href="#">解卦</a></div>
+  </div>
+</div>
+
+<!-- ══ 5. RESULT ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">解卦</span>
+    <div class="page-dots"><span></span><span></span><span></span><span></span><span class="on"></span><span></span><span></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="res">
+      <div class="rh">
+        <div class="num">Hexagram 2</div>
+        <div class="sym">䷁</div>
+        <div class="name">The Receptive</div>
+        <div class="cn">坤 · Kūn — Earth over Earth</div>
+      </div>
+      <div class="sec">
+        <div class="lbl">你的问题</div>
+        <div class="card"><p style="font-style:italic">我该离开现在的工作吗？</p></div>
+      </div>
+      <div class="sec">
+        <div class="lbl">简单解读</div>
+        <div class="card g">此刻需要耐心与沉稳。有用的下一步不是用力推动，而是去留意身边正在形成的东西。大地承载万物——此刻你也被承载着。</div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">宇宙时机</span>
+        <span class="tab">人际场域</span>
+        <span class="tab">当下行动</span>
+      </div>
+      <div class="tab-body">
+        <h4>宇宙时机</h4>
+        <div class="sub">为什么这一刻降临</div>
+        <p>能量场正处于接收状态。某些事正在悄然成形——用力会扰乱种子尚未准备好的土壤。等待不是被动，是给宇宙空间去安排。</p>
+      </div>
+      <div class="root">
+        <h4>古老根源</h4>
+        <p>坤为地，地承载万物。这是容纳、接收、让即将到来之物获得形态的智慧。大地从不催促种子——它只是提供土壤，然后等待。</p>
+      </div>
+      <div class="root" style="margin-bottom:16px">
+        <h4>今日小仪式</h4>
+        <p>双脚平放地面，缓慢呼吸六次，然后写下此刻正在请求被接收的东西。让大地承接你的心意。</p>
+      </div>
+    </div>
+    <div class="nav"><a href="#">首页</a><a href="#">问题页</a><a href="#">摇卦</a><a href="#" class="on">解卦</a></div>
+  </div>
+</div>
+
+<!-- ══ 6. UNLOCK ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">付费</span>
+    <div class="page-dots"><span></span><span></span><span></span><span></span><span></span><span class="on"></span><span></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="ul">
+      <div class="ico">䷁</div>
+      <div class="ul-card">
+        <div class="tag">解锁完整解读</div>
+        <h3>深度卦象报告</h3>
+        <p>将卦象展开为一幅实用的地图，全面解读你的问题。包含逐爻分析、时机指引和具体行动建议。</p>
+        <button class="price-btn">解锁完整报告 — $2.99</button>
+        <p style="font-size:10px;color:var(--dim);margin-top:12px;margin-bottom:0">一次性购买 · 即时送达</p>
+      </div>
+      <p class="skip">暂不解锁，继续查看 →</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 7. SHARE ══ -->
+<div class="screen">
+  <div class="s-head">
+    <span class="name">分享</span>
+    <div class="page-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span class="on"></span></div>
+  </div>
+  <div class="s-inner">
+    <div class="shr">
+      <div class="sym">䷁</div>
+      <p class="msg">从今日起，无尽的宇宙和自然能量将涌向你。你的运势将持续，你的境遇将转向更好的方向。</p>
+      <div class="shr-grid">
+        <button class="shr-btn">💬 WhatsApp</button>
+        <button class="shr-btn">📋 复制祝福</button>
+        <button class="shr-btn">💾 保存记录</button>
+        <button class="shr-btn">↗ 分享好友</button>
+      </div>
+      <button class="btn">再次摇卦</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+document.addEventListener('keydown',e=>{
+  const s=document.getElementById('strip');
+  if(e.key==='ArrowRight')s.scrollBy({left:426,behavior:'smooth'});
+  if(e.key==='ArrowLeft')s.scrollBy({left:-426,behavior:'smooth'});
+});
+</script>
+</body>
+</html>

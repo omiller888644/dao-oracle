@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dao Oracle — Design Mockup v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DAO ORACLE — DESIGN MOCKUP v3
+   Scheme D: 深夜空蓝 + 月银 + 暗金
+   严格基于原型: dao-oracle-mvp.html + Scheme D 标注
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --bg-deep:    #080d1a;
+  --bg-mid:     #0f1628;
+  --bg-surface: #162040;
+  --bg-elevated:#1e2a45;
+  --gold:       #c9a84c;
+  --gold-light: #e8d48b;
+  --gold-dark:  #a8893a;
+  --silver:     #c0c8d8;
+  --silver-dim: #5a6a80;
+  --moon-blue:  #60a5fa;
+  --text:       #e8e0d0;
+  --text-secondary: #94a3b8;
+  --text-muted: #5a6a80;
+  --r-sm:   8px;
+  --r-md:  12px;
+  --r-lg:  20px;
+  --r-pill: 9999px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:2px; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+}
+
+/* Layout: 6 screens horizontal strip */
+.mockup-strip {
+  display: flex;
+  gap: 48px;
+  padding: 24px 48px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+.screen {
+  width: 390px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--bg-mid);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.3);
+}
+
+.screen-inner { min-height: 780px; }
+
+.screen-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 20px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+}
+
+.screen-label .source {
+  color: var(--text-muted);
+  font-size: 9px;
+  letter-spacing: 1px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ════════════ SCREEN 1: INTRO (from dao-oracle-mvp.html) ════════════ */
+.intro-area {
+  text-align: center;
+  padding: 40px 24px 24px;
+}
+
+.intro-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.intro-subtitle {
+  font-size: 16px;
+  color: var(--silver);
+  font-style: italic;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.intro-tag {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: var(--r-pill);
+  padding: 6px 16px;
+  margin-bottom: 20px;
+}
+
+.intro-body {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.intro-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.intro-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.intro-card p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  border-radius: var(--r-lg);
+  font-size: 17px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.btn-secondary {
+  display: block;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--silver);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ════════════ SCREEN 2: QUESTION (from dao-oracle-mvp.html) ════════════ */
+.question-area {
+  padding: 24px 20px;
+}
+
+.q-prompt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.q-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.q-input {
+  width: 100%;
+  min-height: 72px;
+  background: var(--bg-deep);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-md);
+  color: var(--text);
+  padding: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  resize: vertical;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.q-input::placeholder { color: var(--silver-dim); }
+
+.q-direction-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.direction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.dir-btn {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-md);
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 13px;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.dir-btn:hover, .dir-btn.active {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+/* ════════════ SCREEN 3: RITUAL (from dao-oracle-mvp.html) ════════════ */
+.ritual-area {
+  text-align: center;
+  padding: 40px 24px;
+  min-height: 500px;
+}
+
+.ritual-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gate-container {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 36px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gate-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.15);
+  animation: gateRotate 42s linear infinite;
+}
+
+.gate-mid {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px dashed rgba(201,168,76,0.2);
+  animation: gateRotate 28s linear infinite reverse;
+}
+
+.gate-inner {
+  position: absolute;
+  inset: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.25);
+}
+
+.gate-core {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-light), transparent 70%);
+  box-shadow: 0 0 30px rgba(232,212,139,0.5);
+  animation: gatePulse 2.8s ease-in-out infinite;
+  z-index: 2;
+}
+
+.star-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--silver);
+  border-radius: 50%;
+  animation: starFloat 6s ease-in-out infinite;
+}
+
+.ritual-status {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--silver);
+  margin-bottom: 24px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hexagram build */
+.hex-build {
+  margin-bottom: 28px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.hex-line {
+  width: 90px;
+  height: 3px;
+  border-radius: 2px;
+  opacity: 0.15;
+  background: var(--gold);
+  transition: all 0.8s ease;
+}
+
+.hex-line.active {
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(201,168,76,0.4);
+}
+
+.hex-line.yin { width: 34px; }
+.hex-line.changing { background: var(--moon-blue); box-shadow: 0 0 10px rgba(96,165,250,0.4); }
+
+.ritual-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.1); }
+.dot.done { background:var(--gold); box-shadow:0 0 4px rgba(201,168,76,0.4); }
+.dot.current { background:var(--gold-light); transform:scale(1.5); box-shadow:0 0 8px rgba(232,212,139,0.5); }
+
+.cast-tap-btn {
+  width: 180px;
+  height: 48px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+/* ════════════ SCREEN 4: RESULT (from dao-oracle-mvp.html) ════════════ */
+.result-area { padding: 24px 20px; }
+
+.hex-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hex-header .number {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hex-header .symbol {
+  font-size: 56px;
+  color: var(--gold);
+  margin: 4px 0;
+}
+
+.hex-header .name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.hex-header .chinese {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.q-display {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.q-display .q-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.q-display .q-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.oracle-card {
+  background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.oracle-card .o-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.oracle-card .o-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.explain-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-md);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.explain-card h4 {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.explain-card p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Tabs from MVP */
+.tab-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Inter', sans-serif;
+}
+
+.tab.active {
+  background: rgba(201,168,76,0.1);
+  color: var(--gold-light);
+  border-color: rgba(201,168,76,0.25);
+}
+
+.tab-content {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-md);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.tab-content h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.tab-content p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ════════════ SCREEN 5: UNLOCK (from result.html line 51-53) ════════════ */
+.unlock-area {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.unlock-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.unlock-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.unlock-features {
+  text-align: left;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-lg);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.unlock-feat {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.unlock-feat:last-child { border-bottom: none; }
+
+.unlock-feat::before {
+  content: '✦ ';
+  color: var(--gold);
+}
+
+.price-btn {
+  display: block;
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-deep);
+  border: none;
+  border-radius: var(--r-lg);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.price-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* ════════════ SCREEN 6: SHARE (from result.html + daily.html) ════════════ */
+.share-area {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.share-hex {
+  font-size: 44px;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.share-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--gold-light);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.share-attribution {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+}
+
+.share-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.share-btn {
+  height: 46px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.cast-again {
+  margin-top: 28px;
+}
+
+/* ════════════ ANIMATIONS (from dao-oracle-mvp.html) ════════════ */
+@keyframes gateRotate { to { transform: rotate(360deg); } }
+@keyframes gateDrift {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.86; }
+  50% { transform: translateY(-6px) scale(1.02); opacity: 1; }
+}
+@keyframes gatePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.7; }
+}
+@keyframes starFloat {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(-4px); }
+}
+
+/* ════════════ SPECS PANEL ════════════ */
+.specs-panel {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 260px;
+  background: rgba(15,22,40,0.96);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  font-size: 10px;
+  line-height: 1.5;
+  z-index: 100;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.specs-panel h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.specs-panel table { width: 100%; border-collapse: collapse; }
+.specs-panel td { padding: 2px 6px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 9px; }
+.specs-panel td:first-child { color: var(--text-muted); }
+.specs-panel td:last-child { color: var(--silver); }
+.specs-panel .section-title {
+  font-size: 9px; color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: 1px; margin: 10px 0 4px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ SPECS PANEL ════════════ -->
+<div class="specs-panel" id="specsPanel">
+  <button onclick="document.getElementById('specsPanel').style.display='none'" style="position:absolute;top:8px;right:12px;background:none;border:none;color:#5a6a80;font-size:16px;cursor:pointer;">✕</button>
+  <h3>Design Specs v3</h3>
+  <div class="section-title">Source Prototypes</div>
+  <table>
+    <tr><td>Structure</td><td>dao-oracle-mvp.html</td></tr>
+    <tr><td>Colors</td><td>Scheme D 深夜空蓝</td></tr>
+    <tr><td>Question</td><td>MVP 6 directions</td></tr>
+    <tr><td>Ritual</td><td>MVP keyframes</td></tr>
+    <tr><td>Unlock</td><td>result.html $2.99</td></tr>
+    <tr><td>Share</td><td>daily.html share btns</td></tr>
+  </table>
+  <div class="section-title">Colors (Scheme D)</div>
+  <table>
+    <tr><td>bg-deep</td><td style="background:#080d1a;color:#fff;padding:0 4px;">#080d1a</td></tr>
+    <tr><td>bg-mid</td><td style="background:#0f1628;color:#fff;padding:0 4px;">#0f1628</td></tr>
+    <tr><td>gold</td><td style="background:#c9a84c;color:#000;padding:0 4px;">#c9a84c</td></tr>
+    <tr><td>gold-light</td><td style="background:#e8d48b;color:#000;padding:0 4px;">#e8d48b</td></tr>
+    <tr><td>silver</td><td style="background:#c0c8d8;color:#000;padding:0 4px;">#c0c8d8</td></tr>
+    <tr><td>moon-blue</td><td style="background:#60a5fa;color:#000;padding:0 4px;">#60a5fa</td></tr>
+  </table>
+  <div class="section-title">Scheme D Annotations</div>
+  <table>
+    <tr><td>Gold</td><td>太阳/阳性 (卦象主体)</td></tr>
+    <tr><td>Silver</td><td>月亮/阴性 (变爻、次要)</td></tr>
+    <tr><td>Blue</td><td>月光光晕 (灵性洞察)</td></tr>
+    <tr><td>Stars</td><td>闪烁粒子 夜空氛围</td></tr>
+    <tr><td>Ref</td><td>Co-Star, Sanctuary</td></tr>
+  </table>
+  <div class="section-title">Animations (MVP)</div>
+  <table>
+    <tr><td>gateRotate</td><td>42s linear &#8734;</td></tr>
+    <tr><td>gatePulse</td><td>2.8s ease-in-out &#8734;</td></tr>
+    <tr><td>pulseInterval</td><td>1580ms</td></tr>
+    <tr><td>lineBurst</td><td>1120ms</td></tr>
+    <tr><td>revealHex</td><td>1650ms</td></tr>
+  </table>
+</div>
+
+<!-- ════════════ TOP NAV ════════════ -->
+<div style="position:fixed;top:8px;left:48px;z-index:200;font-size:11px;color:var(--text-muted);letter-spacing:1px;">
+  ← scroll → / arrow keys &nbsp;|&nbsp; Dao Oracle v3
+</div>
+
+<!-- ════════════ 6 SCREENS ════════════ -->
+<div class="mockup-strip" id="strip">
+
+  <!-- SCREEN 1: INTRO (dao-oracle-mvp.html) -->
+  <div class="screen">
+    <div class="screen-label">Screen 1 · Intro<span class="source">src: mvp.html</span></div>
+    <div class="screen-inner">
+      <div class="intro-area">
+        <div class="intro-brand">Dao Oracle</div>
+        <div class="intro-subtitle">The universe grows quiet enough to answer.</div>
+        <div class="intro-tag">Ancient Eastern wisdom</div>
+        <p class="intro-body">Dao Oracle turns the ancient 64 hexagrams into clear guidance for modern life decisions.</p>
+        <p class="intro-body" style="font-size:12px;color:var(--text-muted)">For over 3,000 years, people in the ancient East turned to the wisdom of the universe before making life's most important choices.</p>
+        <div class="intro-card">
+          <h4>Practical insight before mystery</h4>
+          <p>Your reading names the situation and the next useful action.</p>
+        </div>
+        <div class="intro-card">
+          <h4>Mystery held lightly</h4>
+          <p>The ritual creates space for reflection without fear, pressure, or prediction claims.</p>
+        </div>
+        <button class="btn-primary">Begin Your Reading</button>
+        <button class="btn-secondary">Enter the Oracle</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: QUESTION (dao-oracle-mvp.html) -->
+  <div class="screen">
+    <div class="screen-label">Screen 2 · Question<span class="source">src: mvp.html</span></div>
+    <div class="screen-inner">
+      <div class="question-area">
+        <div class="q-prompt">What question are you carrying?</div>
+        <div class="q-subtitle">Write the decision, tension, or feeling you want to understand. The answer will stay in this browser session only for this reading.</div>
+        <textarea class="q-input" placeholder="e.g. Should I move cities this year?"></textarea>
+        <div class="q-direction-label">Choose the life area closest to your question so the reading can speak in a more useful direction.</div>
+        <div class="direction-grid">
+          <div class="dir-btn active">Love</div>
+          <div class="dir-btn">Career</div>
+          <div class="dir-btn">Money</div>
+          <div class="dir-btn">Wellbeing</div>
+          <div class="dir-btn">Life Path</div>
+          <div class="dir-btn">Inner Clarity</div>
+        </div>
+        <button class="btn-primary" style="margin-top:4px">Open the Oracle</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: RITUAL (dao-oracle-mvp.html) -->
+  <div class="screen">
+    <div class="screen-label">Screen 3 · Ritual<span class="source">src: mvp.html</span></div>
+    <div class="screen-inner">
+      <div class="ritual-area">
+        <div class="ritual-subtitle">The question has entered the ritual. Six quiet pulses will invite the hexagram to surface.</div>
+        <div class="gate-container">
+          <div class="gate-outer"></div>
+          <div class="gate-mid"></div>
+          <div class="gate-inner"></div>
+          <div class="gate-core"></div>
+          <div class="star-particle" style="top:10px;left:20px;animation-delay:0s"></div>
+          <div class="star-particle" style="top:30px;right:15px;animation-delay:1.5s"></div>
+          <div class="star-particle" style="bottom:25px;left:10px;animation-delay:3s"></div>
+          <div class="star-particle" style="bottom:10px;right:25px;animation-delay:4.5s"></div>
+        </div>
+        <div class="ritual-status">The six breaths are forming</div>
+        <div class="hex-build">
+          <div class="hex-line active"></div>
+          <div class="hex-line yin active"></div>
+          <div class="hex-line active"></div>
+          <div class="hex-line yin active changing"></div>
+          <div class="hex-line active"></div>
+          <div class="hex-line active changing"></div>
+        </div>
+        <div class="ritual-dots">
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot done"></div>
+          <div class="dot current"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <button class="cast-tap-btn">✦ TAP TO CAST</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: RESULT (dao-oracle-mvp.html) -->
+  <div class="screen">
+    <div class="screen-label">Screen 4 · Result<span class="source">src: mvp.html</span></div>
+    <div class="screen-inner">
+      <div class="result-area">
+        <div class="hex-header">
+          <div class="number">Hexagram 2</div>
+          <div class="symbol">䷁</div>
+          <div class="name">The Receptive</div>
+          <div class="chinese">坤 · Kūn — Earth over Earth</div>
+        </div>
+        <div class="q-display">
+          <div class="q-label">Your question</div>
+          <div class="q-text">Should I move cities this year?</div>
+        </div>
+        <div class="oracle-card">
+          <div class="o-label">Oracle text</div>
+          <div class="o-text">Receiving opens the path. Do not force the door; prepare the ground.</div>
+        </div>
+        <div class="explain-card">
+          <h4>Simple explanation</h4>
+          <p>This moment asks for patience, attention, and grounded movement. The useful next step is not to push harder, but to notice what is already opening.</p>
+        </div>
+        <div class="tab-row">
+          <div class="tab active">Cosmic Timing</div>
+          <div class="tab">Human Field</div>
+          <div class="tab">Earthly Leverage</div>
+        </div>
+        <div class="tab-content">
+          <h4>Cosmic Timing</h4>
+          <p>Why this moment is here</p>
+          <p style="font-size:13px;line-height:1.7;color:var(--text-secondary);margin-top:6px;">This reading points to the timing around your question: what is opening, what is slowing down, and where force would create resistance rather than forward motion.</p>
+        </div>
+        <button class="btn-primary" style="font-size:14px;letter-spacing:1px">Unlock the full reading</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: UNLOCK (result.html + MVP) -->
+  <div class="screen">
+    <div class="screen-label">Screen 5 · Unlock<span class="source">src: result.html</span></div>
+    <div class="screen-inner">
+      <div class="unlock-area">
+        <div class="unlock-heading">Unlock Detailed Report</div>
+        <div class="unlock-desc">Get a personalized 10-page PDF report with in-depth analysis, timing guidance, and actionable steps for your specific situation.</div>
+        <div class="unlock-features">
+          <div class="unlock-feat">10-page personalized PDF report</div>
+          <div class="unlock-feat">Line-by-line deep analysis</div>
+          <div class="unlock-feat">Timing & seasonal guidance</div>
+          <div class="unlock-feat">Actionable daily practices</div>
+          <div class="unlock-feat">Save to your journal forever</div>
+        </div>
+        <button class="price-btn">Unlock Now — $2.99</button>
+        <div class="price-note">One-time purchase · Instant delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: SHARE (result.html + daily.html) -->
+  <div class="screen">
+    <div class="screen-label">Screen 6 · Share<span class="source">src: result + daily</span></div>
+    <div class="screen-inner">
+      <div class="share-area">
+        <div class="share-hex">䷁</div>
+        <div class="share-quote">"Receiving opens the path. Do not force the door; prepare the ground."</div>
+        <div class="share-attribution">— Your Dao Oracle Reading</div>
+        <div class="share-buttons">
+          <button class="share-btn">💬 WhatsApp</button>
+          <button class="share-btn">🔗 Copy Link</button>
+          <button class="share-btn">💾 Save</button>
+          <button class="share-btn">↗ Share</button>
+        </div>
+        <div class="cast-again">
+          <button class="btn-primary">Cast Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end strip -->
+
+<!-- Toggle specs panel -->
+<button onclick="document.getElementById('specsPanel').style.display='block';this.style.display='none'"
+  style="position:fixed;bottom:24px;right:24px;z-index:200;width:36px;height:36px;border-radius:50%;background:rgba(15,22,40,0.9);border:1px solid rgba(255,255,255,0.1);color:#c9a84c;font-size:14px;cursor:pointer;display:none;"
+  id="showBtn">📋</button>
+
+<script>
+const panel = document.getElementById('specsPanel');
+const btn = document.getElementById('showBtn');
+new MutationObserver(() => {
+  btn.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}).observe(panel, {attributes: true, attributeFilter: ['style']});
+
+document.addEventListener('keydown', e => {
+  const s = document.getElementById('strip');
+  if (e.key === 'ArrowRight') s.scrollBy({left: 438, behavior: 'smooth'});
+  if (e.key === 'ArrowLeft') s.scrollBy({left: -438, behavior: 'smooth'});
+});
+</script>
+</body>
+</html>
