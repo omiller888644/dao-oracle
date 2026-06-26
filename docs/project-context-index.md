@@ -10,7 +10,7 @@
 1. `docs/project-context-index.md`
 2. `docs/module-summaries/home.md`
 3. `docs/module-summaries/oracle-ritual.md`
-4. `docs/dao-oracle-effect-notes.md`
+4. `docs/design-mockups/dao-oracle-effect-notes.md`
 5. 当天或最近一次 `项目每日总结/YYYY-MM-DD/YYYY-MM-DD_项目讨论总结.md`
 
 如果本次任务只涉及某个模块，优先读取对应模块摘要，再读取相关设计规格。
@@ -31,6 +31,20 @@
 - 首页：`docs/module-summaries/home.md`
 - 宇宙摇卦页 / 第四页：`docs/module-summaries/oracle-ritual.md`
 - SEO 与推广：`docs/module-summaries/seo-promotion.md`
+
+## 文件分类目录
+
+- `docs/strategy-research/project-plans/`：项目总览、执行计划、商业计划、网站建设方案。
+- `docs/strategy-research/market-research/`：市场调研、竞品拆解、辩证分析。
+- `docs/strategy-research/brand-positioning/`：品牌命名、欧美定位和早期方向讨论。
+- `docs/competitor-research/`：外部竞品、SEO 和推广方式分析。
+- `docs/design-mockups/`：页面效果图、带旁注效果图和效果图讨论摘要。
+- `website-mvp/`：当前静态网站 MVP 页面资料包。
+- `prototypes/axure-source/`：Axure 源文件。
+- `prototypes/axure-export/`：Axure 导出的可浏览原型。
+- `outputs/`：生成的内容库、文档、PDF、表格和渲染图。
+- `assets/`：3D 模型等视觉资产。
+- `tests/`：原型检查脚本。
 
 后续每新增一个核心模块，都应新建一个独立摘要文件，例如：
 
@@ -68,6 +82,6 @@
 - Dao Oracle 的 SEO 方向应借鉴“意图词 + 东方底层体系 + 现代自我探索结果”的结构。
 - 优先建设：首页、意图型落地页、64 卦知识库、Beginner Guide、社媒分享页。
 - 推广表达应偏向 `guidance`、`clarity`、`timing`、`reflection`、`relationship insight`，避免强算命承诺。
-- 所有效果图 HTML 已按首页与第四页修改要求统一更新：`design-mockup-v2.html` 到 `design-mockup-v9.html`，以及 `docs/dao-oracle-effect-mockups.html`。
+- 所有效果图 HTML 已按首页与第四页修改要求统一更新：`docs/design-mockups/design-mockup-v2.html` 到 `docs/design-mockups/design-mockup-v9.html`，以及 `docs/design-mockups/dao-oracle-effect-mockups.html`。
 - 效果图首页已补齐 `Begin Your Reading`、`Learn Dao Oracle`、`The Origin of the 64 Hexagrams`。
 - 效果图第四页已统一为“深空背景 + 宇宙门呼吸 + 六次脉冲 + 卦象从中心浮现”的表达。

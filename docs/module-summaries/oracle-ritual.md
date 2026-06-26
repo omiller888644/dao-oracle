@@ -77,22 +77,22 @@
 
 ## 待实现页面
 
-- 当前原型：`64卦网站项目资料包/iching-pages/dao-oracle-mvp.html`
+- 当前原型：`website-mvp/64卦网站项目资料包/iching-pages/dao-oracle-mvp.html`
 - 重点区域：`data-screen="ritual"` 的第四页。
 
 ## 2026-06-26 效果图更新状态
 
 以下效果图已把摇卦页说明统一调整到“深空宇宙门”方向：
 
-- `design-mockup-v2.html`
-- `design-mockup-v3.html`
-- `design-mockup-v4.html`
-- `design-mockup-v5.html`
-- `design-mockup-v6.html`
-- `design-mockup-v7.html`
-- `design-mockup-v8.html`
-- `design-mockup-v9.html`
-- `docs/dao-oracle-effect-mockups.html`
+- `docs/design-mockups/design-mockup-v2.html`
+- `docs/design-mockups/design-mockup-v3.html`
+- `docs/design-mockups/design-mockup-v4.html`
+- `docs/design-mockups/design-mockup-v5.html`
+- `docs/design-mockups/design-mockup-v6.html`
+- `docs/design-mockups/design-mockup-v7.html`
+- `docs/design-mockups/design-mockup-v8.html`
+- `docs/design-mockups/design-mockup-v9.html`
+- `docs/design-mockups/dao-oracle-effect-mockups.html`
 
 已完成：
 

@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 
 const html = readFileSync(
-  new URL("../64卦网站项目资料包/iching-pages/dao-oracle-mvp.html", import.meta.url),
+  new URL("../website-mvp/64卦网站项目资料包/iching-pages/dao-oracle-mvp.html", import.meta.url),
   "utf8",
 );
 

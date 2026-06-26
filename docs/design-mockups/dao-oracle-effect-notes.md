@@ -4,7 +4,7 @@
 目标是把已经确认的结构、首页叙事、宇宙摇卦页气质和标注方式固定下来，避免每次重新从头梳理。
 
 当前对应的 HTML 效果图稿：
-- `docs/dao-oracle-effect-mockups.html`
+- `docs/design-mockups/dao-oracle-effect-mockups.html`
 
 ## 已确认页面结构
 

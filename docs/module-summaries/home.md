@@ -58,15 +58,15 @@
 
 以下效果图已按首页修改要求统一更新：
 
-- `design-mockup-v2.html`
-- `design-mockup-v3.html`
-- `design-mockup-v4.html`
-- `design-mockup-v5.html`
-- `design-mockup-v6.html`
-- `design-mockup-v7.html`
-- `design-mockup-v8.html`
-- `design-mockup-v9.html`
-- `docs/dao-oracle-effect-mockups.html`
+- `docs/design-mockups/design-mockup-v2.html`
+- `docs/design-mockups/design-mockup-v3.html`
+- `docs/design-mockups/design-mockup-v4.html`
+- `docs/design-mockups/design-mockup-v5.html`
+- `docs/design-mockups/design-mockup-v6.html`
+- `docs/design-mockups/design-mockup-v7.html`
+- `docs/design-mockups/design-mockup-v8.html`
+- `docs/design-mockups/design-mockup-v9.html`
+- `docs/design-mockups/dao-oracle-effect-mockups.html`
 
 已完成：
 
@@ -119,8 +119,8 @@
 
 ## 待实现页面
 
-- 首页改版：`64卦网站项目资料包/iching-pages/dao-oracle-mvp.html`
-- 新增详情页：`64卦网站项目资料包/iching-pages/hexagram-origin.html`
+- 首页改版：`website-mvp/64卦网站项目资料包/iching-pages/dao-oracle-mvp.html`
+- 新增详情页：`website-mvp/64卦网站项目资料包/iching-pages/hexagram-origin.html`
 
 ## 待确认
 
