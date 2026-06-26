@@ -1,6 +1,6 @@
 # Dao Oracle 新对话上下文索引
 
-本文件是新对话窗口的第一读取入口。  
+本文件是新对话窗口的第一读取入口。
 目标是在上下文已满、无法继续讨论时，让新窗口快速获得最新、准确、可执行的项目材料。
 
 ## 读取顺序
@@ -10,8 +10,10 @@
 1. `docs/project-context-index.md`
 2. `docs/module-summaries/home.md`
 3. `docs/module-summaries/oracle-ritual.md`
-4. `docs/design-mockups/dao-oracle-effect-notes.md`
-5. 当天或最近一次 `项目每日总结/YYYY-MM-DD/YYYY-MM-DD_项目讨论总结.md`
+4. `docs/module-summaries/seo-promotion.md`
+5. `docs/module-summaries/geo.md`
+6. `docs/design-mockups/dao-oracle-effect-notes.md`
+7. 当天或最近一次 `项目每日总结/YYYY-MM-DD/YYYY-MM-DD_项目讨论总结.md`
 
 如果本次任务只涉及某个模块，优先读取对应模块摘要，再读取相关设计规格。
 
@@ -30,13 +32,15 @@
 
 - 首页：`docs/module-summaries/home.md`
 - 宇宙摇卦页 / 第四页：`docs/module-summaries/oracle-ritual.md`
-- SEO 与推广：`docs/module-summaries/seo-promotion.md`
+- SEO / GEO 与推广：`docs/module-summaries/seo-promotion.md`
+- GEO：`docs/module-summaries/geo.md`
 
 ## 文件分类目录
 
 - `docs/strategy-research/project-plans/`：项目总览、执行计划、商业计划、网站建设方案。
 - `docs/strategy-research/market-research/`：市场调研、竞品拆解、辩证分析。
 - `docs/strategy-research/brand-positioning/`：品牌命名、欧美定位和早期方向讨论。
+- `docs/strategy-research/seo-geo/`：SEO、GEO、AI 搜索答案页和推广执行方案。
 - `docs/competitor-research/`：外部竞品、SEO 和推广方式分析。
 - `docs/design-mockups/`：页面效果图、带旁注效果图和效果图讨论摘要。
 - `website-mvp/`：当前静态网站 MVP 页面资料包。
@@ -55,7 +59,7 @@
 
 ## 摘要维护规则
 
-每次出现新的明确决定时，必须同步更新对应模块摘要。  
+每次出现新的明确决定时，必须同步更新对应模块摘要。
 每日总结记录过程，模块摘要记录当前最终结论。
 
 更新原则：
@@ -79,7 +83,11 @@
 
 - 新增 SEO 与推广模块摘要：`docs/module-summaries/seo-promotion.md`
 - 新增 Buddha Stones 及同类灵性电商分析：`docs/competitor-research/2026-06-26-buddha-stones-seo-promotion-analysis.md`
+- 新增 GEO 模块摘要：`docs/module-summaries/geo.md`
+- 新增 GEO 与推广执行方案：`docs/strategy-research/seo-geo/2026-06-26-dao-oracle-geo-promotion-plan.md`
 - Dao Oracle 的 SEO 方向应借鉴“意图词 + 东方底层体系 + 现代自我探索结果”的结构。
+- Dao Oracle 的 GEO 目标是成为 AI 答案引擎回答 I Ching、64 hexagrams、modern oracle reading、decision guidance 时可引用的英文答案源。
+- 第一批 GEO 页面：`What Is Dao Oracle?`、`What Is the I Ching?`、`What Are the 64 Hexagrams?`、`The Origin of the 64 Hexagrams`、`I Ching for Beginners`、`How to Ask the I Ching a Good Question`、`I Ching Love Reading`、`I Ching Career Reading`、`I Ching vs Tarot`、`Is Dao Oracle Fortune Telling?`
 - 优先建设：首页、意图型落地页、64 卦知识库、Beginner Guide、社媒分享页。
 - 推广表达应偏向 `guidance`、`clarity`、`timing`、`reflection`、`relationship insight`，避免强算命承诺。
 - 所有效果图 HTML 已按首页与第四页修改要求统一更新：`docs/design-mockups/design-mockup-v2.html` 到 `docs/design-mockups/design-mockup-v9.html`，以及 `docs/design-mockups/dao-oracle-effect-mockups.html`。
