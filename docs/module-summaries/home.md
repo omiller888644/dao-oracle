@@ -1,6 +1,6 @@
 # 首页模块摘要
 
-最后更新：2026-06-25
+最后更新：2026-06-26
 
 ## 模块目标
 
@@ -53,6 +53,29 @@
 - 增加次级入口：`Learn Dao Oracle`。
 - 增加内容入口：`The Origin of the 64 Hexagrams`。
 - 首页下方增加简洁解释区，让用户理解为什么是 64 卦。
+
+## 2026-06-26 效果图更新状态
+
+以下效果图已按首页修改要求统一更新：
+
+- `design-mockup-v2.html`
+- `design-mockup-v3.html`
+- `design-mockup-v4.html`
+- `design-mockup-v5.html`
+- `design-mockup-v6.html`
+- `design-mockup-v7.html`
+- `design-mockup-v8.html`
+- `design-mockup-v9.html`
+- `docs/dao-oracle-effect-mockups.html`
+
+已完成：
+
+- 明确展示 `Dao Oracle`。
+- 补齐 `Begin Your Reading`。
+- 补齐 `Learn Dao Oracle`。
+- 补齐 `The Origin of the 64 Hexagrams`。
+- 删除红框里的散乱标签表达。
+- 删除 `翻译为英文`、`进入到 DAO Oracle 的介绍页面` 等含糊入口。
 
 ## 推荐首页首屏结构
 

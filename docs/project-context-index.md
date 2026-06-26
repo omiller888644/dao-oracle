@@ -68,3 +68,6 @@
 - Dao Oracle 的 SEO 方向应借鉴“意图词 + 东方底层体系 + 现代自我探索结果”的结构。
 - 优先建设：首页、意图型落地页、64 卦知识库、Beginner Guide、社媒分享页。
 - 推广表达应偏向 `guidance`、`clarity`、`timing`、`reflection`、`relationship insight`，避免强算命承诺。
+- 所有效果图 HTML 已按首页与第四页修改要求统一更新：`design-mockup-v2.html` 到 `design-mockup-v9.html`，以及 `docs/dao-oracle-effect-mockups.html`。
+- 效果图首页已补齐 `Begin Your Reading`、`Learn Dao Oracle`、`The Origin of the 64 Hexagrams`。
+- 效果图第四页已统一为“深空背景 + 宇宙门呼吸 + 六次脉冲 + 卦象从中心浮现”的表达。

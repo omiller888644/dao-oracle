@@ -1,6 +1,6 @@
 # 宇宙摇卦页模块摘要
 
-最后更新：2026-06-25
+最后更新：2026-06-26
 
 ## 模块目标
 
@@ -79,3 +79,23 @@
 
 - 当前原型：`64卦网站项目资料包/iching-pages/dao-oracle-mvp.html`
 - 重点区域：`data-screen="ritual"` 的第四页。
+
+## 2026-06-26 效果图更新状态
+
+以下效果图已把摇卦页说明统一调整到“深空宇宙门”方向：
+
+- `design-mockup-v2.html`
+- `design-mockup-v3.html`
+- `design-mockup-v4.html`
+- `design-mockup-v5.html`
+- `design-mockup-v6.html`
+- `design-mockup-v7.html`
+- `design-mockup-v8.html`
+- `design-mockup-v9.html`
+- `docs/dao-oracle-effect-mockups.html`
+
+已完成：
+
+- 强调深空背景和宇宙门呼吸。
+- 强调六次脉冲后卦象从中心浮现。
+- 说明东方元素只作为深层纹理，不作为主视觉。
