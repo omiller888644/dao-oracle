@@ -12,8 +12,9 @@
 3. `docs/module-summaries/oracle-ritual.md`
 4. `docs/module-summaries/seo-promotion.md`
 5. `docs/module-summaries/geo.md`
-6. `docs/design-mockups/dao-oracle-effect-notes.md`
-7. 当天或最近一次 `项目每日总结/YYYY-MM-DD/YYYY-MM-DD_项目讨论总结.md`
+6. `docs/module-summaries/full-stack-platform.md`
+7. `docs/design-mockups/dao-oracle-effect-notes.md`
+8. 当天或最近一次 `项目每日总结/YYYY-MM-DD/YYYY-MM-DD_项目讨论总结.md`
 
 如果本次任务只涉及某个模块，优先读取对应模块摘要，再读取相关设计规格。
 
@@ -34,6 +35,7 @@
 - 宇宙摇卦页 / 第四页：`docs/module-summaries/oracle-ritual.md`
 - SEO / GEO 与推广：`docs/module-summaries/seo-promotion.md`
 - GEO：`docs/module-summaries/geo.md`
+- 全栈网站平台：`docs/module-summaries/full-stack-platform.md`
 
 ## 文件分类目录
 
@@ -43,6 +45,7 @@
 - `docs/strategy-research/seo-geo/`：SEO、GEO、AI 搜索答案页和推广执行方案。
 - `docs/competitor-research/`：外部竞品、SEO 和推广方式分析。
 - `docs/design-mockups/`：页面效果图、带旁注效果图和效果图讨论摘要。
+- `docs/superpowers/specs/`：已确认的功能与系统设计规格。
 - `website-mvp/`：当前静态网站 MVP 页面资料包。
 - `prototypes/axure-source/`：Axure 源文件。
 - `prototypes/axure-export/`：Axure 导出的可浏览原型。
@@ -93,3 +96,8 @@
 - 所有效果图 HTML 已按首页与第四页修改要求统一更新：`docs/design-mockups/design-mockup-v2.html` 到 `docs/design-mockups/design-mockup-v9.html`，以及 `docs/design-mockups/dao-oracle-effect-mockups.html`。
 - 效果图首页已补齐 `Begin Your Reading`、`Learn Dao Oracle`、`The Origin of the 64 Hexagrams`。
 - 效果图第四页已统一为“深空背景 + 宇宙门呼吸 + 六次脉冲 + 卦象从中心浮现”的表达。
+- 已确认全栈网站第一版技术方案：`Next.js App Router + Tailwind CSS + Supabase Postgres/Auth + OpenAI API + Vercel Preview`。
+- 已确认 64 卦数据库种子文件：`outputs/hexagram_content/dao_oracle_64_hexagrams_database_ready.jsonl`。
+- 已新增全栈网站平台模块摘要：`docs/module-summaries/full-stack-platform.md`。
+- 已新增全栈网站平台设计规格：`docs/superpowers/specs/2026-06-26-full-stack-website-platform-design.md`。
+- 第一版部署建议：`Vercel Preview + Supabase Staging`，正式上线再切换到 Vercel Production + Supabase Production。
