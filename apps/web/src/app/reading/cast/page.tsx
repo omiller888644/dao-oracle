@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageShell } from "@/components/page-shell";
+import {
+  CosmicGate,
+  MobileStage,
+  PrimaryCta,
+  SecondaryCta
+} from "@/components/mobile-flow";
 
 export const metadata: Metadata = {
   title: "Cast Your Hexagram",
@@ -9,27 +13,26 @@ export const metadata: Metadata = {
 
 export default function CastPage() {
   return (
-    <PageShell
-      title="Cast six lines"
-      description="The first build uses a stable test flow. The production interaction will use the cosmic gate animation from the approved visual direction."
-    >
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
-        <div className="mx-auto mb-8 flex max-w-xs flex-col gap-3">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <span className="h-2 rounded-full bg-gold" key={index} />
-          ))}
+    <MobileStage label="Cosmic ritual" variant="ritual">
+      <div className="flex min-h-[650px] flex-col items-center justify-between text-center">
+        <div>
+          <p className="text-xs uppercase tracking-[0.28em] text-gold">
+            Six quiet pulses
+          </p>
+          <h1 className="mt-4 font-serif text-4xl leading-tight">
+            Let the cosmic gate breathe with the question.
+          </h1>
+          <p className="mt-4 text-sm leading-6 text-mist">
+            The question has entered deep space. Six quiet pulses move through
+            the gate before the hexagram fades in.
+          </p>
         </div>
-        <p>
-          This page is wired for the reading flow. Interactive casting and saved
-          results will connect to the API as the next implementation layer.
-        </p>
-        <Link
-          className="mt-8 inline-flex rounded-full border border-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-gold"
-          href="/reading/result/demo"
-        >
-          View Demo Result
-        </Link>
+        <CosmicGate />
+        <div className="grid w-full gap-3">
+          <PrimaryCta href="/reading/result/demo">Reveal the Hexagram</PrimaryCta>
+          <SecondaryCta href="/reading">Change Question</SecondaryCta>
+        </div>
       </div>
-    </PageShell>
+    </MobileStage>
   );
 }

@@ -50,6 +50,14 @@
 - `robots.txt` 和 `sitemap.xml`。
 - 后台 MVP 页面结构。
 - Vercel 部署说明和 `vercel.json`。
+- 已根据效果图修正用户端视觉偏差：
+  - 首页改为居中手机稿结构。
+  - 问题页改为效果图中的 question page 结构。
+  - 摇卦页改为深空宇宙门 / 呼吸感视觉。
+  - 结果页改为卦象卡 + Cosmic Timing + Human Field + 解锁/分享入口。
+  - 新增 `/reading/transition`，用于查看问题提交后的过渡动画状态。
+  - 新增 `/reading/payment`，用于查看付费详情页。
+  - 新增 `/reading/share`，用于查看分享卡页面。
 
 本地测试 URL：
 
@@ -60,6 +68,7 @@
 - Supabase 真实项目尚未连接，API 仍使用 mock persistence。
 - OpenAI key 尚未配置，AI 解读 API 返回 `source: "mock"` 的开发版输出。
 - 后台页面是运营结构 MVP，真实登录、RLS 查询和编辑功能待接 Supabase 后继续。
+- 当前前端已更接近效果图，但还需要后续逐屏视觉精修，包括动画节奏、字体细节和最终交互。
 
 部署策略：
 

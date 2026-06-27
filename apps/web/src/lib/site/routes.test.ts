@@ -11,5 +11,8 @@ describe("public route manifest", () => {
     expect(paths).toContain("/i-ching/beginners-guide");
     expect(paths).toContain("/readings/love");
     expect(paths).toContain("/readings/career");
+    expect(paths).toContain("/reading/transition");
+    expect(paths).toContain("/reading/payment");
+    expect(paths).toContain("/reading/share");
   });
 });

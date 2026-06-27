@@ -25,6 +25,24 @@ export const publicRoutes: PublicRoute[] = [
     priority: 0.9
   },
   {
+    path: "/reading/transition",
+    title: "Question Received",
+    description: "A short transition state before the cosmic ritual begins.",
+    priority: 0.5
+  },
+  {
+    path: "/reading/payment",
+    title: "Unlock Full Reading",
+    description: "A full reading detail page for future paid interpretation.",
+    priority: 0.45
+  },
+  {
+    path: "/reading/share",
+    title: "Share Reading",
+    description: "A share card page for Dao Oracle reading results.",
+    priority: 0.45
+  },
+  {
     path: "/hexagrams",
     title: "64 Hexagrams",
     description: "Explore the 64 hexagrams used by Dao Oracle.",

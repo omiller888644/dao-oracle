@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/page-shell";
+import {
+  HexagramMark,
+  MobileStage,
+  Panel,
+  PrimaryCta,
+  SecondaryCta
+} from "@/components/mobile-flow";
 
 export const metadata: Metadata = {
   title: "Reading Result",
@@ -14,17 +20,50 @@ export default async function ReadingResultPage({
   const { id } = await params;
 
   return (
-    <PageShell
-      title="Your reading result"
-      description="A saved reading will combine your question, the cast hexagram, and a grounded AI interpretation."
-    >
-      <p>Reading ID: {id}</p>
-      <h2>What will appear here</h2>
-      <p>
-        The result page will show the fixed hexagram message, personalized
-        context, action steps, a reflection question, and a reminder that Dao
-        Oracle supports judgment rather than replacing it.
-      </p>
-    </PageShell>
+    <MobileStage label="Reading result" variant="result">
+      <div className="grid gap-4">
+        <Panel>
+          <p className="text-xs uppercase tracking-[0.22em] text-gold">
+            Your question
+          </p>
+          <p className="mt-3 text-sm leading-6 text-mist">
+            What should I understand before deciding?
+          </p>
+        </Panel>
+
+        <Panel className="text-center">
+          <HexagramMark compact />
+          <p className="mt-5 text-xs uppercase tracking-[0.26em] text-gold">
+            Hexagram 2
+          </p>
+          <h1 className="mt-2 font-serif text-4xl">The Receptive</h1>
+          <p className="mt-4 text-base leading-7 text-mist">
+            Strength is not always a push. Sometimes it is a holding.
+          </p>
+        </Panel>
+
+        <Panel>
+          <h2 className="font-serif text-2xl">Cosmic Timing</h2>
+          <p className="mt-3 text-sm leading-6 text-mist">
+            This reading points to the timing around your question: what is
+            opening, what is slowing down, and where force would create noise.
+          </p>
+        </Panel>
+
+        <Panel>
+          <h2 className="font-serif text-2xl">Human Field</h2>
+          <p className="mt-3 text-sm leading-6 text-mist">
+            Notice the people and expectations around this question. The useful
+            relationship is the one that makes the situation clearer, not louder.
+          </p>
+        </Panel>
+
+        <div className="grid gap-3">
+          <PrimaryCta href="/reading/payment">Unlock Full Reading</PrimaryCta>
+          <SecondaryCta href="/reading/share">Share This Reading</SecondaryCta>
+        </div>
+        <p className="text-center text-xs text-mist/60">Reading ID: {id}</p>
+      </div>
+    </MobileStage>
   );
 }
