@@ -27,3 +27,137 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.star-layer,
+.star-dust {
+  position: absolute;
+  inset: -20%;
+  opacity: 0.78;
+}
+
+.star-layer-a {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.78) 0 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(216, 178, 76, 0.5) 0 1px, transparent 1.3px);
+  background-position:
+    0 0,
+    34px 58px;
+  background-size:
+    74px 74px,
+    118px 118px;
+  animation: drift-stars 38s linear infinite;
+}
+
+.star-layer-b {
+  background-image:
+    radial-gradient(circle, rgba(151, 181, 220, 0.5) 0 1px, transparent 1.2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.34) 0 1px, transparent 1.1px);
+  background-position:
+    18px 26px,
+    90px 12px;
+  background-size:
+    96px 96px,
+    152px 152px;
+  animation: drift-stars 58s linear infinite reverse;
+}
+
+.star-dust {
+  background:
+    radial-gradient(ellipse at 50% 36%, rgba(216, 178, 76, 0.16), transparent 36%),
+    radial-gradient(ellipse at 54% 54%, rgba(77, 118, 158, 0.22), transparent 42%);
+  filter: blur(10px);
+  animation: breathe-dust 6.8s ease-in-out infinite;
+}
+
+.gate-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(216, 178, 76, 0.16);
+}
+
+.gate-ring-one {
+  width: 17rem;
+  height: 17rem;
+  animation: gate-breathe 5.6s ease-in-out infinite;
+}
+
+.gate-ring-two {
+  width: 13rem;
+  height: 13rem;
+  border-color: rgba(255, 255, 255, 0.11);
+  animation: gate-breathe 5.6s ease-in-out 0.8s infinite;
+}
+
+.gate-ring-three {
+  width: 9.5rem;
+  height: 9.5rem;
+  border-color: rgba(216, 178, 76, 0.24);
+  animation: gate-breathe 5.6s ease-in-out 1.4s infinite;
+}
+
+.gate-pulse {
+  position: absolute;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(216, 178, 76, 0.44);
+  opacity: 0;
+}
+
+.cosmic-gate.is-active .gate-pulse {
+  animation: cast-pulse 900ms ease-out;
+}
+
+@keyframes drift-stars {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(-74px, 118px, 0) rotate(8deg);
+  }
+}
+
+@keyframes breathe-dust {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes gate-breathe {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes cast-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.72);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star-layer-a,
+  .star-layer-b,
+  .star-dust,
+  .gate-ring,
+  .cosmic-gate.is-active .gate-pulse {
+    animation: none;
+  }
+}

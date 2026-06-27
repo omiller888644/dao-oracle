@@ -14,11 +14,14 @@ export function MobileStage({ label, children, variant = "home" }: MobileStagePr
         <div className="relative w-full max-w-[390px] rounded-[2.4rem] border border-white/10 bg-[#0a101d] p-2 shadow-2xl shadow-black/60">
           <div className="absolute inset-0 rounded-[2.4rem] bg-[radial-gradient(circle_at_50%_18%,rgba(216,178,76,0.12),transparent_38%),radial-gradient(circle_at_50%_90%,rgba(42,78,101,0.18),transparent_44%)]" />
           <section className="relative min-h-[844px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d1423]">
+            {(variant === "transition" || variant === "ritual") ? (
+              <StarField />
+            ) : null}
             <div className="flex h-16 items-center justify-between border-b border-white/5 px-6 text-xs text-mist">
               <span>9:41</span>
               <span className="tracking-[0.35em]">●●●▮</span>
             </div>
-            <div className="px-6 py-5">
+            <div className="relative z-10 px-6 py-5">
               <div className="mb-8 flex items-center justify-between">
                 <Link className="flex items-center gap-3 font-serif text-2xl" href="/">
                   <span className="grid h-9 w-9 place-items-center rounded-full border border-gold/70 text-gold">☉</span>
@@ -33,6 +36,18 @@ export function MobileStage({ label, children, variant = "home" }: MobileStagePr
         </div>
       </div>
     </main>
+  );
+}
+
+function StarField() {
+  return (
+    <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(24,37,64,0.28),transparent_34%),radial-gradient(circle_at_50%_72%,rgba(216,178,76,0.1),transparent_42%),linear-gradient(180deg,#040711_0%,#08101f_52%,#02030a_100%)]" />
+      <div className="star-layer star-layer-a" />
+      <div className="star-layer star-layer-b" />
+      <div className="star-dust" />
+      <div className="absolute inset-x-10 top-28 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+    </div>
   );
 }
 
@@ -88,15 +103,24 @@ export function HexagramMark({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function CosmicGate() {
+export function CosmicGate({
+  active = false,
+  reveal = false,
+  pulseKey = 0
+}: {
+  active?: boolean;
+  reveal?: boolean;
+  pulseKey?: number;
+}) {
   return (
-    <div className="relative mx-auto grid h-64 w-64 place-items-center">
-      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(216,178,76,0.22)_0%,rgba(38,64,91,0.12)_36%,transparent_68%)] blur-xl" />
-      <div className="absolute h-60 w-60 rounded-full border border-gold/10" />
-      <div className="absolute h-48 w-48 rounded-full border border-white/10" />
-      <div className="absolute h-36 w-36 rounded-full border border-gold/20" />
-      <div className="absolute h-24 w-24 rounded-full bg-black shadow-[0_0_80px_rgba(216,178,76,0.28)]" />
-      <div className="relative grid gap-2">
+    <div className={`cosmic-gate relative mx-auto grid h-72 w-72 place-items-center ${active ? "is-active" : ""}`}>
+      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(216,178,76,0.24)_0%,rgba(38,64,91,0.13)_34%,transparent_66%)] blur-xl" />
+      <div className="gate-ring gate-ring-one" />
+      <div className="gate-ring gate-ring-two" />
+      <div className="gate-ring gate-ring-three" />
+      <div className="gate-pulse" key={pulseKey} />
+      <div className="absolute h-28 w-28 rounded-full bg-black shadow-[0_0_95px_rgba(216,178,76,0.28),inset_0_0_28px_rgba(255,255,255,0.05)]" />
+      <div className={`relative grid gap-2 transition-all duration-700 ${reveal ? "scale-100 opacity-100" : "scale-90 opacity-55"}`}>
         {Array.from({ length: 6 }).map((_, index) => (
           <span className="h-1 w-16 rounded-full bg-gold/80" key={index} />
         ))}
