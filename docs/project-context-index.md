@@ -101,3 +101,15 @@
 - 已新增全栈网站平台模块摘要：`docs/module-summaries/full-stack-platform.md`。
 - 已新增全栈网站平台设计规格：`docs/superpowers/specs/2026-06-26-full-stack-website-platform-design.md`。
 - 第一版部署建议：`Vercel Preview + Supabase Staging`，正式上线再切换到 Vercel Production + Supabase Production。
+
+## 2026-06-27 最新决定与进展
+
+- 用户确认开始搭建网站，原则是欧美市场、海外部署、SEO/GEO 独立站推广友好、后期可接支付、大模型深度解读、知识库和推广自动化。
+- 已创建全栈应用目录：`apps/web`。
+- 已完成 Next.js App Router + Tailwind 应用骨架。
+- 已完成 Supabase 初始 migration：`apps/web/supabase/migrations/0001_initial_schema.sql`。
+- 已完成 64 卦 seed 校验和 dry-run 导入脚本。
+- 已完成起卦逻辑、AI 解读上下文和 mock API。
+- 已完成首批 SEO/GEO 页面、64 卦列表、64 个单卦静态页、后台 MVP、`robots.txt`、`sitemap.xml`。
+- 本地开发 URL：`http://127.0.0.1:3000`。
+- 当前尚未连接真实 Supabase Staging 和 OpenAI API key，API 使用 mock persistence / mock interpretation。

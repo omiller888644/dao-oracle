@@ -1,2 +1,15 @@
-# No repository-local ignore rules.
-# The project owner requested that all files in this folder be committed.
+# Runtime dependencies and build outputs are regenerated during install/build.
+node_modules/
+apps/**/node_modules/
+apps/**/.next/
+apps/**/out/
+apps/**/dist/
+apps/**/tsconfig.tsbuildinfo
+
+# Local secrets must never be committed.
+.env
+.env.local
+apps/**/.env.local
+
+# Local preview images generated while reviewing mockups.
+outputs/previews/

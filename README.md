@@ -10,6 +10,31 @@ Open this file in a browser:
 
 `website-mvp/64卦网站项目资料包/iching-pages/dao-oracle-mvp.html`
 
+## Full-Stack Web App
+
+The first Next.js full-stack website is under:
+
+`apps/web`
+
+It is designed for overseas deployment on Vercel with Supabase Staging/Production and OpenAI API integration.
+
+Run locally:
+
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+Verify:
+
+```bash
+npm run test
+npm run build
+npm run db:validate-seed
+npm run db:seed-hexagrams -- --dry-run
+```
+
 The current MVP includes:
 
 - Intro page

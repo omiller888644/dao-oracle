@@ -1,6 +1,6 @@
 # 全栈网站平台模块摘要
 
-最后更新：2026-06-26
+最后更新：2026-06-27
 
 ## 模块目标
 
@@ -26,6 +26,40 @@
 - OpenAI API
 - Vercel Preview / Production
 - GitHub 仓库：`omiller888644/dao-oracle`
+
+## 2026-06-27 搭建进展
+
+已创建第一版全栈应用目录：
+
+- `apps/web`
+
+已完成：
+
+- Next.js App Router 应用骨架。
+- Tailwind CSS 基础视觉系统。
+- 首页英文落地页。
+- 64 卦 JSONL 读取和校验。
+- Supabase 初始 migration。
+- 64 卦 seed 校验和 dry-run 导入脚本。
+- 起卦 cast 逻辑。
+- AI 解读上下文构建。
+- `/api/readings` 和 `/api/interpretations` API 边界。
+- 首批 SEO/GEO 页面路由。
+- `/hexagrams` 列表页。
+- 64 个 `/hexagrams/[slug]` 静态详情页。
+- `robots.txt` 和 `sitemap.xml`。
+- 后台 MVP 页面结构。
+- Vercel 部署说明和 `vercel.json`。
+
+本地测试 URL：
+
+- `http://127.0.0.1:3000`
+
+当前限制：
+
+- Supabase 真实项目尚未连接，API 仍使用 mock persistence。
+- OpenAI key 尚未配置，AI 解读 API 返回 `source: "mock"` 的开发版输出。
+- 后台页面是运营结构 MVP，真实登录、RLS 查询和编辑功能待接 Supabase 后继续。
 
 部署策略：
 
@@ -100,11 +134,11 @@
 
 ## 待实施
 
-- 创建 Next.js 项目骨架。
-- 建立 Supabase migration。
-- 编写 64 卦 JSONL 导入脚本。
-- 实现起卦和 reading API。
-- 接入 OpenAI 结构化输出。
-- 搭建用户端核心页面。
-- 搭建后台最小可用功能。
-- 配置 Vercel Preview 和 Supabase Staging。
+- 创建 Supabase Staging 项目并配置环境变量。
+- 在 Supabase 执行 migration。
+- 真实导入 64 卦 seed。
+- 连接 `/api/readings` 到 Supabase `readings` 表。
+- 连接 `/api/interpretations` 到 OpenAI API 和 `reading_interpretations` 表。
+- 配置 Supabase Auth 和 admin 权限。
+- 部署 Vercel Preview。
+- 后续接入 Stripe 付费和深度解读。
