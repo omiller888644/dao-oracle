@@ -1,4 +1,6 @@
 export const RITUAL_PULSE_COUNT = 6;
+export const AUTO_CAST_INTERVAL_MS = 1800;
+export const RESULT_REDIRECT_DELAY_MS = 2000;
 
 export interface RitualProgress {
   count: number;

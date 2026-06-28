@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CosmicGate } from "@/components/mobile-flow";
 import {
+  AUTO_CAST_INTERVAL_MS,
+  RESULT_REDIRECT_DELAY_MS,
   RITUAL_PULSE_COUNT,
   getAutoCastFrame,
   getRitualProgress,
@@ -28,7 +30,7 @@ export function CastRitual() {
       setFrameCount((current) =>
         current >= RITUAL_PULSE_COUNT + 2 ? current : current + 1
       );
-    }, 900);
+    }, AUTO_CAST_INTERVAL_MS);
 
     return () => window.clearInterval(interval);
   }, []);
@@ -40,7 +42,7 @@ export function CastRitual() {
 
     const redirect = window.setTimeout(() => {
       router.push("/reading/result/demo");
-    }, 1100);
+    }, RESULT_REDIRECT_DELAY_MS);
 
     return () => window.clearTimeout(redirect);
   }, [autoFrame.shouldRedirect, router]);
@@ -49,13 +51,13 @@ export function CastRitual() {
     <div className="flex min-h-[650px] flex-col items-center justify-between text-center">
       <div>
         <p className="text-xs uppercase tracking-[0.28em] text-gold">
-          {progress.count} / {RITUAL_PULSE_COUNT} pulses
+          {progress.count} / {RITUAL_PULSE_COUNT} lines
         </p>
         <h1 className="mt-4 font-serif text-4xl leading-tight">
-          The oracle is casting.
+          The oracle is breathing.
         </h1>
         <p className="mt-4 text-sm leading-6 text-mist">
-          Six lines rise from the center one by one. When the final pattern
+          The center settles before each line appears. When the full pattern
           gathers, the reading opens.
         </p>
       </div>

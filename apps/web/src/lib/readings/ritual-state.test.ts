@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  AUTO_CAST_INTERVAL_MS,
+  RESULT_REDIRECT_DELAY_MS,
   getAutoCastFrame,
   getRitualProgress,
   isRitualComplete
@@ -34,5 +36,10 @@ describe("ritual interaction state", () => {
       finalHexagramVisible: true,
       shouldRedirect: true
     });
+  });
+
+  it("keeps automatic casting slow enough to feel like breathing", () => {
+    expect(AUTO_CAST_INTERVAL_MS).toBeGreaterThanOrEqual(1600);
+    expect(RESULT_REDIRECT_DELAY_MS).toBeGreaterThanOrEqual(1700);
   });
 });
