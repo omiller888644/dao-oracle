@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getRitualProgress, isRitualComplete } from "./ritual-state";
+import {
+  getAutoCastFrame,
+  getRitualProgress,
+  isRitualComplete
+} from "./ritual-state";
 
 describe("ritual interaction state", () => {
   it("caps cast progress at six pulses", () => {
@@ -11,5 +15,24 @@ describe("ritual interaction state", () => {
   it("only completes after six cast pulses", () => {
     expect(isRitualComplete(5)).toBe(false);
     expect(isRitualComplete(6)).toBe(true);
+  });
+
+  it("models automatic casting frames before final redirect", () => {
+    expect(getAutoCastFrame(0)).toEqual({
+      visibleLineIndex: 0,
+      completedLines: 0,
+      finalHexagramVisible: false,
+      shouldRedirect: false
+    });
+    expect(getAutoCastFrame(6)).toMatchObject({
+      completedLines: 6,
+      finalHexagramVisible: true,
+      shouldRedirect: false
+    });
+    expect(getAutoCastFrame(8)).toMatchObject({
+      completedLines: 6,
+      finalHexagramVisible: true,
+      shouldRedirect: true
+    });
   });
 });

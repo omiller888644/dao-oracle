@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CosmicGate, PrimaryCta } from "@/components/mobile-flow";
+import { useRouter } from "next/navigation";
+import { CosmicGate } from "@/components/mobile-flow";
 
 const messages = [
   "Your question has entered the oracle.",
@@ -11,6 +12,7 @@ const messages = [
 
 export function TransitionSequence() {
   const [step, setStep] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -20,10 +22,19 @@ export function TransitionSequence() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const redirect = window.setTimeout(() => {
+      router.push("/reading/cast");
+    }, 4600);
+
+    return () => window.clearTimeout(redirect);
+  }, [router]);
+
   return (
     <div className="flex min-h-[650px] flex-col items-center justify-center gap-9 text-center">
       <div className="relative">
         <div className="absolute -inset-12 rounded-full bg-[radial-gradient(circle,rgba(216,178,76,0.18),transparent_58%)] blur-2xl" />
+        <div className="question-comet" />
         <CosmicGate active reveal={step >= 2} />
       </div>
       <div className="min-h-36">
@@ -38,9 +49,9 @@ export function TransitionSequence() {
           toward the casting gate.
         </p>
       </div>
-      <div className="grid w-full gap-3">
-        <PrimaryCta href="/reading/cast">Continue to Cast</PrimaryCta>
-      </div>
+      <p className="text-xs uppercase tracking-[0.28em] text-mist">
+        Connecting to the field
+      </p>
     </div>
   );
 }

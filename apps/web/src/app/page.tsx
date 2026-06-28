@@ -1,43 +1,48 @@
-import {
-  Eyebrow,
-  HexagramMark,
-  MobileStage,
-  Panel,
-  PrimaryCta,
-  SecondaryCta
-} from "@/components/mobile-flow";
+import Link from "next/link";
+import { HexagramMark, MobileStage, PrimaryCta } from "@/components/mobile-flow";
+import { homeActions } from "@/lib/site/ui-copy";
 
 export default function HomePage() {
+  const primaryAction = homeActions.find((action) => action.variant === "primary");
+  const textActions = homeActions.filter((action) => action.variant === "text");
+
   return (
     <MobileStage label="Home" variant="home">
       <div className="flex min-h-[670px] flex-col justify-between">
-        <div className="pt-6">
-          <Eyebrow>Dao Oracle</Eyebrow>
-          <h1 className="font-serif text-5xl leading-[0.95] text-white">
+        <div className="pt-8">
+          <p className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold">
+            <span className="h-px w-10 bg-gold" />
+            Dao Oracle
+          </p>
+          <h1 className="home-title max-w-[19rem] font-serif text-[2.95rem] leading-[1.02] text-white">
             Ancient I Ching guidance for modern decisions
           </h1>
-          <p className="mt-6 text-base leading-7 text-mist">
-            For over 3,000 years, the 64 hexagrams have served as a symbolic
-            language of guidance from nature and the cosmos.
+          <p className="mt-7 max-w-[18rem] text-base leading-7 text-mist">
+            The 64 hexagrams are an ancient symbolic language for timing,
+            reflection, and the next honest step.
           </p>
         </div>
 
-        <Panel className="relative overflow-hidden py-8">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(216,178,76,0.15),transparent_48%)]" />
-          <div className="relative">
-            <HexagramMark />
-            <p className="mx-auto mt-6 max-w-56 text-center text-sm leading-6 text-mist">
-              A quiet symbol that turns a question into a pattern of change.
-            </p>
-          </div>
-        </Panel>
+        <div className="relative py-8">
+          <div className="absolute inset-x-6 top-1/2 h-40 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(216,178,76,0.12),transparent_62%)] blur-xl" />
+          <HexagramMark compact />
+        </div>
 
-        <div className="grid gap-3 pb-2">
-          <PrimaryCta href="/reading">Begin Your Reading</PrimaryCta>
-          <SecondaryCta href="/dao-oracle">Learn Dao Oracle</SecondaryCta>
-          <SecondaryCta href="/i-ching/origin-of-64-hexagrams">
-            The Origin of the 64 Hexagrams
-          </SecondaryCta>
+        <div className="pb-5">
+          {primaryAction ? (
+            <PrimaryCta href={primaryAction.href}>{primaryAction.label}</PrimaryCta>
+          ) : null}
+          <div className="mt-7 grid gap-4 text-center">
+            {textActions.map((action) => (
+              <Link
+                className="text-sm italic text-mist transition hover:text-gold"
+                href={action.href}
+                key={action.href}
+              >
+                {action.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </MobileStage>
