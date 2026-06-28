@@ -1,9 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
-  buildQuestionFragments,
   homeActions,
   questionDirections,
-  transitionFragments
+  transitionLetters
 } from "./ui-copy";
 
 describe("Dao Oracle flow UI copy", () => {
@@ -23,23 +22,8 @@ describe("Dao Oracle flow UI copy", () => {
     ]);
   });
 
-  it("frames the transition as inner question text being absorbed", () => {
-    expect(transitionFragments[0]).toBe("Your confusion?");
-    expect(transitionFragments).toContain("The next step?");
-    expect(transitionFragments.length).toBeGreaterThanOrEqual(5);
-  });
-
-  it("turns a user question into short transition fragments", () => {
-    expect(
-      buildQuestionFragments(
-        "I feel torn between staying where I am and choosing a new path. What should I understand before deciding?"
-      )
-    ).toEqual([
-      "Your confusion?",
-      "I feel torn between staying",
-      "where I am and choosing",
-      "a new path",
-      "What should I understand before"
-    ]);
+  it("frames the transition as letters of inner doubt being absorbed", () => {
+    expect(transitionLetters.join("")).toBe("YOURCONFUSION?");
+    expect(transitionLetters).not.toContain("Your confusion?");
   });
 });

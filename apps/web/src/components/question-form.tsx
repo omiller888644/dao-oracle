@@ -2,19 +2,10 @@
 
 import { useState } from "react";
 import { PrimaryCta } from "@/components/mobile-flow";
-import { currentQuestionStorageKey, questionDirections } from "@/lib/site/ui-copy";
+import { questionDirections } from "@/lib/site/ui-copy";
 
 export function QuestionForm() {
   const [selected, setSelected] = useState("career");
-  const [question, setQuestion] = useState("");
-
-  function updateQuestion(value: string) {
-    setQuestion(value);
-
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(currentQuestionStorageKey, value);
-    }
-  }
 
   return (
     <div className="flex min-h-[650px] flex-col justify-between">
@@ -35,9 +26,7 @@ export function QuestionForm() {
         <div className="absolute -inset-4 rounded-[2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(216,178,76,0.08),transparent_52%)]" />
         <textarea
           className="relative min-h-52 w-full resize-none rounded-[1.6rem] border border-white/10 bg-black/20 p-5 text-base leading-7 text-white outline-none placeholder:text-mist/45 focus:border-gold"
-          onChange={(event) => updateQuestion(event.target.value)}
           placeholder="Example: I feel torn between staying where I am and choosing a new path. What should I understand before deciding?"
-          value={question}
         />
       </div>
 

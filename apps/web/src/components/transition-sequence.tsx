@@ -1,98 +1,72 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
-import { CosmicGate } from "@/components/mobile-flow";
-import {
-  buildQuestionFragments,
-  currentQuestionStorageKey,
-  transitionFragments
-} from "@/lib/site/ui-copy";
+import { transitionLetters } from "@/lib/site/ui-copy";
 
-const messages = [
-  "Your confusion enters the field.",
-  "The center begins to breathe.",
-  "The question is gathering in deep space."
-];
-
-const fragmentPositions = [
-  { x: "-112px", y: "-116px", r: "-7deg", delay: "0ms" },
-  { x: "84px", y: "-86px", r: "5deg", delay: "300ms" },
-  { x: "-128px", y: "34px", r: "4deg", delay: "600ms" },
-  { x: "104px", y: "54px", r: "-5deg", delay: "900ms" },
-  { x: "-24px", y: "124px", r: "2deg", delay: "1200ms" }
+const letterPositions = [
+  { x: "-132px", y: "-126px", r: "-12deg", delay: "0ms" },
+  { x: "-58px", y: "-148px", r: "8deg", delay: "90ms" },
+  { x: "36px", y: "-138px", r: "-6deg", delay: "180ms" },
+  { x: "124px", y: "-104px", r: "11deg", delay: "270ms" },
+  { x: "-154px", y: "-34px", r: "5deg", delay: "360ms" },
+  { x: "146px", y: "-18px", r: "-10deg", delay: "450ms" },
+  { x: "-128px", y: "48px", r: "-4deg", delay: "540ms" },
+  { x: "116px", y: "58px", r: "7deg", delay: "630ms" },
+  { x: "-76px", y: "124px", r: "10deg", delay: "720ms" },
+  { x: "42px", y: "138px", r: "-8deg", delay: "810ms" },
+  { x: "-8px", y: "-106px", r: "4deg", delay: "900ms" },
+  { x: "76px", y: "104px", r: "-5deg", delay: "990ms" },
+  { x: "-150px", y: "102px", r: "9deg", delay: "1080ms" },
+  { x: "148px", y: "112px", r: "-9deg", delay: "1170ms" }
 ];
 
 export function TransitionSequence() {
-  const [step, setStep] = useState(0);
-  const [fragments, setFragments] = useState(transitionFragments);
   const router = useRouter();
-
-  useEffect(() => {
-    const savedQuestion = window.localStorage.getItem(currentQuestionStorageKey);
-
-    if (savedQuestion?.trim()) {
-      setFragments(buildQuestionFragments(savedQuestion));
-    }
-  }, []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setStep((current) => Math.min(current + 1, messages.length - 1));
-    }, 1650);
-
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const redirect = window.setTimeout(() => {
       router.push("/reading/cast");
-    }, 6200);
+    }, 5200);
 
     return () => window.clearTimeout(redirect);
   }, [router]);
 
   return (
     <div className="flex min-h-[650px] flex-col items-center justify-center gap-9 text-center">
-      <div className="relative">
-        <div className="absolute -inset-12 rounded-full bg-[radial-gradient(circle,rgba(216,178,76,0.18),transparent_58%)] blur-2xl" />
-        <div aria-hidden="true" className="question-fragments">
-          {fragments.map((fragment, index) => {
-            const position = fragmentPositions[index] ?? fragmentPositions[0];
+      <div className="letter-vortex" aria-hidden="true">
+        <div className="letter-core" />
+        <div className="letter-event-horizon" />
+        {transitionLetters.map((letter, index) => {
+          const position = letterPositions[index] ?? letterPositions[0];
 
-            return (
-              <span
-                className="question-fragment"
-                key={`${fragment}-${index}`}
-                style={{
-                  "--fragment-x": position.x,
-                  "--fragment-y": position.y,
-                  "--fragment-rotate": position.r,
-                  "--fragment-delay": position.delay
-                } as CSSProperties}
-              >
-                {fragment}
-              </span>
-            );
-          })}
-        </div>
-        <CosmicGate active reveal={step >= 2} />
+          return (
+            <span
+              className="question-letter"
+              key={`${letter}-${index}`}
+              style={{
+                "--letter-x": position.x,
+                "--letter-y": position.y,
+                "--letter-rotate": position.r,
+                "--letter-delay": position.delay
+              } as CSSProperties}
+            >
+              {letter}
+            </span>
+          );
+        })}
       </div>
-      <div className="min-h-36">
+      <div className="min-h-28">
         <p className="text-xs uppercase tracking-[0.28em] text-gold">
-          Receiving
+          Entering deep space
         </p>
-        <h1 className="mt-4 font-serif text-4xl leading-tight transition-opacity duration-700">
-          {messages[step]}
+        <h1 className="mt-4 font-serif text-4xl leading-tight">
+          Let the doubt be drawn inward.
         </h1>
         <p className="mt-4 text-sm leading-6 text-mist">
-          The star field opens softly, and the words you carried move inward
-          until only the pattern remains.
+          The field receives it. The casting begins as soon as the center closes.
         </p>
       </div>
-      <p className="text-xs uppercase tracking-[0.28em] text-mist">
-        Connecting to the field
-      </p>
     </div>
   );
 }

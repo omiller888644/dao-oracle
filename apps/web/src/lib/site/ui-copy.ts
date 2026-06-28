@@ -56,31 +56,4 @@ export const questionDirections: QuestionDirection[] = [
   }
 ];
 
-export const transitionFragments = [
-  "Your confusion?",
-  "What should I understand?",
-  "Stay?",
-  "Change?",
-  "The next step?"
-];
-
-export const currentQuestionStorageKey = "dao-oracle-current-question";
-
-export function buildQuestionFragments(question: string): string[] {
-  const sentenceChunks = question
-    .trim()
-    .split(/[.!?]+/)
-    .flatMap((sentence) => {
-      const words = sentence.trim().split(/\s+/).filter(Boolean);
-      const chunks: string[] = [];
-
-      for (let index = 0; index < words.length; index += 5) {
-        chunks.push(words.slice(index, index + 5).join(" "));
-      }
-
-      return chunks;
-    })
-    .filter(Boolean);
-
-  return ["Your confusion?", ...sentenceChunks].slice(0, 5);
-}
+export const transitionLetters = "YOURCONFUSION?".split("");
