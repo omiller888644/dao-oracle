@@ -92,6 +92,7 @@
 - 第一阶段：Vercel Preview + Supabase Staging。
 - 正式上线：Vercel Production + Supabase Production + 正式域名。
 - Cloudflare 暂不作为第一版主部署环境，后期用于全球缓存、Workers 或边缘优化。
+- Cloudzy Windows Server 测试部署信息记录在 `docs/deployment/server-access.md`，不保存服务器密码。
 
 ## 64 卦数据库文件
 
