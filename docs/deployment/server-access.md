@@ -28,5 +28,24 @@ create a separate deployment user with limited permissions.
 
 - Purpose: test deployment for the Dao Oracle web app before the production domain is purchased.
 - Domain: not purchased yet.
-- Temporary access target after deployment: `http://45.61.163.184`
+- Temporary access target after deployment: `http://45.61.163.184:3000`
 - HTTPS: to be configured after a domain is purchased and DNS points to this server.
+
+## Current Web Service
+
+- Deployment path: `C:\Sites\dao-oracle`
+- App path: `C:\Sites\dao-oracle\apps\web`
+- Git branch: `codex/full-stack-platform`
+- Node.js: installed through Chocolatey
+- Git: installed through Chocolatey
+- Process manager: Windows service via NSSM
+- Service name: `DaoOracleWeb`
+- App port: `3000`
+- Firewall: Windows inbound TCP `3000` allowed
+- Last verified: 2026-06-29
+- Verified URLs:
+  - `http://45.61.163.184:3000/`
+  - `http://45.61.163.184:3000/reading`
+  - `http://45.61.163.184:3000/reading/transition`
+  - `http://45.61.163.184:3000/reading/cast`
+  - `http://45.61.163.184:3000/reading/result/demo`
